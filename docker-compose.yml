@@ -1,0 +1,21 @@
+# version: '3'
+#
+services:
+  db:
+    image: postgres
+    # Set environment variables
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=investa_db
+    # Map container port to host port
+    ports:
+      - "5432:5432"
+    # Define volume for persistent data
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    # Set restart policy
+    restart: always
+
+volumes:
+  db_data:
