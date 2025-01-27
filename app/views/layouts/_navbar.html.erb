@@ -1,0 +1,19 @@
+<%# app/views/layouts/_navbar.html.erb %>
+<nav class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <%= link_to "Investa", dashboard_path, class: "text-xl font-bold text-indigo-600" %>
+      </div>
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <%= link_to "Edit Profile", edit_user_registration_path, class: "text-gray-700 hover:text-indigo-600" %>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,4 +1,31 @@
 class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_profile_completion
+
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  rescue_from ActionController::RoutingError, with: :render_not_found
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :role ])
+  end
+
+  def check_profile_completion
+    return if devise_controller?
+    return unless user_signed_in?
+
+    case current_user.role
+    when "founder"
+      redirect_to new_startup_path unless current_user.startup.present?
+    when "investor"
+      redirect_to new_investor_profile_path unless current_user.investor_profile.present?
+    end
+  end
+
+  def render_not_found
+    render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
 end
