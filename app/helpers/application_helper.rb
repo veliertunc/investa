@@ -27,4 +27,14 @@ module ApplicationHelper
       "#{base} bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
     end
   end
+
+  def textfield_class(variant = :text)
+    "mt-1 block rounded-md border-indigo-300 ring-indigo-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+    # case variant
+    # when :text
+    #   "#{base} "
+    # else
+    #   "#{base} "
+    # end
+  end
 end

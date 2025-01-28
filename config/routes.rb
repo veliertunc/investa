@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "messages/create"
+  get "conversations/index"
+  get "conversations/show"
   get "static_pages/landing"
   devise_for :users
   resources :startups, only: [ :show, :edit, :update ]
