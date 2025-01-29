@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
-  get "messages/create"
-  get "conversations/index"
-  get "conversations/show"
   get "static_pages/landing"
+  get "/messages", to: redirect("/conversations")
   devise_for :users
   resources :startups, only: [ :show, :edit, :update ]
+  resources :startups do
+    resources :listings, except: [ :index, :show ]
+  end
   resources :listings, only: [ :index, :show ]
   resources :investor_profiles, only: [ :show, :edit, :update ]
+  resources :conversations, only: [ :index, :show ] do
+    resources :messages, only: [ :create ]
+  end
+  resources :notifications, only: [ :index ] do
+    post :mark_all_as_read, on: :collection
+    member do
+      get :read
+    end
+  end
+
 
   # Custom route for dashboard
   get "/dashboard", to: "dashboards#show", as: :dashboard

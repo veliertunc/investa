@@ -7,6 +7,25 @@
       </div>
       <div class="flex items-center space-x-4">
         <% if user_signed_in? %>
+
+          <%= link_to conversations_path, class: "relative" do %>
+            Messages
+            <% if current_user.notifications.unread.any? %>
+              <span class="absolute -top-2 -right-4 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                <%= current_user.notifications.unread.count %>
+              </span>
+            <% end %>
+          <% end %>
+          <div class="relative">
+            <%= link_to notifications_path, class: "text-gray-700 hover:text-indigo-600" do %>
+              Notifications
+              <% if current_user.notifications.unread.any? %>
+                <span class="absolute -top-2 -right-4 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                  <%= current_user.notifications.unread.count %>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
           <%= link_to "Edit Profile", edit_user_registration_path, class: "text-gray-700 hover:text-indigo-600" %>
           <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
         <% else %>

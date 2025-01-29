@@ -1,0 +1,47 @@
+<%# app/views/listings/show.html.erb %>
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <h1 class="text-3xl font-bold mb-2"><%= @listing.title %></h1>
+        <p class="text-gray-600">Posted by <%= @startup.name %></p>
+      </div>
+      <span class="<%= listing_status_color(@listing.status) %> px-4 py-2 rounded-full">
+        <%= @listing.status.humanize %>
+      </span>
+    </div>
+
+    <div class="space-y-6">
+      <div class="prose max-w-none">
+        <%= simple_format(@listing.description) %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <p class="text-sm text-gray-500 mb-1">Funding Goal</p>
+          <p class="text-2xl font-semibold">
+            <%= number_to_currency(@listing.funding_goal) %>
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <p class="text-sm text-gray-500 mb-1">Equity Offered</p>
+          <p class="text-2xl font-semibold">
+            <%= @listing.equity_offered %>%
+          </p>
+        </div>
+      </div>
+
+      <% if @startup.user == current_user %>
+        <div class="flex gap-4 mt-8">
+          <%= link_to 'Edit Listing', edit_startup_listing_path(@startup, @listing), 
+                class: button_class(:primary) %>
+          <%= button_to 'Delete Listing', startup_listing_path(@startup, @listing),
+                method: :delete,
+                data: { confirm: 'Are you sure?' },
+                class: button_class(:danger) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

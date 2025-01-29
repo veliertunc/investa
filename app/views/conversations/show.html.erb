@@ -1,0 +1,22 @@
+<%# app/views/conversations/show.html.erb %>
+<div class="max-w-4xl mx-auto" data-controller="conversation">
+  <div class="flex items-center mb-6">
+    <%= link_to conversations_path, class: "mr-4" do %>
+      ← Back
+    <% end %>
+    <h1 class="text-2xl font-bold">Chat with <%= @conversation.other_user(current_user).email %></h1>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4 mb-4 h-[600px] overflow-y-auto" data-conversation-target="messages">
+    <% @messages.each do |message| %>
+      <%= render 'messages/message', message: message, current_user: current_user %>
+    <% end %>
+  </div>
+
+  <%= form_with model: [@conversation, @message], class: "flex gap-2" do |f| %>
+    <%= f.text_area :content, rows: 1, 
+          class: "flex-1 rounded-lg border-gray-300 resize-none",
+          data: { action: "keydown.enter->conversation#submit" } %>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+  <% end %>
+</div>

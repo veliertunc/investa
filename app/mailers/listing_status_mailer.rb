@@ -1,0 +1,2 @@
+class ListingStatusMailer < ApplicationMailer
+end
