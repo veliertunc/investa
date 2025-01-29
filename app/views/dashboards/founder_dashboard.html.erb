@@ -1,0 +1,61 @@
+<div class="max-w-7xl mx-auto">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">Founder Dashboard</h1>
+    <div class="flex gap-4">
+      <%= link_to 'View Startup', startup_path(@startup), class: "btn btn-primary" %>
+      <%= link_to 'New Listing', new_startup_listing_path(@startup), class: "btn btn-secondary" %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Startup Overview</h3>
+      <p class="text-gray-600"><%= @startup.name %></p>
+      <p class="text-gray-600"><%= @startup.industry %></p>
+      <div class="mt-4">
+        <p class="text-2xl font-bold">
+          <%= number_to_currency(@startup.total_funding_raised) %>
+          <span class="text-sm font-normal text-gray-600">raised</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Active Listings</h3>
+      <p class="text-2xl font-bold"><%= @listings.active.count %></p>
+      <div class="mt-4">
+        <%= link_to 'Manage Listings', startup_listings_path(@startup), class: "text-indigo-600 hover:text-indigo-900" %>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Messages</h3>
+      <p class="text-2xl font-bold"><%= @unread_messages %></p>
+      <div class="mt-4">
+        <%= link_to 'View Conversations', conversations_path, class: "text-indigo-600 hover:text-indigo-900" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-bold mb-4">Recent Listings</h2>
+    <div class="divide-y">
+      <% @listings.each do |listing| %>
+        <div class="py-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-semibold"><%= listing.title %></h3>
+              <p class="text-gray-600"><%= truncate(listing.description, length: 80) %></p>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="<%= listing_status_color(listing.status) %> px-3 py-1 rounded-full text-sm">
+                <%= listing.status.humanize %>
+              </span>
+              <%= link_to 'View', listing_path(listing), class: "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

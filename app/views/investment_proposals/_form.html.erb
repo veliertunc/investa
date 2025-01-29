@@ -1,0 +1,41 @@
+<%= form_with(model: [@listing, @investment_proposal]) do |form| %>
+  <div class="space-y-6">
+    <% if @investment_proposal.errors.any? %>
+      <div class="bg-red-50 text-red-600 p-4 rounded-lg">
+        <h2 class="font-medium"><%= pluralize(@investment_proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+        <ul class="list-disc pl-6 mt-2">
+          <% @investment_proposal.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= form.label :amount, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1 relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+          <%= form.number_field :amount, step: 0.01, class: "pl-8 w-full rounded-md border-gray-300 shadow-sm" %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.label :equity_requested, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1 relative">
+          <%= form.number_field :equity_requested, step: 0.1, class: "pr-8 w-full rounded-md border-gray-300 shadow-sm" %>
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <%= form.label :message, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_area :message, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
+
+    <div class="border-t pt-6">
+      <%= form.submit "Submit Proposal", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

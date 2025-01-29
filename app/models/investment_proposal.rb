@@ -3,8 +3,7 @@ class InvestmentProposal < ApplicationRecord
   belongs_to :investor_profile
   has_one :investor, through: :investor_profile, source: :user
 
-  enum status: { pending: 0, accepted: 1, rejected: 2 }, _prefix: true
-
+  enum :status, [ :pending, :accepted, :rejected ]
   validates :amount, numericality: { greater_than: 0 }
   validates :equity_requested, numericality: {
     greater_than: 0,

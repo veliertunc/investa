@@ -2,10 +2,10 @@ class Listing < ApplicationRecord
   belongs_to :startup
   has_many :investment_proposals, dependent: :destroy
 
-  enum status: { active: 0, funded: 1, closed: 2 }, _prefix: true
+  enum :status, [ :active, :funded, :closed ]
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { minimum: 50, maximum: 2000 }
+  validates :description, presence: true, length: { minimum: 20, maximum: 2000 }
   validates :funding_goal, numericality: { greater_than: 0 }
   validates :equity_offered, numericality: {
     greater_than_or_equal_to: 0.1,

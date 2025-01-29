@@ -17,12 +17,16 @@ class ApplicationController < ActionController::Base
     return if devise_controller?
     return unless user_signed_in?
 
-    case current_user.role
-    when "founder"
-      redirect_to new_startup_path unless current_user.startup.present?
-    when "investor"
-      redirect_to new_investor_profile_path unless current_user.investor_profile.present?
+    case current_user.role.to_sym
+    when :founder
+      redirect_to new_startup_path unless current_user.startup
+    when :investor
+      redirect_to new_investor_profile_path unless current_user.investor_profile
     end
+  end
+
+  def after_sign_in_path_for(resource)
+    dashboard_path
   end
 
   def render_not_found

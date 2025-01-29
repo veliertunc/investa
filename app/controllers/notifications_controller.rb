@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
 
   def mark_all_as_read
     current_user.notifications.unread.update_all(read_at: Time.current)
-    redirect_back_or_to root_path
+    redirect_back fallback_location: root_path
   end
 
   def read

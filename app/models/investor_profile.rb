@@ -3,7 +3,7 @@ class InvestorProfile < ApplicationRecord
   has_many :investment_proposals, dependent: :destroy
 
   validates :name, presence: true
-  validates :bio, presence: true, length: { minimum: 50 }
+  validates :bio, presence: true, length: { minimum: 20 }
   validates :investment_preferences, presence: true
 
   after_create :set_default_name

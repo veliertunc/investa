@@ -1,14 +1,14 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_user, except: [ :index, :show ]
+  before_action :authorize_startup_owner, except: [ :index, :show ]
 
   def index
-    @listings = Listing.active.includes(:startup).order(created_at: :desc)
+    @listings = Listing.active.includes(:startup)
   end
 
   def show
-    @startup = @listing.startup
+    @investment_proposal = InvestmentProposal.new
   end
 
   def new
@@ -17,23 +17,20 @@ class ListingsController < ApplicationController
   end
 
   def create
-    @startup = current_user.startup
-    @listing = @startup.listings.new(listing_params)
-
+    @listing = current_user.startup.listings.new(listing_params)
     if @listing.save
-      redirect_to startup_path(@startup), notice: "Listing was successfully created."
+      redirect_to @listing, notice: "Listing was successfully created."
     else
       render :new
     end
   end
 
   def edit
-    @startup = @listing.startup
   end
 
   def update
     if @listing.update(listing_params)
-      redirect_to startup_path(@listing.startup), notice: "Listing was successfully updated."
+      redirect_to @listing, notice: "Listing was successfully updated."
     else
       render :edit
     end
@@ -41,7 +38,7 @@ class ListingsController < ApplicationController
 
   def destroy
     @listing.destroy
-    redirect_to startup_path(@listing.startup), notice: "Listing was successfully removed."
+    redirect_to startup_path(@listing.startup), notice: "Listing was successfully deleted."
   end
 
   private
@@ -51,18 +48,11 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(
-      :title,
-      :description,
-      :funding_goal,
-      :equity_offered,
-      :status
-    )
+    params.require(:listing).permit(:title, :description, :funding_goal, :equity_offered, :status)
   end
 
-  def authorize_user
-    return if current_user.founder? && @listing.startup.user == current_user
-
-    redirect_to root_path, alert: "You're not authorized to perform this action."
+  def authorize_startup_owner
+    return if current_user.startup == @listing&.startup
+    redirect_to listings_path, alert: "You can only manage your own startup's listings."
   end
 end

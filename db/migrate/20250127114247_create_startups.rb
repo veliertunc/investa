@@ -5,8 +5,8 @@ class CreateStartups < ActiveRecord::Migration[8.0]
       t.string :name
       t.text :description
       t.string :industry
-      t.decimal :funding_goal
-      t.decimal :equity_offered
+      t.decimal :funding_goal, precision: 15, scale: 2
+      t.decimal :equity_offered, precision: 5, scale: 2
       t.string :website_url
 
       t.timestamps

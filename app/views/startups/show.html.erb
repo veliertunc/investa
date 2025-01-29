@@ -1,17 +1,26 @@
-<% content_for :title, "Showing startup" %>
-
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <h1 class="font-bold text-4xl">Showing startup</h1>
-
-  <%= render @startup %>
-
-  <%= link_to "Edit this startup", edit_startup_path(@startup), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to startups", startups_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this startup", @startup, method: :delete, class: button_class(:danger) %>
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold"><%= @startup.name %></h1>
+    <%= link_to 'Edit', edit_startup_path(@startup), class: "btn btn-primary" %>
   </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="prose max-w-none">
+      <%= simple_format(@startup.description) %>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-6">
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <p class="text-sm text-gray-500 mb-1">Funding Goal</p>
+        <p class="text-2xl font-semibold"><%= number_to_currency(@startup.funding_goal) %></p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <p class="text-sm text-gray-500 mb-1">Equity Offered</p>
+        <p class="text-2xl font-semibold"><%= @startup.equity_offered %>%</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-4">Listings</h2>
+  <%= render @startup.listings %>
 </div>

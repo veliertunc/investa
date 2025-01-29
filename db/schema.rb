@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.bigint "user2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user1_id", "user2_id"], name: "index_conversations_on_user1_id_and_user2_id", unique: true
     t.index ["user1_id"], name: "index_conversations_on_user1_id"
     t.index ["user2_id"], name: "index_conversations_on_user2_id"
   end
@@ -26,10 +27,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
   create_table "investment_proposals", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.bigint "investor_profile_id", null: false
-    t.decimal "amount"
-    t.decimal "equity_requested"
-    t.text "message"
-    t.integer "status"
+    t.decimal "amount", precision: 15, scale: 2
+    t.decimal "equity_requested", precision: 5, scale: 2
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["investor_profile_id"], name: "index_investment_proposals_on_investor_profile_id"
@@ -50,9 +50,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.bigint "startup_id", null: false
     t.string "title"
     t.text "description"
-    t.decimal "funding_goal"
-    t.decimal "equity_offered"
-    t.integer "status"
+    t.decimal "funding_goal", precision: 15, scale: 2
+    t.decimal "equity_offered", precision: 5, scale: 2
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["startup_id"], name: "index_listings_on_startup_id"
@@ -84,8 +84,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.string "name"
     t.text "description"
     t.string "industry"
-    t.decimal "funding_goal"
-    t.decimal "equity_offered"
+    t.decimal "funding_goal", precision: 15, scale: 2
+    t.decimal "equity_offered", precision: 5, scale: 2
     t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,7 +100,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role", default: 0
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

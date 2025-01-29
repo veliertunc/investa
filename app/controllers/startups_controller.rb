@@ -1,70 +1,56 @@
 class StartupsController < ApplicationController
-  before_action :set_startup, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_founder, except: [ :show, :index ]
 
-  # GET /startups or /startups.json
   def index
-    @startups = Startup.all
+    @startups = Startup.all.includes(:user)
   end
 
-  # GET /startups/1 or /startups/1.json
   def show
+    @listings = @startup.listings
   end
 
-  # GET /startups/new
   def new
-    @startup = Startup.new
+    @startup = current_user.build_startup
   end
 
-  # GET /startups/1/edit
+  def create
+    @startup = current_user.build_startup(startup_params)
+    if @startup.save
+      redirect_to @startup, notice: "Startup was successfully created."
+    else
+      render :new
+    end
+  end
+
   def edit
   end
 
-  # POST /startups or /startups.json
-  def create
-    @startup = Startup.new(startup_params)
-
-    respond_to do |format|
-      if @startup.save
-        format.html { redirect_to @startup, notice: "Startup was successfully created." }
-        format.json { render :show, status: :created, location: @startup }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @startup.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /startups/1 or /startups/1.json
   def update
-    respond_to do |format|
-      if @startup.update(startup_params)
-        format.html { redirect_to @startup, notice: "Startup was successfully updated." }
-        format.json { render :show, status: :ok, location: @startup }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @startup.errors, status: :unprocessable_entity }
-      end
+    if @startup.update(startup_params)
+      redirect_to @startup, notice: "Startup was successfully updated."
+    else
+      render :edit
     end
   end
 
-  # DELETE /startups/1 or /startups/1.json
   def destroy
-    @startup.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to startups_path, status: :see_other, notice: "Startup was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @startup.destroy
+    redirect_to startups_url, notice: "Startup was successfully deleted."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_startup
-      @startup = Startup.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def startup_params
-      params.expect(startup: [ :user_id, :name, :description, :industry, :funding_goal, :equity_offered, :website_url ])
-    end
+  def set_startup
+    @startup = Startup.find(params[:id])
+  end
+
+  def startup_params
+    params.require(:startup).permit(:name, :description, :industry, :funding_goal, :equity_offered)
+  end
+
+  def authorize_founder
+    redirect_to root_path, alert: "Only founders can perform this action." unless current_user.founder?
+  end
 end

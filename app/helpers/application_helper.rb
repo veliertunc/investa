@@ -1,19 +1,18 @@
 module ApplicationHelper
-  def listing_status_color(status)
-  case status
-  when "active" then "bg-green-100 text-green-800"
-  when "funded" then "bg-blue-100 text-blue-800"
-  when "closed" then "bg-gray-100 text-gray-800"
-  else "bg-gray-100 text-gray-800"
-  end
+  def alert_class(type)
+    base = "p-4 mb-4 rounded-lg"
+    case type.to_sym
+    when :notice then "#{base} bg-green-100 text-green-800"
+    when :alert  then "#{base} bg-red-100 text-red-800"
+    else "#{base} bg-blue-100 text-blue-800"
+    end
   end
 
-  def alert_class(flash_type)
-    base = "p-4 mb-4 rounded-lg"
-    case flash_type.to_sym
-    when :notice then "#{base} bg-green-100 text-green-800"
-    when :alert then "#{base} bg-red-100 text-red-800"
-    else "#{base} bg-blue-100 text-blue-800"
+  def listing_status_color(status)
+    case status
+    when "active" then "bg-green-100 text-green-800"
+    when "funded" then "bg-blue-100 text-blue-800"
+    when "closed" then "bg-gray-100 text-gray-800"
     end
   end
 

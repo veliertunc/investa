@@ -4,7 +4,7 @@ class Startup < ApplicationRecord
   has_many :investment_proposals, through: :listings
 
   validates :name, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { minimum: 50, maximum: 2000 }
+  validates :description, presence: true, length: { minimum: 20, maximum: 2000 }
   validates :industry, presence: true
   validates :funding_goal, numericality: { greater_than: 0 }
   validates :equity_offered, numericality: { greater_than: 0, less_than_or_equal_to: 100 }

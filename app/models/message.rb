@@ -33,7 +33,7 @@ class Message < ApplicationRecord
     Notification.create(
       user: recipient,
       message: "New message from #{user.email}",
-      link: conversation_path(conversation)
+      link: conversation # Preeviously => link: conversation_path(conversation)
     )
   end
 end
