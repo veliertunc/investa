@@ -1,7 +1,10 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_startup_owner, except: [ :index, :show ]
+  before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_startup, only: [ :show ]
+
+  # TODO: Fix business logic and other bugs
 
   def index
     @listings = Listing.active.includes(:startup)
@@ -54,5 +57,9 @@ class ListingsController < ApplicationController
   def authorize_startup_owner
     return if current_user.startup == @listing&.startup
     redirect_to listings_path, alert: "You can only manage your own startup's listings."
+  end
+
+  def set_startup
+    @startup = current_user.startup
   end
 end

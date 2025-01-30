@@ -5,6 +5,7 @@ class DashboardsController < ApplicationController
     case current_user.role.to_sym
     when :founder
       @startup = current_user.startup
+      # TODO: Check  if listings exist
       @listings = @startup.listings.order(created_at: :desc)
       @unread_messages = current_user.conversations.joins(:messages)
                                     .where.not(messages: { user_id: current_user.id })

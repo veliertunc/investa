@@ -2,6 +2,7 @@ class StartupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_founder, except: [ :show, :index ]
+  # TODO: Fix business logic and other bugs
 
   def index
     @startups = Startup.all.includes(:user)
@@ -12,11 +13,13 @@ class StartupsController < ApplicationController
   end
 
   def new
-    @startup = current_user.build_startup
+    @startup = Startup.new
+    @startup.user = current_user unless @startup.user
   end
 
   def create
-    @startup = current_user.build_startup(startup_params)
+    @startup = Startup.new(startup_params)
+    @startup.user = current_user unless @startup.user
     if @startup.save
       redirect_to @startup, notice: "Startup was successfully created."
     else

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_profile_completion
-    return if devise_controller?
+    return unless devise_controller?
     return unless user_signed_in?
 
     case current_user.role.to_sym

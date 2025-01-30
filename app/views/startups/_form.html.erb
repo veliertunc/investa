@@ -1,10 +1,10 @@
-<%= form_with(model: startup, class: "contents") do |form| %>
-  <% if startup.errors.any? %>
+<%= form_with(model: @startup, class: "contents") do |form| %>
+  <% if @startup.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(startup.errors.count, "error") %> prohibited this startup from being saved:</h2>
+      <h2><%= pluralize(@startup.errors.count, "error") %> prohibited this startup from being saved:</h2>
 
       <ul class="list-disc ml-6">
-        <% startup.errors.each do |error| %>
+        <% @startup.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -13,34 +13,38 @@
 
   <div class="space-y-6">
     <div>
-      <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      <%= form.label :name, class: "label" %>
+      <%= form.text_field :name, class: "text-field w-full" %>
     </div>
 
     <div>
-      <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      <%= form.label :description, class: "label" %>
+      <%= form.text_area :description, rows: 4, class: "text-field w-full" %>
+    </div>
+
+    <div>
+      <%= form.label :industry, class: "label" %>
+      <%= form.text_field :industry, class: "text-field w-full" %>
     </div>
 
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <%= form.label :industry, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :industry, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        <%= form.label :funding_goal, class: "label" %>
+        <%= form.number_field :funding_goal, step: 0.01, class: "text-field w-full" %>
       </div>
-
       <div>
-        <%= form.label :funding_goal, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.number_field :funding_goal, step: 0.01, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        <%= form.label :equity_offered, class: "label" %>
+        <%= form.number_field :equity_offered, step: 1, class: "text-field w-full" %>
       </div>
     </div>
 
     <div class="my-5">
       <%= form.label :website_url %>
-      <%= form.text_field :website_url, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": startup.errors[:website_url].none?, "border-red-400 focus:outline-red-600": startup.errors[:website_url].any?}] %>
+      <%= form.text_field :website_url, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": @startup.errors[:website_url].none?, "border-red-400 focus:outline-red-600": @startup.errors[:website_url].any?}] %>
     </div>
 
     <div class="inline">
-      <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+      <%= form.submit class: "btn btn-primary btn-md" %>
     </div>
   </div>
 <% end %>
