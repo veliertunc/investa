@@ -1,8 +1,8 @@
 class StartupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_founder, except: [ :show, :index ]
-  # TODO: Fix business logic and other bugs
+  before_action :authorize_founder, except: [ :index ]
+
 
   def index
     @startups = Startup.all.includes(:user)
@@ -54,6 +54,6 @@ class StartupsController < ApplicationController
   end
 
   def authorize_founder
-    redirect_to root_path, alert: "Only founders can perform this action." unless current_user.founder?
+    redirect_to startups_path, alert: "Only startup owner can perform this action." unless current_user.founder? and @startup.user == current_user
   end
 end

@@ -1,8 +1,8 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_startup_owner, except: [ :index, :show ]
+  before_action :authorize_startup_owner, except: [ :index ]
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
-  before_action :set_startup, only: [ :show ]
+  before_action :set_startup, only: [ :show, :new, :create ]
 
   # TODO: Fix business logic and other bugs
 
@@ -15,12 +15,11 @@ class ListingsController < ApplicationController
   end
 
   def new
-    @startup = current_user.startup
     @listing = @startup.listings.new
   end
 
   def create
-    @listing = current_user.startup.listings.new(listing_params)
+    @listing = @startup.listings.new(listing_params)
     if @listing.save
       redirect_to @listing, notice: "Listing was successfully created."
     else
@@ -55,7 +54,7 @@ class ListingsController < ApplicationController
   end
 
   def authorize_startup_owner
-    return if current_user.startup == @listing&.startup
+    return unless current_user.startup == @listing&.startup
     redirect_to listings_path, alert: "You can only manage your own startup's listings."
   end
 

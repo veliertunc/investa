@@ -32,14 +32,14 @@
         </div>
       </div>
 
-      <% if @startup.user == current_user %>
+      <% if current_user == @startup.user %>
         <div class="flex gap-4 mt-8">
-          <%= link_to 'Edit Listing', edit_startup_listing_path(@startup, @listing), 
-                class: button_class(:primary) %>
-          <%= button_to 'Delete Listing', startup_listing_path(@startup, @listing),
+          <%= link_to 'Edit', edit_startup_listing_path(@startup, @listing), 
+                class: "btn btn-primary btn-md" %>
+          <%= button_to 'Delete', startup_listing_path(@startup, @listing),
                 method: :delete,
                 data: { confirm: 'Are you sure?' },
-                class: button_class(:danger) %>
+                class: "btn btn-danger btn-md" %>
         </div>
       <% end %>
     </div>

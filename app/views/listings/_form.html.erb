@@ -46,9 +46,9 @@
     </div>
 
     <div class="border-t pt-6">
-      <%= form.submit class: "btn btn-primary" %>
+      <%= form.submit class: "btn btn-primary btn-md" %>
       <%= link_to 'Cancel', @listing.persisted? ? listing_path(@listing) : startup_path(@startup), 
-            class: "btn btn-secondary" %>
+            class: "btn btn-secondary btn-md" %>
     </div>
   </div>
 <% end %>
