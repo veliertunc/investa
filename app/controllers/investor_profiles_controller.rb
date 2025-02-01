@@ -1,5 +1,8 @@
 class InvestorProfilesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_investor_profile, only: %i[ show edit update destroy ]
+  # TODO: Add authenticate_investor. Only let investors to edit, update and destroy their own profiles.
+  # TODO: Also edit corresponding views
 
   # GET /investor_profiles or /investor_profiles.json
   def index

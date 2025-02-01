@@ -2,8 +2,8 @@
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold">Investor Dashboard</h1>
     <div class="flex gap-4">
-      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary" %>
-      <%= link_to 'My Profile', investor_profile_path, class: "btn btn-secondary" %>
+      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary btn-sm" %>
+      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn btn-secondary btn-sm" %>
     </div>
   </div>
 
@@ -12,7 +12,7 @@
       <h3 class="text-lg font-semibold mb-2">Active Opportunities</h3>
       <p class="text-2xl font-bold"><%= @listings.count %></p>
       <div class="mt-4">
-        <%= link_to 'View All', listings_path, class: "text-indigo-600 hover:text-indigo-900" %>
+        <%= link_to 'View All', listings_path, class: "btn btn-link" %>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <h3 class="text-lg font-semibold mb-2">My Proposals</h3>
       <p class="text-2xl font-bold"><%= @proposals.count %></p>
       <div class="mt-4">
-        <%= link_to 'View Proposals', '#', class: "text-indigo-600 hover:text-indigo-900" %>
+        <%= link_to 'View Proposals', '#', class: "btn btn-link" %>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <h3 class="text-lg font-semibold mb-2">Notifications</h3>
       <p class="text-2xl font-bold"><%= @unread_notifications %></p>
       <div class="mt-4">
-        <%= link_to 'View Notifications', notifications_path, class: "text-indigo-600 hover:text-indigo-900" %>
+        <%= link_to 'View Notifications', notifications_path, class: "btn btn-link" %>
       </div>
     </div>
   </div>
@@ -49,7 +49,9 @@
             <p><%= number_to_currency(listing.funding_goal) %> goal</p>
             <p><%= listing.equity_offered %>% equity</p>
           </div>
-          <%= link_to 'View Details', listing_path(listing), class: "btn btn-secondary w-full mt-4" %>
+
+          <%#Instead of showing the details show startup page%>
+          <%= link_to 'View Details', listing_path(listing), class: "btn btn-secondary btn-sm w-full mt-4" %>
         </div>
       <% end %>
     </div>

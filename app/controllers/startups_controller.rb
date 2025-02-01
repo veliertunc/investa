@@ -1,7 +1,7 @@
 class StartupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_founder, except: [ :index ]
+  before_action :authorize_founder, except: [ :index, :show ]
 
 
   def index

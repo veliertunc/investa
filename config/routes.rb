@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resource :dashboard, only: [ :show ]
 
   # User profiles
-  resource :investor_profile, only: [ :show, :new, :create, :edit, :update ]
+  resources :investor_profiles, only: [ :show, :new, :create, :edit, :update ]
 
   # Health check endpoint
   get "up" => "rails/health#show", as: :rails_health_check

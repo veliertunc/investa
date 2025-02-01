@@ -4,7 +4,7 @@
     <div class="flex justify-between items-start mb-6">
       <div>
         <h1 class="text-3xl font-bold mb-2"><%= @listing.title %></h1>
-        <p class="text-gray-600">Posted by <%= @startup.name %></p>
+        <p class="text-gray-600">Posted by <%= @listing.startup.name %></p>
       </div>
       <span class="<%= listing_status_color(@listing.status) %> px-4 py-2 rounded-full">
         <%= @listing.status.humanize %>
@@ -32,11 +32,11 @@
         </div>
       </div>
 
-      <% if current_user == @startup.user %>
+      <% if current_user == @listing.startup.user %>
         <div class="flex gap-4 mt-8">
-          <%= link_to 'Edit', edit_startup_listing_path(@startup, @listing), 
+          <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), 
                 class: "btn btn-primary btn-md" %>
-          <%= button_to 'Delete', startup_listing_path(@startup, @listing),
+          <%= button_to 'Delete', startup_listing_path(@listing.startup, @listing),
                 method: :delete,
                 data: { confirm: 'Are you sure?' },
                 class: "btn btn-danger btn-md" %>

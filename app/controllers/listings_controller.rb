@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_startup_owner, except: [ :index ]
+  before_action :authorize_startup_owner, except: [ :index, :show ]
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
   before_action :set_startup, only: [ :show, :new, :create ]
 
@@ -59,6 +59,6 @@ class ListingsController < ApplicationController
   end
 
   def set_startup
-    @startup = current_user.startup
+    @startup = @listing.startup
   end
 end
