@@ -12,26 +12,21 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:user_id].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:user_id].any?}] %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:name].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:name].any?}] %>
+    <%= form.text_field :name, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:name].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:name].any?}] %>
   </div>
 
   <div class="my-5">
     <%= form.label :bio %>
-    <%= form.textarea :bio, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:bio].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:bio].any?}] %>
+    <%= form.textarea :bio, rows: 4, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:bio].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:bio].any?}] %>
   </div>
 
   <div class="my-5">
     <%= form.label :investment_preferences %>
-    <%= form.textarea :investment_preferences, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:investment_preferences].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:investment_preferences].any?}] %>
+    <%= form.textarea :investment_preferences, rows: 4, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:investment_preferences].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:investment_preferences].any?}] %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Update", class: "btn btn-primary btn-md" %>
   </div>
 <% end %>

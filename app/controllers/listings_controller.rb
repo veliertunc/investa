@@ -54,8 +54,7 @@ class ListingsController < ApplicationController
   end
 
   def authorize_startup_owner
-    return unless current_user.startup == @listing&.startup
-    redirect_to listings_path, alert: "You can only manage your own startup's listings."
+    redirect_to dashboard_path, alert: "You can only manage your own startup's listings." unless current_user.startup == @listing&.startup
   end
 
   def set_startup

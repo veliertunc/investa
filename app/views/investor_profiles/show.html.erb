@@ -9,9 +9,8 @@
 
   <%= render @investor_profile %>
 
-  <%= link_to "Edit this investor profile", edit_investor_profile_path(@investor_profile), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to investor profiles", investor_profiles_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this investor profile", @investor_profile, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
-  </div>
+  <% if current_user == @investor_profile.user %>  
+    <%= link_to "Edit", edit_investor_profile_path(@investor_profile), class: "btn btn-primary btn-md" %>
+  <% end %>
+  <%= link_to "Back", investor_profiles_path, class: "btn btn-md" %>
 </div>

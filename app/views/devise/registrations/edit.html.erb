@@ -8,7 +8,7 @@
         <div>
           <%= f.label :email, class: "label" %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email",
-                class: "text-field" %>
+                class: "text-field w-full" %>
         </div>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -20,7 +20,7 @@
         <div>
           <%= f.label :password, class: "label" %>
           <%= f.password_field :password, autocomplete: "new-password",
-                class: "text-field",
+                class: "text-field w-full",
                 placeholder: "Leave blank if you don't want to change it" %>
           <% if @minimum_password_length %>
             <p class="mt-2 text-sm text-gray-500"><%= @minimum_password_length %> characters minimum</p>
@@ -30,22 +30,22 @@
         <div>
           <%= f.label :password_confirmation, class: "label" %>
           <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                class: "text-field" %>
+                class: "text-field w-full" %>
         </div>
 
         <div>
           <%= f.label :current_password, class: "label" %>
           <%= f.password_field :current_password, autocomplete: "current-password",
-                class: "text-field",
+                class: "text-field w-full",
                 placeholder: "We need your current password to confirm changes" %>
         </div>
 
         <div class="flex justify-between items-center pt-6 border-t border-gray-200">
           <%= f.submit "Update Profile", 
-                class: "btn btn-primary py-2 px-6" %>
+                class: "btn btn-primary btn-md" %>
           
           <%= link_to "Back", :back, 
-                class: "btn btn-secondary py-2 px-6" %>
+                class: "btn btn-secondary btn-md" %>
         </div>
       </div>
     <% end %>
