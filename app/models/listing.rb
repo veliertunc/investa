@@ -4,6 +4,8 @@ class Listing < ApplicationRecord
   # Later, investors send proposals for any listing
   belongs_to :startup
   has_many :investment_proposals, dependent: :destroy
+  has_many :favorites, as: :favoritable
+  has_many :favorited_by, through: :favorites, source: :user
 
   enum :status, [ :active, :funded, :closed ]
 
@@ -29,5 +31,17 @@ class Listing < ApplicationRecord
 
   def equity_remaining
     equity_offered - investment_proposals.sum(:equity_requested)
+  end
+
+  def self.ransortable_attributes(auth_object = nil)
+    %w[title created_at funding_goal equity_offered status]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[startup]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title description funding_goal equity_offered status created_at]
   end
 end

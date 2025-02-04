@@ -30,8 +30,10 @@
     </div>
 
     <div>
-      <%= form.label :message, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_area :message, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      <%= form.label :message, "Proposal Message", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_area :message, rows: 4, 
+            class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm",
+            placeholder: "Explain your proposal and investment terms" %>
     </div>
 
     <div class="border-t pt-6">

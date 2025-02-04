@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_user!
   before_action :authorize_startup_owner, except: [ :index, :show ]
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
@@ -7,7 +8,8 @@ class ListingsController < ApplicationController
   # TODO: Fix business logic and other bugs
 
   def index
-    @listings = Listing.active.includes(:startup)
+      @q = Listing.active.ransack(params[:q])
+      @pagy, @listings = pagy(@q.result.includes(:startup).order(created_at: :desc))
   end
 
   def show

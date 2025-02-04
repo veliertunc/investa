@@ -1,0 +1,15 @@
+# app/views/favorites/_button.html.erb
+<% favorite = current_user.favorites.find_by(favoritable: favoritable) %>
+
+<%= tag.div id: dom_id(favoritable) do %>
+  <% if favorite %>
+    <%= button_to favorite_path(favorite), method: :delete, class: "favorite-btn" do %>
+      ★ Unfavorite
+    <% end %>
+  <% else %>
+    <%= button_to favorites_path(favoritable_type: favoritable.class.name, favoritable_id: favoritable.id), 
+                  class: "favorite-btn" do %>
+      ☆ Favorite
+    <% end %>
+  <% end %>
+<% end %>

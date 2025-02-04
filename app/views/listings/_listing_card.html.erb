@@ -1,0 +1,26 @@
+<div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+  <%= link_to listing_path(listing), class: "block p-6" do %>
+    <div class="flex justify-between items-start mb-4">
+      <h3 class="text-xl font-semibold"><%= listing.title %></h3>
+      <span class="<%= listing_status_color(listing.status) %> px-3 py-1 rounded-full text-sm">
+        <%= listing.status.humanize %>
+      </span>
+    </div>
+    
+    <div class="space-y-2">
+      <p class="text-gray-600 text-sm mb-2"><%= listing.startup.industry %></p>
+      <p class="text-gray-600"><%= truncate(listing.description, length: 100) %></p>
+      
+      <div class="mt-4 space-y-2">
+        <div class="flex justify-between items-center text-sm">
+          <span class="font-medium">Funding Goal</span>
+          <span><%= number_to_currency(listing.funding_goal) %></span>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="font-medium">Equity Offered</span>
+          <span><%= listing.equity_offered %>%</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

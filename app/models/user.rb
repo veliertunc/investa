@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :investment_proposals, through: :investor_profile
+  has_many :favorites
+  has_many :favorited_items, through: :favorites, source: :favoritable
 
   # Validations
   validates :email, presence: true, uniqueness: true

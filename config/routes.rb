@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "favorites/create"
+  get "favorites/destroy"
   devise_for :users
   # Static pages
   root "static_pages#landing"
@@ -36,6 +38,9 @@ Rails.application.routes.draw do
 
   # User profiles
   resources :investor_profiles
+
+  # config/routes.rb
+  resources :favorites, only: [ :index, :create, :destroy ]
 
   # Health check endpoint
   get "up" => "rails/health#show", as: :rails_health_check

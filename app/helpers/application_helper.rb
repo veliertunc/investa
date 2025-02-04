@@ -16,6 +16,16 @@ module ApplicationHelper
     end
   end
 
+  def status_badge(status)
+    base_classes = "px-3 py-1 rounded-full text-sm"
+    case status
+    when "active" then "#{base_classes} bg-green-100 text-green-800"
+    when "funded" then "#{base_classes} bg-blue-100 text-blue-800"
+    when "closed" then "#{base_classes} bg-gray-100 text-gray-800"
+    else base_classes
+    end
+  end
+
 
   # Button Component
   def tw_button(options = {}, &block)

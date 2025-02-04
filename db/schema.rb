@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_181911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.index ["user2_id"], name: "index_conversations_on_user2_id"
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "favoritable_type", null: false
+    t.bigint "favoritable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "investment_proposals", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.bigint "investor_profile_id", null: false
@@ -32,6 +42,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "message"
     t.index ["investor_profile_id"], name: "index_investment_proposals_on_investor_profile_id"
     t.index ["listing_id"], name: "index_investment_proposals_on_listing_id"
   end
@@ -55,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "favorites_count", default: 0
     t.index ["startup_id"], name: "index_listings_on_startup_id"
   end
 
@@ -89,6 +101,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
     t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_startups_on_user_id"
   end
 
@@ -107,6 +122,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_141906) do
 
   add_foreign_key "conversations", "users", column: "user1_id"
   add_foreign_key "conversations", "users", column: "user2_id"
+  add_foreign_key "favorites", "users"
   add_foreign_key "investment_proposals", "investor_profiles"
   add_foreign_key "investment_proposals", "listings"
   add_foreign_key "investor_profiles", "users"

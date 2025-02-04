@@ -2,6 +2,7 @@ class InvestmentProposal < ApplicationRecord
   belongs_to :listing
   belongs_to :investor_profile
   has_one :investor, through: :investor_profile, source: :user
+  # has_one :message, through: :conversation
 
   enum :status, [ :pending, :accepted, :rejected ]
   validates :amount, numericality: { greater_than: 0 }
@@ -10,6 +11,7 @@ class InvestmentProposal < ApplicationRecord
     less_than_or_equal_to: 100
   }
   validate :within_listing_limits
+  validates :message, presence: true, length: { minimum: 10, maximum: 1000 }
 
   after_update :update_listing_status, if: :status_accepted?
 

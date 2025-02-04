@@ -32,8 +32,16 @@
         </div>
       </div>
 
+      <div class="mt-8">
+        <h3 class="text-xl font-bold mb-4">Investment Proposals</h3>
+        <% @listing.investment_proposals.each do |proposal| %>
+          <%= render "proposal", proposal: proposal %>
+        <% end %>
+      </div>
+
       <% if current_user == @listing.startup.user %>
         <div class="flex gap-4 mt-8">
+          <%= render 'favorites/button', favoritable: @listing %>
           <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), 
                 class: "btn btn-primary btn-md" %>
           <%= button_to 'Delete', startup_listing_path(@listing.startup, @listing),

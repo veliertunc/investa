@@ -98,6 +98,7 @@ proposal1 = listing1.investment_proposals.create!(
   investor_profile: investor_profile1,
   amount: 250_000,
   equity_requested: 5.0,
+  message: "We're impressed with your AI platform and would like to participate in this funding round. Our investment comes with industry connections and technical expertise.",
   status: :pending
 )
 
@@ -105,6 +106,7 @@ proposal2 = listing2.investment_proposals.create!(
   investor_profile: investor_profile2,
   amount: 1_000_000,
   equity_requested: 7.5,
+  message: "Your sustainability mission aligns perfectly with our investment thesis. We'd like to lead this round and help with scaling production.",
   status: :pending
 )
 

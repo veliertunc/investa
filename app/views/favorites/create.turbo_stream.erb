@@ -1,0 +1,8 @@
+<%= turbo_stream.replace dom_id(@favoritable) do %>
+  <%= render partial: 'favorites/button', locals: { favoritable: @favoritable } %>
+<% end %>
+
+# app/views/favorites/destroy.turbo_stream.erb
+<%= turbo_stream.replace dom_id(@favoritable) do %>
+  <%= render partial: 'favorites/button', locals: { favoritable: @favoritable } %>
+<% end %>

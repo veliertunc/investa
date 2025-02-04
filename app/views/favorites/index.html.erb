@@ -1,0 +1,8 @@
+<%# app/views/favorites/index.html.erb %>
+<h1>My Favorites</h1>
+
+<% @favorites.each do |favorite| %>
+  <div class="favorite-item">
+    <%= render favorite.favoritable %>
+  </div>
+<% end %>
