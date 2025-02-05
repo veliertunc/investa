@@ -28,6 +28,7 @@ class Message < ApplicationRecord
     )
   end
 
+  # TODO: Fix conversation path error
   def notify_recipient
     recipient = conversation.other_user(user)
     Notification.create(

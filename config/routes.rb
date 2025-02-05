@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "favorites/create"
-  get "favorites/destroy"
   devise_for :users
   # Static pages
   root "static_pages#landing"
@@ -10,11 +8,11 @@ Rails.application.routes.draw do
 
   # Startup resources
   resources :startups do
-    resources :listings, except: [ :index, :show ]
+    resources :listings
   end
 
   # Listing resources
-  resources :listings, only: [ :index, :show ] do
+  resources :listings do
     resources :investment_proposals, only: [ :create ]
   end
 
@@ -42,7 +40,6 @@ Rails.application.routes.draw do
   # config/routes.rb
   resources :favorites, only: [ :index, :create, :destroy ]
 
-  # Health check endpoint
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Error pages

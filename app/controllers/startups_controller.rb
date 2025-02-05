@@ -50,7 +50,7 @@ class StartupsController < ApplicationController
   end
 
   def startup_params
-    params.require(:startup).permit(:name, :description, :industry, :funding_goal, :equity_offered)
+    params.require(:startup).permit(:name, :description, :industry, :funding_goal, :equity_offered, :website_url)
   end
 
   def authorize_founder

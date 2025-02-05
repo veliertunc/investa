@@ -1,0 +1,71 @@
+<footer class="bg-blue-900 text-white py-8">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Column 1: About Us -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">About Us</h3>
+        <p class="text-sm text-gray-400">
+          We are a company dedicated to providing the best services and products to our customers. Our mission is to make your life easier and more enjoyable.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="text-sm text-gray-400">
+          <li class="mb-2"><%= link_to 'Home', root_path, class: 'hover:text-white' %></li>
+          <li class="mb-2"><%= link_to 'About', "static_pages#about", class: 'hover:text-white' %></li>
+          <li class="mb-2"><%= link_to 'Privacy', "static_pages#privacy", class: 'hover:text-white' %></li>
+          <li class="mb-2"><%= link_to 'Terms of Services', "static_pages#terms", class: 'hover:text-white' %></li>
+          <li class="mb-2"><%= link_to 'Contact', "static_pages#contact", class: 'hover:text-white' %></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+        <ul class="text-sm text-gray-400">
+          <li class="mb-2">123 Main Street</li>
+          <li class="mb-2">City, State 12345</li>
+          <li class="mb-2">Phone: (123) 456-7890</li>
+          <li class="mb-2">Email: info@example.com</li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Newsletter -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+        <p class="text-sm text-gray-400 mb-4">
+          Subscribe to our newsletter to get the latest updates and news.
+        </p>
+        <form action="#" method="post" class="flex">
+          <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-l-lg bg-gray-700 text-white focus:outline-none">
+          <button type="submit" class="px-4 py-2 bg-blue-600 rounded-r-lg hover:bg-blue-700 focus:outline-none">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Section: Copyright and Social Media -->
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+      <div class="text-sm text-gray-400">
+        &copy; <%= Time.current.year %> Your Company. All rights reserved.
+      </div>
+      <div class="flex justify-center mt-4 space-x-4">
+        <a href="#" class="text-gray-400 hover:text-white">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

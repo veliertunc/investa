@@ -6,17 +6,17 @@ class DashboardsController < ApplicationController
     when :founder
       @startup = current_user.startup
       # TODO: Check  if listings exist
-      @listings = @startup.listings.order(created_at: :desc)
+      @listings = @startup.listings.active.order(created_at: :desc)
       @unread_messages = current_user.conversations.joins(:messages)
                                     .where.not(messages: { user_id: current_user.id })
                                     .where(messages: { read_at: nil })
                                     .count
-      render "founder_dashboard"
+      @dashboard = "founder_dashboard"
     when :investor
       @listings = Listing.active.includes(:startup).order(created_at: :desc)
       @proposals = current_user.investor_profile.investment_proposals.includes(:listing)
       @unread_notifications = current_user.notifications.unread.count
-      render "investor_dashboard"
+      @dashboard = "investor_dashboard"
     end
   end
 end
