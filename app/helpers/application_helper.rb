@@ -26,7 +26,8 @@ module ApplicationHelper
     end
   end
 
-
+  # NOTE:Helpers below are not actively used.
+  # They are here for the reference
   # Button Component
   def tw_button(options = {}, &block)
     base_classes = "inline-flex items-center border border-transparent font-medium rounded-md transition-colors focus:ring-2"

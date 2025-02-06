@@ -41,7 +41,8 @@ startup1 = founder1.create_startup!(
   description: 'Revolutionizing the tech industry with AI solutions',
   industry: 'Artificial Intelligence',
   funding_goal: 1_000_000,
-  equity_offered: 15.0
+  equity_offered: 15.0,
+  website_url: "www.tech-innovators.com"
 )
 
 startup2 = founder2.create_startup!(
@@ -49,7 +50,8 @@ startup2 = founder2.create_startup!(
   description: 'Sustainable energy solutions for the future',
   industry: 'Clean Energy',
   funding_goal: 500_000,
-  equity_offered: 20.0
+  equity_offered: 20.0,
+  website_url: "www.green-energy.com"
 )
 
 # Create investor profiles

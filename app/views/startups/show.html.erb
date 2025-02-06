@@ -6,11 +6,12 @@
       <% end %>
     </div> 
 
+  <%#TODO: Fix website_url XSS vulnerability %>
+  <%= link_to "Official Website", sanitize(@startup.website_url), class: "btn btn-link", target: "_blank", rel: "noopener noreferrer" %>
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
     <div class="prose max-w-none">
       <%= simple_format(@startup.description) %>
     </div>
-    <%= link_to "Official Website",@startup.website_url, class: "btn btn-link btn-sm", target: "_blank" %>
     <div class="grid grid-cols-2 gap-4 mt-6">
       <div class="bg-gray-50 p-4 rounded-lg">
         <p class="text-sm text-gray-500 mb-1">Funding Goal</p>
