@@ -1,4 +1,9 @@
 class Startup < ApplicationRecord
+  # Use Rails sanitizer (make sure ActionView is available in your context)
+  include ActionView::Helpers::SanitizeHelper
+  # Regex to validate URLs that start with http:// or https://
+  VALID_URL_REGEX = /\Ahttps?:\/\/[\S]+\z/
+
   belongs_to :user
   has_many :listings, dependent: :destroy
   has_many :investment_proposals, through: :listings
@@ -10,9 +15,10 @@ class Startup < ApplicationRecord
   validates :industry, presence: true
   validates :funding_goal, numericality: { greater_than: 0 }
   validates :equity_offered, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
-  # URL_REGEXP = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
-  # validates :website_url, presence: true, format: { with: URL_REGEXP, message: "You provided an invalid URL" }
-  url_field :website_url
+  validates :website_url, format: { with: VALID_URL_REGEX, message: "must be a valid URL starting with http or https" }, allow_blank: true
+
+  before_save :sanitize_and_format_url
+
 
   # before_save :add_protocol_to_website
   # validates :website_url, presence: true
@@ -32,5 +38,23 @@ class Startup < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name industry funding_goal funding_goal equity_offered created_at]
+  end
+
+  private
+
+  # This method cleans the URL to remove unwanted HTML (XSS) and ensures a proper scheme
+  def sanitize_and_format_url
+    return if website_url.blank?
+
+    # Sanitize to remove any HTML tags or attributes. This ensures that even if HTML or JS is injected,
+    # it will be stripped out.
+    cleaned_url = sanitize(website_url, tags: [], attributes: [])
+
+    # Ensure the URL has a valid scheme. If not, prepend "https://"
+    unless cleaned_url.match?(/\Ahttps?:\/\//)
+      cleaned_url = "https://#{cleaned_url}"
+    end
+
+    self.website_url = cleaned_url
   end
 end

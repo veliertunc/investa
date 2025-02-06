@@ -69,5 +69,3 @@ gem "devise", "~> 4.9"
 gem "ransack", "~> 4.2"
 
 gem "pagy", "~> 9.3"
-
-gem "url_field"
