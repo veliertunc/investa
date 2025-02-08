@@ -17,15 +17,19 @@ module ApplicationHelper
   end
 
   def status_badge(status)
-    base_classes = "px-3 py-1 rounded-full text-sm"
+    base = "px-3 py-1 rounded-full text-sm"
     case status
-    when "active" then "#{base_classes} bg-green-100 text-green-800"
-    when "funded" then "#{base_classes} bg-blue-100 text-blue-800"
-    when "closed" then "#{base_classes} bg-gray-100 text-gray-800"
-    else base_classes
+    # For Listings
+    when "active" then "#{base} bg-green-100 text-green-800"
+    when "funded" then "#{base} bg-blue-100 text-blue-800"
+    when "closed" then "#{base} bg-gray-100 text-gray-800"
+    # For Invesmemt Proposals
+    when "pending" then "#{base} bg-yellow-100 text-yellow-800"
+    when "accepted" then "#{base} bg-green-100 text-green-800"
+    when "rejected" then "#{base} bg-red-100 text-red-800"
+    else base
     end
   end
-
   # NOTE:Helpers below are not actively used.
   # They are here for the reference
   # Button Component

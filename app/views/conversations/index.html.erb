@@ -1,32 +1,14 @@
 <div class="max-w-4xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Conversations</h1>
-  
-  <div class="bg-white shadow rounded-lg">
-    <% @conversations.each do |conversation| %>
-      <%= link_to conversation_path(conversation), class: "block hover:bg-gray-50 border-b" do %>
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="font-medium"><%= conversation.other_user(current_user).email %></p>
-              <% last_message = conversation.messages.last %>
-              <p class="text-gray-600 text-sm truncate">
-                <% if last_message %>
-                  <%= last_message.user == current_user ? "You: " : "" %>
-                  <%= last_message.content %>
-                <% end %>
-              </p>
-            </div>
-            <div class="text-sm text-gray-500">
-              <% if last_message %>
-                <%= time_ago_in_words(last_message.created_at) %> ago
-              <% end %>
-              <% if conversation.messages.unread.where.not(user: current_user).any? %>
-                <span class="ml-2 w-2 h-2 bg-indigo-600 rounded-full inline-block"></span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold">Conversations</h1>
+    <div class="flex gap-4">
+      <%= link_to "New Conversation", new_conversation_path, class: "btn btn-primary btn-md" %>
+    </div>
   </div>
+  
+  <% @conversations.each do |conversation| %>
+    <%= render "conversation_card", conversation: conversation %>
+  <% end %>
+
 </div>
+

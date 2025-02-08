@@ -10,13 +10,13 @@
         <div>
           <%= f.label :email, class: "label" %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", 
-                class: "text-field" %>
+                class: "text-field w-full" %>
         </div>
 
         <div>
           <%= f.label :password, class: "label" %>
           <%= f.password_field :password, autocomplete: "new-password",
-                class: "text-field" %>
+                class: "text-field w-full" %>
           <% if @minimum_password_length %>
             <p class="mt-2 text-sm text-gray-500">(<%= @minimum_password_length %> characters minimum)</p>
           <% end %>
@@ -25,13 +25,13 @@
         <div>
           <%= f.label :password_confirmation, class: "label" %>
           <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                class: "text-field" %>
+                class: "text-field w-full" %>
         </div>
 
         <div>
           <%= f.label :role, "Account Type", class: "label" %>
           <%= f.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {},
-                class: "text-field" %>
+                class: "text-field w-full" %>
         </div>
 
         <div>

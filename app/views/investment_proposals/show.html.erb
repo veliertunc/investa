@@ -1,0 +1,41 @@
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Proposal for <%= @proposal.listing.title %></h1>
+    <%= link_to 'Back to Listing', listing_path(@proposal.listing), class: "btn btn-secondary" %>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-6">
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div>
+        <p class="text-sm text-gray-500">Investor</p>
+        <p class="font-medium"><%= @proposal.investor_profile.name %></p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500">Status</p>
+        <span class="<%= status_badge(@proposal.status) %>">
+          <%= @proposal.status.humanize %>
+        </span>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <div>
+        <p class="text-sm text-gray-500">Investment Amount</p>
+        <p class="text-xl font-semibold"><%= number_to_currency(@proposal.amount) %></p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Equity Requested</p>
+        <p class="text-xl font-semibold"><%= @proposal.equity_requested %>%</p>
+      </div>
+
+    </div>
+
+    <% if current_user == @proposal.listing.startup.user %>
+      <div class="mt-8 border-t pt-6">
+        <h2 class="text-lg font-semibold mb-4">Update Proposal Status</h2>
+        <%= render 'form' %>
+      </div>
+    <% end %>
+  </div>
+</div>

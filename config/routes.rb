@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  get "notifications/index"
+  get "notifications/show"
   devise_for :users
   # Static pages
   root "static_pages#landing"
   get "/about", to: "static_pages#about"
   get "/terms", to: "static_pages#terms"
   get "/privacy", to: "static_pages#privacy"
+
 
   # Startup resources
   resources :startups do
@@ -13,23 +16,18 @@ Rails.application.routes.draw do
 
   # Listing resources
   resources :listings do
-    resources :investment_proposals, only: [ :create ]
+    resources :investment_proposals, only: [ :create, :new ]
   end
 
   # Conversation resources
-  resources :conversations, only: [ :index, :show, :create ] do
-    resources :messages, only: [ :create ]
+  resources :conversations, only: [ :index, :show, :new ] do
+    resources :messages
   end
 
-  # Notification routes
-  resources :notifications, only: [ :index ] do
-    collection do
-      post :mark_all_as_read
-    end
-    member do
-      get :read
-    end
-  end
+  # Investment Proposal resources
+  resources :investment_proposals, only: [ :show, :update ]
+
+  resources :notifications, only: [ :index, :show ]
 
   # Dashboard
   resource :dashboard, only: [ :show ]
@@ -39,6 +37,8 @@ Rails.application.routes.draw do
 
   # config/routes.rb
   resources :favorites, only: [ :index, :create, :destroy ]
+
+  mount ActionCable.server => "/cable"
 
   get "up" => "rails/health#show", as: :rails_health_check
 
