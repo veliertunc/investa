@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
 
   # Investment Proposal resources
-  resources :investment_proposals, only: [ :show, :update ]
+  resources :investment_proposals, only: [ :index, :edit, :show, :update ]
 
   resources :notifications, only: [ :index, :show ]
 

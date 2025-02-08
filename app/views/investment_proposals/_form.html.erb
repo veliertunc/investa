@@ -1,5 +1,5 @@
-<%= form_with(model: [@listing, @proposal]) do |form| %>
-  <div class="space-y-6">
+<%= form_with(model: @proposal) do |form| %>
+  <div class="space-y-4">
     <% if @proposal.errors.any? %>
       <div class="bg-red-50 text-red-600 p-4 rounded-lg">
         <h2 class="font-medium"><%= pluralize(@proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
@@ -13,7 +13,7 @@
 
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <%= form.label :amount, "Investment Amount", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.label :amount, "Investment Amount", class: "label" %>
         <div class="mt-1 relative">
           <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
           <%= form.number_field :amount, step: 0.01, class: "pl-8 w-full rounded-md border-gray-300 shadow-sm" %>
@@ -21,7 +21,7 @@
       </div>
 
       <div>
-        <%= form.label :equity_requested, "Equity Requested", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.label :equity_requested, "Equity Requested", class: "label" %>
         <div class="mt-1 relative">
           <%= form.number_field :equity_requested, step: 0.1, class: "pr-8 w-full rounded-md border-gray-300 shadow-sm" %>
           <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
@@ -29,16 +29,14 @@
       </div>
     </div>
 
-    <% if current_user.founder? %>
-      <div>
-        <%= form.label :status, "Update Status", class: "block text-sm font-medium text-gray-700" %>
-        <%= form.select :status, InvestmentProposal.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-      </div>
-    <% end %>
+    <div>
+      <%= form.label :status, "Update Status", class: "label" %>
+      <%= form.select :status, InvestmentProposal.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "px-4 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
 
-    <div class="border-t pt-6">
-      <%= form.submit class: "btn btn-primary" %>
-      <%= link_to 'Cancel', @proposal.persisted? ? listing_path(@listing) : listings_path, class: "btn btn-secondary" %>
+    <div>
+      <%= form.submit "Save", class: "btn btn-primary btn-md" %>
+      <%#<%= link_to 'Cancel', @proposal.persisted? ? listing_path(@li) : listings_path, class: "btn btn-secondary" %>
     </div>
   </div>
 <% end %>

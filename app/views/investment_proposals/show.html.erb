@@ -1,10 +1,10 @@
 <div class="max-w-4xl mx-auto">
-  <div class="flex justify-between items-center mb-6">
+  <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-bold">Proposal for <%= @proposal.listing.title %></h1>
-    <%= link_to 'Back to Listing', listing_path(@proposal.listing), class: "btn btn-secondary" %>
+    <%= link_to 'Back to Listing', listing_path(@proposal.listing), class: "btn btn-secondary btn-md" %>
   </div>
 
-  <div class="bg-white shadow rounded-lg p-6">
+  <div class="p-6 bg-white rounded-lg shadow">
     <div class="grid grid-cols-2 gap-4 mb-6">
       <div>
         <p class="text-sm text-gray-500">Investor</p>
@@ -31,10 +31,9 @@
 
     </div>
 
-    <% if current_user == @proposal.listing.startup.user %>
-      <div class="mt-8 border-t pt-6">
-        <h2 class="text-lg font-semibold mb-4">Update Proposal Status</h2>
-        <%= render 'form' %>
+    <% if current_user.investor? and current_user.investment_proposals.any?(@proposal) %>
+      <div class="my-4">
+        <%= link_to "Edit", edit_investment_proposal_path(@proposal), class:"btn btn-primary btn-md" %>
       </div>
     <% end %>
   </div>
