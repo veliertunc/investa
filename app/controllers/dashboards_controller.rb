@@ -11,7 +11,8 @@ class DashboardsController < ApplicationController
     when :investor
       @listings = Listing.active.includes(:startup).order(created_at: :desc)
       @proposals = current_user.investor_profile.investment_proposals.includes(:listing)
-      @unread_notifications = current_user.notifications.unread.size
+      @unread_messages = current_user.unread_messages.size
+      # @unread_notifications = current_user.notifications.unread.size
       @dashboard = "investor_dashboard"
     end
   end

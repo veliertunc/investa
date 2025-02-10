@@ -1,0 +1,18 @@
+<%= link_to notification_path(notification), class: "block p-4" do %>
+  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+      <div class="flex justify-between items-start">
+        <h3 class="text-xl font-semibold"><%= notification.subject %></h3>
+        <span class="text-gray-600 px-3 py-1 rounded-full text-sm">
+          <%= notification.sender %>
+        </span>
+      </div>
+      
+      <div class="space-y-4">
+        <div class=" align-bottom mt-4 space-y-2">
+          <div class="flex justify-between items-center text-sm">
+            <span class="font-medium"><%= notification.body %></span>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>

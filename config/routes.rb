@@ -27,8 +27,11 @@ Rails.application.routes.draw do
   # Investment Proposal resources
   resources :investment_proposals, only: [ :index, :edit, :show, :update ]
 
-  resources :notifications, only: [ :index, :show ]
-
+  resources :notifications, only: [ :index, :show ] do
+    collection do
+      post :mark_all_as_read
+    end
+  end
   # Dashboard
   resource :dashboard, only: [ :show ]
 

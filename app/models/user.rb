@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def mailboxer_email(object)
-    nil
+    object.is_a?(Mailboxer::Message) ? self.email : nil
   end
 
   def conversations

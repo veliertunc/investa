@@ -2,10 +2,8 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from "controllers/application"
 
-import NavbarController from "./navbar_controller.js"
-application.register("navbar", NavbarController)
-
-import ModalController from "./modal_controller.js"
-application.register("modal", ModalController)
+// Eager load all controllers defined in the import map under controllers/**/*_controller
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+eagerLoadControllersFrom("controllers", application)

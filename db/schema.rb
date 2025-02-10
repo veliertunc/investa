@@ -14,16 +14,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_191062) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "conversations", force: :cascade do |t|
-    t.bigint "user1_id", null: false
-    t.bigint "user2_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user1_id", "user2_id"], name: "index_conversations_on_user1_id_and_user2_id", unique: true
-    t.index ["user1_id"], name: "index_conversations_on_user1_id"
-    t.index ["user2_id"], name: "index_conversations_on_user2_id"
-  end
-
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "favoritable_type", null: false
@@ -42,7 +32,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_191062) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "message"
     t.index ["investor_profile_id"], name: "index_investment_proposals_on_investor_profile_id"
     t.index ["listing_id"], name: "index_investment_proposals_on_listing_id"
   end
@@ -124,27 +113,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_191062) do
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.bigint "conversation_id", null: false
-    t.bigint "user_id", null: false
-    t.text "content"
-    t.datetime "read_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "message"
-    t.string "link"
-    t.datetime "read_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_notifications_on_user_id"
-  end
-
   create_table "startups", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -182,8 +150,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_191062) do
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
   add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
   add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
-  add_foreign_key "messages", "conversations"
-  add_foreign_key "messages", "users"
-  add_foreign_key "notifications", "users"
   add_foreign_key "startups", "users"
 end

@@ -72,4 +72,10 @@ gem "pagy", "~> 9.3"
 
 gem "mailboxer", github: "mailboxer/mailboxer"
 
+gem "activeadmin"
+
+gem "cancancan"
+
+gem "draper"
+
 gem "pundit", "~> 2.4"

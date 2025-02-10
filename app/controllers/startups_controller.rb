@@ -54,6 +54,6 @@ class StartupsController < ApplicationController
   end
 
   def authorize_founder
-    redirect_to startups_path, alert: "Only startup owner can perform this action." unless current_user.founder? and @startup.user == current_user
+    redirect_to startups_path, alert: "Only startup owner can perform this action." unless current_user.founder? and current_user.startup == @startupr
   end
 end

@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
   include Pagy::Backend
   before_action :authenticate_user!
+  before_action :set_common_variables
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_startup_owner, only: [ :edit, :update, :destroy ]
   before_action :set_startup, only: [ :new, :create ]
@@ -63,13 +64,17 @@ class ListingsController < ApplicationController
     params.require(:listing).permit(:title, :description, :funding_goal, :equity_offered, :status)
   end
 
-  # If not user.startup.present? or
-  #   user.startup != listing.startup redirect to dashboard
+  # Only the startup owner or founder is permitted
+  # doing some actions e.g. edit,update, destroy
   def authorize_startup_owner
-    redirect_to dashboard_path, alert: "You are not authorized to do this action." unless current_user.startup.listings.any?(@listing)
+    redirect_to dashboard_path, alert: "You are not authorized to do this action." unless @is_startup_owner
   end
 
   def set_startup
     @startup = current_user.startup if @startup.nil?
+  end
+
+  def set_common_variables
+    @is_startup_owner = current_user.founder? and current_user.startup.present? and current_user.startup.listings.any?(@listing)
   end
 end
