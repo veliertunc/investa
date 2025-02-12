@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    dashboard_path
+    if resource.is_a?(AdminUser)
+      admin_dashboard_path  # Active Admin dashboard
+    else
+      dashboard_path  # App dashboard for regular users
+    end
   end
 
   def render_not_found

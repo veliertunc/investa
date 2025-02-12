@@ -1,5 +1,10 @@
 # Clear existing data
-[ User, Startup, InvestorProfile, Listing, InvestmentProposal ].each(&:destroy_all)
+[ User, Startup, InvestorProfile, Listing, InvestmentProposal, AdminUser ].each(&:destroy_all)
+
+admin1 = AdminUser.create!(
+  email: "admin1@example.com",
+  password: "password"
+)
 
 # Create sample users
 founder1 = User.create!(
@@ -103,3 +108,4 @@ puts "Seeded #{User.count} users"
 puts "Seeded #{Startup.count} startups"
 puts "Seeded #{Listing.count} listings"
 puts "Seeded #{InvestmentProposal.count} proposals"
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

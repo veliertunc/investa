@@ -1,7 +1,12 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
   <h1 class="text-3xl font-bold mb-8">Investment Opportunities</h1>
-  
+
   <%= render 'search_form' %>
+
+  <%# Pagination %>
+  <div class="my-8">
+    <%== pagy_nav(@pagy) if defined?(@pagy) %>
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <% @listings.each do |listing| %>
@@ -15,8 +20,4 @@
     </div>
   <% end %>
 
-  <%# Pagination %>
-  <div class="mt-8">
-    <%== pagy_nav(@pagy) if defined?(@pagy) %>
-  </div>
 </div>

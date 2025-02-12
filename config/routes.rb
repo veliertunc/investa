@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get "notifications/index"
-  get "notifications/show"
   devise_for :users
+
+  devise_for :admin_users, path: "admin"
+  ActiveAdmin.routes(self)
+
   # Static pages
   root "static_pages#landing"
   get "/about", to: "static_pages#about"

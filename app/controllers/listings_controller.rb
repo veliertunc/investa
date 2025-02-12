@@ -6,17 +6,17 @@ class ListingsController < ApplicationController
   before_action :authorize_startup_owner, only: [ :edit, :update, :destroy ]
   before_action :set_startup, only: [ :new, :create ]
 
-  # TODO: Fix business logic and other bugs
 
   def index
       case current_user.role.to_sym
       when :founder
-        displayed_listings = current_user.startup.listings.active
+        displayed_listings = current_user.startup.listings
       when :investor
-        displayed_listings = Listing.active
+        displayed_listings = Listing.all
       end
 
       @q = displayed_listings.ransack(params[:q])
+      @q.combinator = "or"
       @pagy, @listings = pagy(@q.result.includes(:startup).order(created_at: :desc))
   end
 
