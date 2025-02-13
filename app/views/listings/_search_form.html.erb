@@ -25,7 +25,7 @@
       <!-- Equity Offered -->
       <div>
         <%= f.label :equity_offered_gteq, "Equity Offered", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "mt-1 block w-full", value: params.dig(:q, :equity_offered_gteq) %>
+        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "mt-1 block w-full", value: 0 %>
         <div class="flex justify-between text-sm text-gray-500">
           <span>0%</span>
           <span id="equity-display"><%= params.dig(:q, :equity_offered_gteq) || 0 %>%</span>

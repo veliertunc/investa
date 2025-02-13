@@ -14,10 +14,11 @@ class ListingsController < ApplicationController
       when :investor
         displayed_listings = Listing.all
       end
-
+      # TODO: Sanitize query params
       @q = displayed_listings.ransack(params[:q])
-      @q.combinator = "or"
-      @pagy, @listings = pagy(@q.result.includes(:startup).order(created_at: :desc))
+
+      # @q.combinator = "or"
+      @pagy, @listings = pagy(@q.result(distinct: true).includes(:startup).order(created_at: :desc))
   end
 
   def show
