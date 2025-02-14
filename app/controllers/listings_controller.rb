@@ -17,7 +17,6 @@ class ListingsController < ApplicationController
       # TODO: Sanitize query params
       @q = displayed_listings.ransack(params[:q])
 
-      # @q.combinator = "or"
       @pagy, @listings = pagy(@q.result(distinct: true).includes(:startup).order(created_at: :desc))
   end
 

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -6,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::RoutingError, with: :render_not_found
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   protected
 
@@ -35,5 +37,9 @@ class ApplicationController < ActionController::Base
 
   def render_not_found
     render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
+
+  def not_authorized
+    redirect_to dashboard_path, alert: "You are not authorized to perform this action"
   end
 end

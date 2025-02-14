@@ -1,8 +1,6 @@
 class StartupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_founder, except: [ :index, :show ]
-
 
   def index
     @startups = Startup.all.includes(:user)
@@ -14,12 +12,13 @@ class StartupsController < ApplicationController
 
   def new
     @startup = Startup.new
-    @startup.user = current_user unless @startup.user
+    authorize @startup
   end
 
   def create
     @startup = Startup.new(startup_params)
-    @startup.user = current_user unless @startup.user
+    authorize @startup
+
     if @startup.save
       redirect_to @startup, notice: "Startup was successfully created."
     else
@@ -28,9 +27,11 @@ class StartupsController < ApplicationController
   end
 
   def edit
+    authorize @startup
   end
 
   def update
+    authorize @startup
     if @startup.update(startup_params)
       redirect_to @startup, notice: "Startup was successfully updated."
     else
@@ -39,6 +40,7 @@ class StartupsController < ApplicationController
   end
 
   def destroy
+    authorize @startup
     @startup.destroy
     redirect_to startups_url, notice: "Startup was successfully deleted."
   end
@@ -51,9 +53,5 @@ class StartupsController < ApplicationController
 
   def startup_params
     params.require(:startup).permit(:name, :description, :industry, :funding_goal, :equity_offered, :website_url)
-  end
-
-  def authorize_founder
-    redirect_to startups_path, alert: "Only startup owner can perform this action." unless current_user.founder? and current_user.startup == @startupr
   end
 end
