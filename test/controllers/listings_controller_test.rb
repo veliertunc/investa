@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ListingsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    sign_in users(:founder1)
+  end
+
   test "should get index" do
     get listings_index_url
     assert_response :success

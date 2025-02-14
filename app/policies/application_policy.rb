@@ -4,6 +4,7 @@ class ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @record = record
   end
@@ -38,6 +39,7 @@ class ApplicationPolicy
 
   class Scope
     def initialize(user, scope)
+      raise Pundit::NotAuthorizedError, "must be logged in" unless user
       @user = user
       @scope = scope
     end
@@ -49,5 +51,16 @@ class ApplicationPolicy
     private
 
     attr_reader :user, :scope
+  end
+
+  protected
+
+  # Does the startup belongs to the user
+  def user_has_startup?
+    user.founder? and user.startup.present?
+  end
+
+  def user_has_investor_profile?
+    user.investor? and user.investor_profile.present?
   end
 end

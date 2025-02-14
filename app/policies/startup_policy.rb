@@ -6,17 +6,17 @@ class StartupPolicy < ApplicationPolicy
   end
 
   def update?
-    user_startup?
+    startup_owner?
   end
 
   def destroy?
-    user_startup?
+    startup_owner?
   end
 
   private
 
   # Does the startup belongs to the user
-  def user_startup?
-    user.founder? and user.startup.present? and (user.startup == record)
+  def startup_owner?
+    user_has_startup? and (user.startup == record)
   end
 end

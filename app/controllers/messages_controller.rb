@@ -4,15 +4,15 @@ class MessagesController < ApplicationController
   # before_create :sanitize_params
 
   def create
-    # NOTE: params[:message][:body] is open to XSS attacks. Sanitize it first
-    receipt = current_user.reply_to_conversation(@conversation, params[:message][:body])
+    # NOTE: params[:message][:body] is vulnerable to XSS attacks. Sanitize it first
+    receipt = current_user.reply_to_conversation(@conversation, message_params)
     redirect_to conversation_path(receipt.conversation)
   end
 
   private
 
   def message_params
-    params.expect(message: [ :body ])
+    params.require(:message).permit(:body)
   end
 
   def set_conversation

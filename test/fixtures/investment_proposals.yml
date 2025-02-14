@@ -5,7 +5,6 @@ one:
   investor_profile: one
   amount: 9.99
   equity_requested: 9.99
-  message: MyText
   status: 1
 
 two:
@@ -13,5 +12,4 @@ two:
   investor_profile: two
   amount: 9.99
   equity_requested: 9.99
-  message: MyText
   status: 1

@@ -2,6 +2,7 @@ require "test_helper"
 
 class StartupsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in users(:founder1)
     @startup = startups(:one)
   end
 

@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_not_found
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
+  def switch_user_to(user)
+    terminate_session if authenticated?
+    start_new_session_for user
+    pundit_reset!
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -40,6 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authorized
-    redirect_to dashboard_path, alert: "You are not authorized to perform this action"
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back_or_to(dashboard_path)
   end
 end

@@ -22,6 +22,6 @@ class NotificationsController < ApplicationController
   end
 
   def notification_params
-    params.expect(:subject, :body)
+    params.require(:notification).permit(:subject, :body)
   end
 end

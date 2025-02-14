@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <% if @is_startup_owner %>
+      <% if policy(@listing).list_proposals? %>
         <div class="mt-8">
           <h3 class="text-xl font-bold mb-4">Investment Proposals</h3>
           <% @listing.investment_proposals.each do |proposal| %>
@@ -44,14 +44,18 @@
       <div class="flex gap-4 mt-8">
         <%= link_to "View All", listings_path, class: "btn btn-secondary btn-md" %>
 
-        <% if @is_startup_owner %>
+        <% if policy(@listing).update? %>
           <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), 
                 class: "btn btn-primary btn-md" %>
+        <% end %>
+
+        <% if policy(@listing).destroy? %>
           <%= button_to 'Delete', startup_listing_path(@listing.startup, @listing),
                 method: :delete,
                 data: { confirm: 'Are you sure?' },
                 class: "btn btn-danger btn-md" %>
         <% end %>
+
       </div>
 
       <%# Quick Action s%>

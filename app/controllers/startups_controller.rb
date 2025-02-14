@@ -13,11 +13,13 @@ class StartupsController < ApplicationController
   def new
     @startup = Startup.new
     authorize @startup
+    current_user.startup = @startup
   end
 
   def create
     @startup = Startup.new(startup_params)
     authorize @startup
+    current_user.startup = @startup
 
     if @startup.save
       redirect_to @startup, notice: "Startup was successfully created."
