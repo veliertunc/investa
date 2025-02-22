@@ -56,11 +56,19 @@ class ApplicationPolicy
   protected
 
   # Does the startup belongs to the user
-  def user_has_startup?
+  def founder_has_startup?
     user.founder? and user.startup.present?
   end
 
-  def user_has_investor_profile?
+  def founder_has_no_startup?
+    user.founder? and not user.startup.present?
+  end
+
+  def investor_has_investor_profile?
     user.investor? and user.investor_profile.present?
+  end
+
+  def investor_has_no_investor_profile?
+    user.investor? and not user.investor_profile.present?
   end
 end

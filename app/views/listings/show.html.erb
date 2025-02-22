@@ -44,6 +44,11 @@
       <div class="flex gap-4 mt-8">
         <%= link_to "View All", listings_path, class: "btn btn-secondary btn-md" %>
 
+        <% if policy(InvestmentProposal).new? %>
+          <%= link_to 'New Proposal', new_listing_investment_proposal_path(@listing), 
+                class: "btn btn-primary btn-md" %>
+        <% end %>
+
         <% if policy(@listing).update? %>
           <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), 
                 class: "btn btn-primary btn-md" %>
@@ -58,7 +63,7 @@
 
       </div>
 
-      <%# Quick Action s%>
+      <%# Quick Actions%>
       <div class="flex gap-4">
         <%= render 'favorites/button', favoritable: @listing %>
       </div>

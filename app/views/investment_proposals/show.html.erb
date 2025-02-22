@@ -31,7 +31,7 @@
 
     </div>
 
-    <% if current_user.investor? and current_user.investment_proposals.any?(@proposal) %>
+    <% if policy(@proposal).edit? %>
       <div class="my-4">
         <%= link_to "Edit", edit_investment_proposal_path(@proposal), class:"btn btn-primary btn-md" %>
       </div>

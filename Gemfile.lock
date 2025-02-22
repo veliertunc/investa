@@ -480,7 +480,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  activeadmin
+  activeadmin (~> 3.2)
   bootsnap
   brakeman
   cancancan
@@ -505,7 +505,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   stimulus-rails
-  tailwindcss-rails
+  tailwindcss-rails (~> 4.0)
   thruster
   turbo-rails
   tzinfo-data

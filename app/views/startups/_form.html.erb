@@ -38,13 +38,13 @@
       </div>
     </div>
 
-    <div class="my-5">
+    <div class="my-4">
       <%= form.label :website_url %>
       <%= form.text_field :website_url, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": @startup.errors[:website_url].none?, "border-red-400 focus:outline-red-600": @startup.errors[:website_url].any?}] %>
     </div>
 
-    <div class="inline">
-      <%= form.submit class: "btn btn-primary btn-md" %>
+    <div class="my-4">
+      <%= form.submit "Update", class: "btn btn-primary btn-md" %>
     </div>
   </div>
 <% end %>

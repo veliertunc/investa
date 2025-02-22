@@ -1,16 +1,16 @@
 <% content_for :title, "Showing investor profile" %>
 
-<div class="md:w-2/3 w-full">
+<div class="md:w-2/3 w-full px-4">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="notice" id="notice"><%= notice %></p>
   <% end %>
 
   <h1 class="font-bold text-4xl">Showing investor profile</h1>
 
   <%= render @investor_profile %>
 
-  <% if current_user == @investor_profile.user %>  
+  <% if policy(@investor_profile).edit? %>  
     <%= link_to "Edit", edit_investor_profile_path(@investor_profile), class: "btn btn-primary btn-md" %>
   <% end %>
-  <%= link_to "Back", investor_profiles_path, class: "btn btn-md" %>
+  <%= link_to "All Profiles", investor_profiles_path, class: "btn btn-md" %>
 </div>

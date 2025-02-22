@@ -2,7 +2,7 @@
 
 class StartupPolicy < ApplicationPolicy
   def create?
-    user.founder? and not user.startup.present?
+    founder_has_no_startup?
   end
 
   def update?
@@ -13,10 +13,7 @@ class StartupPolicy < ApplicationPolicy
     startup_owner?
   end
 
-  private
-
-  # Does the startup belongs to the user
   def startup_owner?
-    user_has_startup? and (user.startup == record)
+    founder_has_startup? and (user.startup == record)
   end
 end

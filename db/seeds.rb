@@ -1,10 +1,7 @@
 # Clear existing data
 [ User, Startup, InvestorProfile, Listing, InvestmentProposal, AdminUser ].each(&:destroy_all)
 
-admin1 = AdminUser.create!(
-  email: "admin1@example.com",
-  password: "password"
-)
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 # Create sample users
 founder1 = User.create!(
@@ -37,7 +34,8 @@ startup1 = founder1.create_startup!(
   description: 'Revolutionizing the tech industry with AI solutions',
   industry: 'Artificial Intelligence',
   funding_goal: 1_000_000,
-  equity_offered: 15.0
+  equity_offered: 15.0,
+  website_url: "https://www.tech-innovators.com"
   # address: '1 Hacker Way, Menlo Park, CA'
 )
 
@@ -46,7 +44,8 @@ startup2 = founder2.create_startup!(
   description: 'Sustainable energy solutions for the future',
   industry: 'Clean Energy',
   funding_goal: 500_000,
-  equity_offered: 20.0
+  equity_offered: 20.0,
+  website_url: "https://www.ges.com"
   # address: '3500 Deer Creek Road, Palo Alto, CA'
 )
 
@@ -105,7 +104,7 @@ founder2.reply_to_conversation(receipt2.conversation, "Thanks for your interest 
 
 # Output seed results
 puts "Seeded #{User.count} users"
+puts "Seeded #{AdminUser.count} admin users"
 puts "Seeded #{Startup.count} startups"
 puts "Seeded #{Listing.count} listings"
 puts "Seeded #{InvestmentProposal.count} proposals"
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

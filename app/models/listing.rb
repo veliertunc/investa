@@ -1,6 +1,6 @@
 class Listing < ApplicationRecord
   # NOTE: The startup founder publishes a listing that says
-  # I will give this much equity. This class hold that information
+  # I will give this much equity. This class holds that information
   # Later, investors send proposals for any listing
   belongs_to :startup
   has_many :investment_proposals, dependent: :destroy

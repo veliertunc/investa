@@ -174,7 +174,7 @@ ActiveAdmin.setup do |config|
   # You can exclude possibly sensitive model attributes from being displayed,
   # added to forms, or exported by default by ActiveAdmin
   #
-  config.filter_attributes = [ :encrypted_password, :password, :password_confirmation ]
+  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
 
   # == Localize Date/Time Format
   #
@@ -247,14 +247,12 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  # config.namespace :admin do |admin|
-  #   admin.build_menu :utility_navigation do |menu|
-  #     menu.add label: "activeadmin.info", url: "https://www.activeadmin.info",
-  #                                         html_options: { target: "_blank" }
-  #     admin.add_current_user_to_menu  menu
-  #     admin.add_logout_button_to_menu menu
+  #   config.namespace :admin do |admin|
+  #     admin.build_menu :utility_navigation do |menu|
+  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
+  #       admin.add_logout_button_to_menu menu
+  #     end
   #   end
-  # end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #
@@ -336,7 +334,7 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  # config.footer = "Investa Revision v1.0"
+  # config.footer = 'my custom footer text'
 
   # == Sorting
   #
@@ -351,5 +349,4 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
-  # config.comments_order = "created_at DEC"
 end

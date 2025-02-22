@@ -14,7 +14,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 4.0" # which transitively pins tailwindcss-ruby to v4
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -72,10 +72,11 @@ gem "pagy", "~> 9.3"
 
 gem "mailboxer", github: "mailboxer/mailboxer"
 
-gem "activeadmin"
 
 gem "cancancan"
 
 gem "draper"
 
 gem "pundit", "~> 2.4"
+
+gem "activeadmin", "~> 3.2"

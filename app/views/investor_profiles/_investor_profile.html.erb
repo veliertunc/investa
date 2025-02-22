@@ -1,20 +1,22 @@
-<div id="<%= dom_id investor_profile %>">
-  <p class="my-5">  
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= investor_profile.name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Bio:</strong>
-    <%= investor_profile.bio %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Investment preferences:</strong>
-    <div class="grid grid-cols-5 gap-4 my-4">
-      <% investor_profile.investment_preferences.split(',').each do |investment_preference| %>
-        <span class="badge badge-primary text-sm">
-          <%= investment_preference.strip %>
-        </span>
-      <% end %>
-    </div>
-  </p>
+<div id="<%= dom_id investor_profile %>" class="card">
+  <%= link_to investor_profile_path(investor_profile), class: "block p-4" do %>
+    <p class="my-5">  
+      <strong class="block font-medium mb-1">Name:</strong>
+      <%= investor_profile.name %>
+    </p>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Bio:</strong>
+      <%= investor_profile.bio %>
+    </p>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Investment preferences:</strong>
+      <div class="grid grid-cols-5 gap-4 my-4">
+        <% investor_profile.investment_preferences.split(',').each do |investment_preference| %>
+          <span class="badge badge-primary text-sm">
+            <%= investment_preference.strip %>
+          </span>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 </div>
