@@ -11,7 +11,7 @@ class Listing < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { minimum: 20, maximum: 2000 }
-  validates :funding_goal, numericality: { greater_than: 0 }
+  validates :funding_goal, numericality: { greater_than_or_equal_to: 0.01 }
   validates :equity_offered, numericality: {
     greater_than_or_equal_to: 0.1,
     less_than_or_equal_to: 100,
@@ -34,14 +34,14 @@ class Listing < ApplicationRecord
   end
 
   def self.ransortable_attributes(auth_object = nil)
-    %w[title created_at funding_goal equity_offered status]
+    %w[title description funding_goal equity_offered status created_at updated_at]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[startup]
+    %w[startup investment_proposals]
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title description funding_goal equity_offered status created_at]
+    %w[title description funding_goal equity_offered status created_at updated_at]
   end
 end

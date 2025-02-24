@@ -5,14 +5,9 @@ ActiveAdmin.register Listing do
   # Uncomment all parameters which should be permitted for assignment
   #
   # permit_params :startup_id, :title, :description, :funding_goal, :equity_offered, :status, :favorites_count
-  #
-  # or
-  #
-  belongs_to :startup
 
   permit_params do
-    permitted = [ :title, :description, :funding_goal, :equity_offered, :status ]
-    permitted << :other if params[:action] == "create" && current_user.admin?
+    permitted = [ :startup_id, :title, :description, :funding_goal, :equity_offered, :status ]
     permitted
   end
 

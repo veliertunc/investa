@@ -8,6 +8,10 @@ class InvestorProfile < ApplicationRecord
 
   after_create :set_default_name
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id", "user_id", "bio", "name", "investment_preferences", "created_at", "updated_at" ]
+  end
+
   private
 
   def set_default_name

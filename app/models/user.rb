@@ -14,13 +14,18 @@ class User < ApplicationRecord
   # Mailboxer
   acts_as_messageable
 
-  # Favorites features
+  # Favorites feature
   has_many :favorites
   has_many :favorited_items, through: :favorites, source: :favoritable
 
   # Validations
   validates :email, presence: true, uniqueness: true
   validates :role, presence: true
+
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id", "email", "role", "created_at", "updated_at" ]
+  end
 
   def name
     if self.founder?

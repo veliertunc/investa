@@ -4,13 +4,17 @@ class InvestmentProposal < ApplicationRecord
   has_one :investor, through: :investor_profile, source: :user
 
   enum :status, [ :pending, :accepted, :rejected ]
-  validates :amount, numericality: { greater_than: 0 }
+  validates :amount, numericality: { greater_than_or_equal_to: 0.01 }
   validates :equity_requested, numericality: {
-    greater_than: 0,
+    greater_than_or_equal_to: 0.01,
     less_than_or_equal_to: 100
   }
   validate :within_listing_limits
   after_update :update_listing_status, if: :status_accepted?
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id", "listing_id", "investor_profile_id", "amount", "equity_requested", "status", "created_at", "updated_at" ]
+  end
 
   private
 

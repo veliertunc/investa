@@ -8,15 +8,14 @@ ActiveAdmin.register InvestorProfile do
   #
   # or
   #
-  belongs_to :user
 
   permit_params do
-    permitted = [ :name, :bio, :investment_preferences ]
-    permitted << :other if params[:action] == "create" && current_user.admin?
+    permitted = [ :user_id, :name, :bio, :investment_preferencs ]
     permitted
   end
 
   filter :name
+  filter :bio
   filter :investment_preferences
 
   actions :all, except: []
