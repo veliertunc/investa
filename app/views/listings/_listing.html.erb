@@ -2,7 +2,7 @@
   <%= link_to listing_path(listing), class: "block p-4" do %>
     <div class="flex justify-between items-start">
       <h3 class="text-xl font-semibold"><%= listing.title %></h3>
-      <span class="<%= listing_status_color(listing.status) %> px-3 py-1 rounded-full text-sm">
+      <span class="<%= listing_status_color(listing.status) %>  px-3 py-1 rounded-full">
         <%= listing.status.humanize %>
       </span>
     </div>
@@ -23,8 +23,4 @@
       </div>
     </div>
   <% end %>
-
-  <div class="items-start mb-4 px-3">
-    <%= render 'favorites/button', favoritable: listing %>
-  </div>
 </div>

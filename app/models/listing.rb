@@ -1,22 +1,18 @@
 class Listing < ApplicationRecord
-  # NOTE: The startup founder publishes a listing that says
-  # I will give this much equity. This class holds that information
-  # Later, investors send proposals for any listing
+  # The startup founder publishes a listing that says I will give this much equity.
+  # This class holds that information. Later, investors send proposals for any listing
+  include Fundable
+  include Bookmarkable
+
+  # TODO: Convert belongs_to :startup association to polymorphic.
+  # belongs_to :investable, polymorphic:true
   belongs_to :startup
   has_many :investment_proposals, dependent: :destroy
-  has_many :favorites, as: :favoritable
-  has_many :favorited_by, through: :favorites, source: :user
 
   enum :status, [ :active, :funded, :closed ]
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { minimum: 20, maximum: 2000 }
-  validates :funding_goal, numericality: { greater_than_or_equal_to: 0.01 }
-  validates :equity_offered, numericality: {
-    greater_than_or_equal_to: 0.1,
-    less_than_or_equal_to: 100,
-    message: "must be between 0.1% and 100%"
-  }
 
   scope :active, -> { where(status: :active) }
   scope :recent, -> { order(created_at: :desc) }

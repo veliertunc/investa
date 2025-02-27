@@ -1,5 +1,10 @@
 class Favorite < ApplicationRecord
+  BOOKMARKABLE_TYPES = %w[Listing].freeze
+  delegated_type :bookmarkable, types: BOOKMARKABLE_TYPES
   belongs_to :user
-  belongs_to :favoritable, polymorphic: true, counter_cache: :favorites_count
-  validates :user_id, uniqueness: { scope: [ :favoritable_type, :favoritable_id ] }
+
+  validates :user_id, uniqueness: {
+    scope: [ :bookmarkable_type, :bookmarkable_id ],
+    message: "already favorited this item"
+  }
 end

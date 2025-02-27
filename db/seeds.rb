@@ -35,7 +35,7 @@ startup1 = founder1.create_startup!(
   industry: 'Artificial Intelligence',
   funding_goal: 1_000_000,
   equity_offered: 15.0,
-  website_url: "https://www.tech-innovators.com"
+  url: "https://www.google.com"
   # address: '1 Hacker Way, Menlo Park, CA'
 )
 
@@ -45,7 +45,7 @@ startup2 = founder2.create_startup!(
   industry: 'Clean Energy',
   funding_goal: 500_000,
   equity_offered: 20.0,
-  website_url: "https://www.ges.com"
+  url: "https://www.ges.com"
   # address: '3500 Deer Creek Road, Palo Alto, CA'
 )
 

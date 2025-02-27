@@ -39,6 +39,10 @@
     @apply text-blue-600 hover:text-blue-900 focus:ring-blue-500;
   }
 
+  .btn-favorite {
+    @apply rounded-full transition-all duration-200 scale-95 transform hover:scale-105
+  }
+
   .btn-success {
     @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
   }
@@ -79,21 +83,9 @@
     background-size: 1.25rem;
   }
 
-  .favorite-btn {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .favorite-btn:active {
-    transform: scale(0.95);
-  }
-  
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
-  }
-  
-  .favorite-btn-added {
-    animation: pulse 0.5s ease-in-out;
   }
 
   .chat-bubble {

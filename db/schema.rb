@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_10_032225) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_27_002116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,11 +42,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_032225) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "favoritable_type", null: false
-    t.bigint "favoritable_id", null: false
+    t.string "bookmarkable_type", null: false
+    t.bigint "bookmarkable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_favorites_on_bookmarkable"
+    t.index ["user_id", "bookmarkable_type", "bookmarkable_id"], name: "index_favorites_on_user_and_bookmarkable", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -81,7 +82,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_032225) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "favorites_count", default: 0
     t.index ["startup_id"], name: "index_listings_on_startup_id"
   end
 
@@ -146,12 +146,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_032225) do
     t.string "industry"
     t.decimal "funding_goal", precision: 15, scale: 2
     t.decimal "equity_offered", precision: 5, scale: 2
-    t.string "website_url"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["user_id"], name: "index_startups_on_user_id"
   end
 

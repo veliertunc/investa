@@ -1,53 +1,44 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
-  before_action :validate_favoritable_type, only: [ :create ]
-
-  # Allowlist of favoritable models
-  FAVORITABLE_TYPES = %w[Listing].freeze
+  before_action :validate_params, only: [ :create, :destroy ]
+  before_action :find_bookmarkable, only: [ :create, :destroy ]
 
   def index
-    @favorites = current_user.favorites.includes(:favoritable)
+    @favorites = current_user.favorites
   end
 
   def create
-    @favoritable = @favoritable_class.find(params[:favoritable_id])
-    @favorite = current_user.favorites.create(favoritable: @favoritable)
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_back fallback_location: root_path }
-    end
-  rescue ActiveRecord::RecordNotFound
-    handle_invalid_favoritable
+    # bookmarkable = favorite_params
+    current_user.favorites.create(bookmarkable: @bookmarkable)
+    redirect_back fallback_location: @bookmarkable
+  rescue ActiveRecord::RecordInvalid
+    redirect_back fallback_location: root_path, alert: "Already in favorites"
   end
 
   def destroy
-    @favorite = current_user.favorites.find(params[:id])
-    @favoritable = @favorite.favoritable
-    @favorite.destroy
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_back fallback_location: dashboard_path }
-    end
+    # bookmarkable = params[:id]
+    favorite = current_user.favorites.find_by(bookmarkable: @bookmarkable)
+    favorite&.destroy
+    redirect_back fallback_location: @bookmarkable
   end
 
 
   private
 
-  def validate_favoritable_type
-    # Sanitize and validate the class
-    requested_type = params[:favoritable_type].to_s.classify
-    return head :bad_request unless FAVORITABLE_TYPES.include?(requested_type)
-
-    @favoritable_class = requested_type.safe_constantize
-    head :bad_request if @favoritable_class.nil?
+  def favorite_params
+    params.require(:bookmarkable).permit(:id, :type)
   end
 
-  def handle_invalid_favoritable
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("alert", partial: "shared/alert") }
-      format.html { redirect_back fallback_location: root_path, alert: "Invalid favorite request" }
-    end
+  def validate_params
+    requested_type = favorite_params[:type].to_s.classify
+
+    return head, :bad_request unless Favorite::BOOKMARKABLE_TYPES.include?(requested_type)
+  end
+
+  def find_bookmarkable
+    # Find bookmarkable based on *_id params
+    requested_type = favorite_params[:type].to_s.classify
+
+    @bookmarkable = requested_type.safe_constantize.find(favorite_params[:id])
   end
 end

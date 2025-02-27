@@ -2,10 +2,10 @@
 
 one:
   user: one
-  favoritable: one
-  favoritable_type: Favoritable
+  bookmarkable: one
+  bookmarkable_type: Bookmarkable
 
 two:
   user: two
-  favoritable: two
-  favoritable_type: Favoritable
+  bookmarkable: two
+  bookmarkable_type: Bookmarkable

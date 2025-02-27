@@ -56,6 +56,9 @@ class ListingsController < ApplicationController
     redirect_to startup_path(@listing.startup), notice: "Listing was successfully deleted."
   end
 
+  def method_name
+  end
+
   private
 
   def set_listing

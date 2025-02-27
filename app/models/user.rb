@@ -15,8 +15,8 @@ class User < ApplicationRecord
   acts_as_messageable
 
   # Favorites feature
-  has_many :favorites
-  has_many :favorited_items, through: :favorites, source: :favoritable
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_items, through: :favorites, source: :bookmarkable
 
   # Validations
   validates :email, presence: true, uniqueness: true
