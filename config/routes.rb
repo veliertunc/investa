@@ -3,9 +3,19 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
+  # Redirect GET /users/sign_out to Devise's DELETE sign_out action
+  devise_scope :user do
+    get "/users/sign_out" => "users/sessions#destroy"
+  end
+
   devise_for :admin_users, controllers: {
     sessions: "admin_users/sessions"
   }
+
+  # Redirect GET /users/sign_out to Devise's DELETE sign_out action
+  devise_scope :admin_user do
+    get "/admin_users/sign_out" => "admin_users/sessions#destroy"
+  end
 
   ActiveAdmin.routes(self)
 
