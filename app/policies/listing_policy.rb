@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class ListingPolicy < ApplicationPolicy
-  # Only allow the startup founder (which can be found through startup.listings)
-  # to kist the investment proposals for the current listing.
-  def list_proposals?
-    startup_listing?
+  def index?
+    founder_has_startup? or investor_has_investor_profile?
+  end
+
+  def show?
+    startup_listing? or investor_has_investor_profile?
   end
 
   def create?
@@ -16,6 +18,12 @@ class ListingPolicy < ApplicationPolicy
   end
 
   def destroy?
+    startup_listing?
+  end
+
+  # Only allow the startup founder (which can be found through startup.listings)
+  # to kist the investment proposals for the current listing.
+  def list_proposals?
     startup_listing?
   end
 

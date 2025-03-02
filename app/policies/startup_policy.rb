@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class StartupPolicy < ApplicationPolicy
+  def index?
+    investor_has_investor_profile?
+  end
+
+  def show?
+    startup_owner? or investor_has_investor_profile?
+  end
+
   def create?
     founder_has_no_startup?
   end

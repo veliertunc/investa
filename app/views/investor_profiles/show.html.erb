@@ -1,10 +1,6 @@
 <% content_for :title, "Showing investor profile" %>
 
 <div class="md:w-2/3 w-full px-4">
-  <% if notice.present? %>
-    <p class="notice" id="notice"><%= notice %></p>
-  <% end %>
-
   <h1 class="font-bold text-4xl">Showing investor profile</h1>
 
   <%= render @investor_profile %>
@@ -12,5 +8,8 @@
   <% if policy(@investor_profile).edit? %>  
     <%= link_to "Edit", edit_investor_profile_path(@investor_profile), class: "btn btn-primary btn-md" %>
   <% end %>
-  <%= link_to "All Profiles", investor_profiles_path, class: "btn btn-md" %>
+
+  <% if policy(InvestorProfile).index? %>
+    <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary btn-md" %>
+  <% end %>
 </div>

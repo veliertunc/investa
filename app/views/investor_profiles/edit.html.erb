@@ -5,6 +5,11 @@
 
   <%= render "form", investor_profile: @investor_profile %>
 
-  <%= link_to "Show", @investor_profile, class: "btn btn-md" %>
-  <%= link_to "Back", investor_profiles_path, class: "btn btn-md" %>
+  <% if policy(@investor_profile).show? %>
+    <%= link_to "Show", @investor_profile, class: "btn btn-primary btn-md" %>
+  <% end %>
+
+  <% if policy(InvestorProfile).index? %>
+    <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary btn-md" %>
+  <% end %>
 </div>

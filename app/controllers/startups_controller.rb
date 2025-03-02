@@ -3,22 +3,24 @@ class StartupsController < ApplicationController
   before_action :set_startup, only: [ :show, :edit, :update, :destroy ]
 
   def index
+    authorize Startup
     @startups = Startup.all.includes(:user)
   end
 
   def show
+    authorize @startup
     @listings = @startup.listings
   end
 
   def new
+    authorize Startup
     @startup = Startup.new
-    authorize @startup
     current_user.startup = @startup
   end
 
   def create
+    authorize Startup
     @startup = Startup.new(startup_params)
-    authorize @startup
     current_user.startup = @startup
 
     if @startup.save
@@ -34,6 +36,7 @@ class StartupsController < ApplicationController
 
   def update
     authorize @startup
+
     if @startup.update(startup_params)
       redirect_to @startup, notice: "Startup was successfully updated."
     else

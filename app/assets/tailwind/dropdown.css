@@ -1,0 +1,9 @@
+@layer components {
+  .dropdown-menu {
+    @apply items-center flex relative;
+  }
+
+  .dropdown-menu .menu-component {
+    @apply absolute top-full right-0;
+  }
+}

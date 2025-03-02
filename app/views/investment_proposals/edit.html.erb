@@ -2,4 +2,8 @@
   <h1 class="font-bold text-4xl">Editing investment proposal</h1>
 
   <%= render "form"%>
+
+  <% if policy(InvestmentProposal).index? %>
+    <%= link_to "View All", investment_proposals_path, class: "btn btn-secondary btn-md" %>
+  <% end %>
 </div>

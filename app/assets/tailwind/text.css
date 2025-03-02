@@ -1,0 +1,14 @@
+@layer components {
+  .text-field {
+    @apply block shadow rounded-md border outline-none px-3 py-2 mt-2 
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-700
+  }
+
+  .text-area {
+    @apply rounded-lg border-gray-300
+  }
+
+}

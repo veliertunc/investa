@@ -1,0 +1,34 @@
+@layer components {
+  .nav-link {
+    @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50;
+  }
+
+  .mobile-nav-link {
+    @apply block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50;
+  }
+
+  .top-nav {
+    @apply flex items-center justify-between p-4 relative shadow-xs lg:py-0 lg:px-8;
+  }
+
+  .top-nav .logo {
+    @apply flex items-center;
+  }
+
+  .nav-user-controls {
+    @apply items-center gap-4 flex relative lg:gap-2;
+  }
+
+  .nav-container {
+    /* Always use flex so children are side by side */
+    @apply flex;
+  }
+
+  .inner-nav {
+    @apply flex items-center gap-4;
+  }
+
+  .btn-container {
+    @apply flex flex-row p-0;
+  }
+}

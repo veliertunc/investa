@@ -23,7 +23,7 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   </head>
 
-  <body class="prose mx-auto bg-gray-50" data-current-user-id="<%= current_user&.id %>" >
+  <body data-current-user-id="<%= current_user&.id %>" >
     <%= render "layouts/header" %>
     <div class="self-center items-center my-4">
       <% if notice %>

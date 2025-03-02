@@ -1,26 +1,26 @@
 class InvestmentProposalsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing, only: [ :create, :new ]
-  before_action :set_proposal, only: [ :show, :update, :edit ]
+  before_action :set_proposal, only: [ :show, :edit, :update ]
 
   def index
     authorize InvestmentProposal
     @proposals = policy_scope(InvestmentProposal)
   end
 
-  def new
-    @proposal = @listing.investment_proposals.new
+  def show
     authorize @proposal
+  end
+
+  def new
+    authorize InvestmentProposal
+    @proposal = @listing.investment_proposals.new
     @proposal.investor_profile = current_user.investor_profile
   end
 
-  def edit
-    authorize @proposal
-  end
-
   def create
+    authorize InvestmentProposal
     @proposal = @listing.investment_proposals.new(proposal_params)
-    authorize @proposal
     @proposal.investor_profile = current_user.investor_profile
 
     if @proposal.save
@@ -30,7 +30,8 @@ class InvestmentProposalsController < ApplicationController
     end
   end
 
-  def show
+  def edit
+    authorize @proposal
   end
 
   def update
