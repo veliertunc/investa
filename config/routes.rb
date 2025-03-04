@@ -46,7 +46,12 @@ Rails.application.routes.draw do
   end
 
   # Investment Proposal resources
-  resources :investment_proposals, only: [ :index, :edit, :show, :update ]
+  resources :investment_proposals, only: [ :index, :edit, :show, :update ] do
+    member do
+      post :accept
+      post :reject
+    end
+  end
 
   resources :notifications, only: [ :index, :show ] do
     collection do

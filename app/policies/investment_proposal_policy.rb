@@ -4,6 +4,8 @@ class InvestmentProposalPolicy < ApplicationPolicy
       case user.role.to_sym
       when :investor
         scope.where(investor_profile: user.investor_profile)
+      when :founder
+        scope.startup_proposals(user.startup)
       else
         scope.none
       end
@@ -11,11 +13,11 @@ class InvestmentProposalPolicy < ApplicationPolicy
   end
 
   def index?
-    investor_has_investor_profile?
+    investor_has_investor_profile? or founder_has_startup?
   end
 
   def show?
-    investor_proposal?
+    investor_proposal? or startup_proposal?
   end
 
   def create?
@@ -27,10 +29,22 @@ class InvestmentProposalPolicy < ApplicationPolicy
     investor_proposal? and record.pending?
   end
 
+  def accept?
+    startup_proposal?
+  end
+
+  def reject?
+    startup_proposal?
+  end
+
   private
 
   # Does the user have a profile and it belong to the user
   def investor_proposal?
     investor_has_investor_profile? and user.investor_profile == record.investor_profile and user.investment_proposals.any?(record)
+  end
+
+  def startup_proposal?
+    founder_has_startup? and user.startup == record.listing.startup
   end
 end

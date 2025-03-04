@@ -6,14 +6,7 @@ class ListingsController < ApplicationController
   def index
     authorize Listing
 
-    case current_user.role.to_sym
-    when :founder
-      displayed_listings = current_user.startup.listings
-    when :investor
-      displayed_listings = Listing.all
-    end
-    # TODO: Sanitize query params
-    @q = displayed_listings.ransack(params[:q])
+    @q = policy_scope(Listing).ransack(params[:q])
 
     @pagy, @listings = pagy(@q.result(distinct: true).includes(:startup).order(created_at: :desc))
   end
@@ -60,13 +53,10 @@ class ListingsController < ApplicationController
     redirect_to startup_path(current_user.startup), notice: "Listing was successfully deleted."
   end
 
-  def method_name
-  end
-
   private
 
   def set_listing
-    @listing = Listing.find(params[:id])
+    @listing = policy_scope(Listing).find(params[:id])
   end
 
   def listing_params

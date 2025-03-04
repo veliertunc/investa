@@ -18,7 +18,7 @@ class Listing < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   def total_investments
-    investment_proposals.sum(:amount)
+    investment_proposals.accepted.sum(:amount)
   end
 
   def remaining_amount

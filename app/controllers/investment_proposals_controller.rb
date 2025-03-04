@@ -1,7 +1,7 @@
 class InvestmentProposalsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing, only: [ :create, :new ]
-  before_action :set_proposal, only: [ :show, :edit, :update ]
+  before_action :set_proposal, only: [ :show, :edit, :update, :accept, :reject ]
 
   def index
     authorize InvestmentProposal
@@ -44,10 +44,22 @@ class InvestmentProposalsController < ApplicationController
     end
   end
 
+  def accept
+    authorize @proposal
+    @proposal.accept
+    redirect_back fallback_location: @proposal.listing
+  end
+
+  def reject
+    authorize @proposal
+    @proposal.reject
+    redirect_back fallback_location: @proposal.listing
+  end
+
   private
 
   def set_proposal
-    @proposal = InvestmentProposal.find(params[:id])
+    @proposal = policy_scope(InvestmentProposal).find(params[:id])
   end
 
   def proposal_params

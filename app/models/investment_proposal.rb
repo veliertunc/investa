@@ -10,7 +10,17 @@ class InvestmentProposal < ApplicationRecord
     less_than_or_equal_to: 100
   }
   validate :within_listing_limits
-  after_update :update_listing_status, if: :status_accepted?
+  after_update_commit :update_listing_status, only: [ :accept ]
+
+  scope :startup_proposals, ->(startup) { joins(listing: [ :startup ]).where("startup_id = ?", startup) }
+
+  def accept
+    update(status: :accepted) if self.pending?
+  end
+
+  def reject
+    update(status: :rejected) if self.pending?
+  end
 
   def self.ransackable_attributes(auth_object = nil)
     [ "id", "listing_id", "investor_profile_id", "amount", "equity_requested", "status", "created_at", "updated_at" ]
