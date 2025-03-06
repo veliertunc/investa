@@ -1,6 +1,6 @@
 <% content_for :title, "Showing investor profile" %>
 
-<div class="md:w-2/3 w-full px-4">
+<div class="w-full px-4 space-y-4">
   <h1 class="font-bold text-4xl">Showing investor profile</h1>
 
   <%= render @investor_profile %>
@@ -11,5 +11,11 @@
 
   <% if policy(InvestorProfile).index? %>
     <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary btn-md" %>
+  <% end %>
+
+  <% if policy(@investor_profile).noninvestor_actions? %>
+    <%= link_to "Send Message",
+      new_conversation_path(recipient_id: @investor_profile.user.id),
+      class: "btn btn-secondary btn-md" %>
   <% end %>
 </div>

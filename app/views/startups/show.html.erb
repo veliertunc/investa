@@ -34,4 +34,10 @@
     <h2 class="text-2xl font-bold mb-4">All Listings</h2>
     <%= render partial: "listing", collection: @startup.listings %> 
   <% end %>
+
+  <% if policy(@startup).investor_actions? %>
+    <%= link_to "Send Message",
+      new_conversation_path(recipient_id: @startup.user.id),
+      class: "btn btn-primary btn-md" %>
+  <% end %>
 </div>

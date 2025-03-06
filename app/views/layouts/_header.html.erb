@@ -37,8 +37,7 @@
     <button class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none"
             data-action="click->mobile-menu#toggle">
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                                   d="M4 6h16M4 12h16M4 18h16"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
     </button>
   </nav>
@@ -46,16 +45,14 @@
         data-mobile-menu-target="menu">
       <%= link_to "Home", root_path, class: "mobile-nav-link" %>
       <%= link_to "About", about_path, class: "mobile-nav-link" %>
-      <% if user_signed_in? %>
-        <div class="w-full">
-          <%= link_to 'Profile', edit_user_registration_path, class: "mobile-nav-link" %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "mobile-nav-link text-red-600" %>
-        </div>
-      <% else %>
-        <div class="w-full">
-          <%= link_to "Login", new_user_session_path, class: "mobile-nav-link" %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "mobile-nav-link text-blue-600" %>
-        </div>
+      <div class="w-full">
+        <% if user_signed_in? %>
+            <%= link_to 'Profile', edit_user_registration_path, class: "mobile-nav-link" %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "mobile-nav-link text-red-600" %>
+        <% else %>
+            <%= link_to "Login", new_user_session_path, class: "mobile-nav-link" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "mobile-nav-link text-blue-600" %>
       <% end %>
+      </div>
   </div>
 </header>

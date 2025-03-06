@@ -5,13 +5,6 @@
 @import "./dropdown.css";
 
 @layer components {
-  .badge {
-    @apply inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
-  }
-
-  .badge-primary {
-    @apply bg-blue-50 text-blue-700 ring-blue-700/10
-  }
 
   .notice {
     @apply py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block
@@ -33,9 +26,6 @@
     50% { transform: scale(1.1); }
   }
 
-  .card {
-    @apply bg-gray-50 p-4 rounded-lg mb-4 shadow-md hover:shadow-lg transition-shadow;
-  }
 
   /* Add smooth transition */
   [data-controller="mobile-menu"] [data-mobile-menu-target="menu"] {

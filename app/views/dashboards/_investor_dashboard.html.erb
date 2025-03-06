@@ -1,15 +1,15 @@
-<div class="max-w-7xl mx-auto">
+<div class="w-full px-4">
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold">Investor Dashboard</h1>
     <div class="flex gap-4">
-      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary btn-sm" %>
-      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn btn-secondary btn-sm" %>
+      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary btn-md" %>
+      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn btn-secondary btn-md" %>
     </div>
   </div>
   <p class="font-semibold mb-4"><%= current_user.name %></p>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="bg-white p-6 rounded-lg shadow">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+    <div class="card">
       <h3 class="text-lg font-semibold mb-2">Active Opportunities</h3>
       <p class="text-2xl font-bold"><%= @listings.count %></p>
       <div class="mt-4">
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="card">
       <h3 class="text-lg font-semibold mb-2">My Proposals</h3>
       <p class="text-2xl font-bold"><%= @proposals.count %></p>
       <div class="mt-4">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="card">
       <h3 class="text-lg font-semibold mb-2">Messages</h3>
       <p class="text-2xl font-bold"><%= @unread_messages %></p>
       <div class="mt-4">
@@ -34,11 +34,11 @@
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow p-6">
+  <div class="card border-0">
     <h2 class="text-2xl font-bold mb-4">Recommended Listings</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <% @listings.each do |listing| %>
-        <div class="border rounded-lg p-4 hover:bg-gray-50">
+        <div class="card hover:bg-gray-50">
           <div class="flex justify-between items-start mb-2">
             <h3 class="font-semibold"><%= listing.title %></h3>
             <span class="<%= listing_status_color(listing.status) %> px-3 py-1 rounded-full text-sm">
@@ -51,7 +51,6 @@
             <p><%= listing.equity_offered %>% equity</p>
           </div>
 
-          <%#Instead of showing the details show startup page%>
           <%= link_to 'View Details', listing_path(listing), class: "btn btn-secondary btn-sm w-full mt-4" %>
         </div>
       <% end %>

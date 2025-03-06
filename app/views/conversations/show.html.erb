@@ -1,22 +1,24 @@
-<div class="w-full mx-auto px-4 bg-gray-400">
-  <div class="py-4 flex justify-center items-center space-x-4" >
-    <h1 class="text-2xl font-bold text-gray-800"><%= @conversation.subject %></h1>
-  </div>
-  <div class="space-y-4 py-4">
-    <% @conversation.receipts_for(current_user).order(updated_at: :asc).each do |receipt| %>
-      <div class="flex <%= receipt.message.sender == current_user ? "justify-start" : "justify-end" %>">
-        <div class="chat-bubble text-white <%= receipt.message.sender == current_user ? "bg-blue-800" : "bg-gray-800"  %>">
-          <%= receipt.message.body %>
-        </div> 
-      </div>
-    <% end %>  
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900"><%= @conversation.subject %></h1>
+    <div class="space-x-2">
+      <%= button_to "Trash", trash_conversation_path(@conversation), 
+        method: :post, class: "btn btn-link btn-sm text-red-600" %>
+    </div>
   </div>
 
-  <%= form_tag conversation_messages_path(@conversation), method: :post do %>
-    <div class="flex flex-row gap-4 py-4 w-full">
-      <%= text_area_tag "message[body]", nil, class:"text-area w-full items-center" %>
-      <%= submit_tag "Send", class: "btn btn-primary btn-md" %>
+  <div class="space-y-6">
+    <%= render partial: "message", collection: @conversation.messages %>
+  </div>
+
+  <%= form_tag reply_conversation_path(@conversation), method: :post, class: "mt-8" do %>
+    <div class="space-y-4">
+      <%= text_area_tag :body, nil, rows: 3,
+        class: "text-area w-full",
+        placeholder: "Write your reply..." %>
+      
+      <%= submit_tag "Reply", 
+        class: "btn btn-primary btn-md" %>
     </div>
   <% end %>
-
 </div>

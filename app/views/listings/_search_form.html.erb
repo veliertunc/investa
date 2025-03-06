@@ -1,31 +1,31 @@
-<div class="bg-white rounded-lg shadow p-6 mb-8">
+<div class="card">
   <%= search_form_for @q, class: "space-y-6" do |f| %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Text Search -->
       <div>
-        <%= f.label :title_or_description_cont, "Search", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.search_field :title_or_description_cont, class: "search-icon mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        <%= f.label :title_or_description_cont, "Search", class: "label" %>
+        <%= f.search_field :title_or_description_cont, class: "search-icon search-field" %>
       </div>
 
       <!-- Industry Select -->
       <div>
-        <%= f.label :startup_industry_eq, "Industry", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.select :startup_industry_eq, Startup.pluck(:industry).uniq, { include_blank: true }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        <%= f.label :startup_industry_eq, "Industry", class: "label" %>
+        <%= f.select :startup_industry_eq, Startup.pluck(:industry).uniq, { include_blank: true }, class: "combo-box w-full" %>
       </div>
 
       <!-- Funding Range -->
       <div>
-        <%= f.label :funding_goal_gteq, "Funding Range", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.label :funding_goal_gteq, "Funding Range", class: "label" %>
         <div class="flex gap-2">
-          <%= f.number_field :funding_goal_gteq, placeholder: "Min", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-          <%= f.number_field :funding_goal_lteq, placeholder: "Max", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+          <%= f.number_field :funding_goal_gteq, placeholder: "Min", class: "number-field" %>
+          <%= f.number_field :funding_goal_lteq, placeholder: "Max", class: "number-field" %>
         </div>
       </div>
 
       <!-- Equity Offered -->
       <div>
-        <%= f.label :equity_offered_gteq, "Equity Offered", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "mt-1 block w-full", value: 0 %>
+        <%= f.label :equity_offered_gteq, "Equity Offered", class: "label" %>
+        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "range-field", value: 0 %>
         <div class="flex justify-between text-sm text-gray-500">
           <span>0%</span>
           <span id="equity-display"><%= params.dig(:q, :equity_offered_gteq) || 0 %>%</span>
@@ -37,7 +37,7 @@
     <!-- Status Filters -->
     <div class="border-t pt-4">
       <fieldset>
-        <legend class="text-sm font-medium text-gray-700">Status</legend>
+        <legend class="label">Status</legend>
         <div class="mt-2 space-y-2">
           <% Listing.statuses.each do |status, value| %>
             <div class="flex items-center">
@@ -50,8 +50,8 @@
     </div>
 
     <div class="flex justify-end gap-4 pt-6">
-      <%= link_to "Clear", listings_path, class: "btn btn-secondary btn-sm" %>
-      <%= f.submit "Search", class: "btn btn-primary btn-sm" %>
+      <%= link_to "Clear", listings_path, class: "btn btn-secondary btn-md" %>
+      <%= f.submit "Search", class: "btn btn-primary btn-md" %>
     </div>
   <% end %>
 </div>

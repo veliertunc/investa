@@ -70,4 +70,8 @@ class User < ApplicationRecord
     end
     list
   end
+
+  def initials
+    self.email.split(/[@.]/).first[0..1].upcase
+  end
 end

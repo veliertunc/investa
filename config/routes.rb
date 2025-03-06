@@ -41,8 +41,12 @@ Rails.application.routes.draw do
   end
 
   # Conversation resources
-  resources :conversations, only: [ :index, :show, :new ] do
-    resources :messages
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
   end
 
   # Investment Proposal resources

@@ -1,16 +1,14 @@
-<div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow my-4">
-  <%= link_to conversation_path(conversation), class: "block p-4" do %>
-    <div class="flex justify-between items-start">
-      <h3 class="text-xl font-semibold"><%= conversation.subject %></h3>
-    </div>
-    
-    <div class="space-y-4">
-      
-      <div class="align-bottom mt-4 space-y-2">
-        <div class="flex items-center text-sm">
-          <p class="text-gray-800 text-sm mb-2"><%= conversation.last_sender.name %>: </p>
-          <p class="text-gray-600 text-sm mb-2 mx-2 line-clamp-1"><%= conversation.last_message.body %></p>
-        </div>
+<div class="card">
+  <%= link_to conversation_path(conversation) do %>
+    <div class="flex justify-between items-center">
+      <div>
+        <h3 class="text-lg font-medium text-gray-900"><%= conversation.subject %></h3>
+        <p class="text-sm text-gray-500 mt-1">
+          With <%= conversation.participants.excluding(current_user).map(&:name).join(", ") %>
+        </p>
+      </div>
+      <div class="text-sm text-gray-500">
+        <%= time_ago_in_words(conversation.messages.last.created_at) %> ago
       </div>
     </div>
   <% end %>

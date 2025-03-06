@@ -24,4 +24,8 @@ class StartupPolicy < ApplicationPolicy
   def startup_owner?
     founder_has_startup? and (user.startup == record)
   end
+
+  def investor_actions?
+    investor_has_investor_profile?
+  end
 end

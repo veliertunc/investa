@@ -19,6 +19,10 @@ class InvestorProfilePolicy < ApplicationPolicy
     investor_profile?
   end
 
+  def noninvestor_actions?
+    founder_has_startup?
+  end
+
   private
 
   def investor_profile?
