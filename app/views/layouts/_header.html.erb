@@ -1,4 +1,4 @@
-<header class="shadow-lg" data-controller="mobile-menu">
+<header class="shadow-lg">
   <nav class="flex justify-between items-center px-6 py-4">
     <div class="flex items-center gap-8">
       <div class="text-2xl font-bold">
@@ -16,7 +16,9 @@
               <%= link_to "Investors", investor_profiles_path, class: "nav-link" %>
             <% end %>
           <% else %>
-            <%= link_to "Solutions", root_path, class: "nav-link" %>
+            <%= render "shared/dropdown",
+              button_content: content_tag(:span, "Solutions", class: "nav-link"),
+              menu_content: render("shared/solutions_menu") %>
             <%= link_to "Pricing", root_path, class: "nav-link" %>
             <%= link_to "Resources", root_path, class: "nav-link" %>
           <% end %>
@@ -24,35 +26,9 @@
       </div>
     </div>
 
-    <div class="hidden md:flex items-center gap-4" >
-      <% if user_signed_in? %>
-        <%= link_to 'Profile', edit_user_registration_path, class: "nav-link" %>
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
-      <% else %>
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary btn-sm" %>
-      <% end %>
-    </div>
     <!-- Mobile Menu Button -->
-    <button class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none"
-            data-action="click->mobile-menu#toggle">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-    </button>
+    <%= render "shared/dropdown",
+      icon_content: content_tag(:span,"•••", class: "md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none ml-2"),
+      menu_content: render("shared/mobile_menu") %>
   </nav>
-  <div class="absolute w-full h-full border-1 border-gray-400 bg-white shadow-lg hidden" 
-        data-mobile-menu-target="menu">
-      <%= link_to "Home", root_path, class: "mobile-nav-link" %>
-      <%= link_to "About", about_path, class: "mobile-nav-link" %>
-      <div class="w-full">
-        <% if user_signed_in? %>
-            <%= link_to 'Profile', edit_user_registration_path, class: "mobile-nav-link" %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "mobile-nav-link text-red-600" %>
-        <% else %>
-            <%= link_to "Login", new_user_session_path, class: "mobile-nav-link" %>
-            <%= link_to "Sign Up", new_user_registration_path, class: "mobile-nav-link text-blue-600" %>
-      <% end %>
-      </div>
-  </div>
 </header>

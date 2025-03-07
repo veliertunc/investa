@@ -1,9 +1,13 @@
 @layer components {
   .dropdown-menu {
-    @apply items-center flex relative;
+    @apply relative inline-block text-left;
   }
 
-  .dropdown-menu .menu-component {
-    @apply absolute top-full right-0;
+  .dropdown-toggle {
+    @apply inline-flex justify-center w-full;
+  }
+
+  .dropdown-menu-content {
+    @apply origin-top-right absolute right-0 mt-6 w-59 rounded-md shadow-lg bg-white;
   }
 }

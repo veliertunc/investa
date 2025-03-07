@@ -1,0 +1,33 @@
+<div data-turbo="false" data-controller="dropdown" class="dropdown-menu">
+  <%# Trigger Button %>
+  <button 
+    type="button" 
+    data-action="click->dropdown#toggle"
+    class="dropdown-toggle"
+  >
+    <div class="flex items-center">
+      <% if local_assigns[:button_content] %>
+        <%= button_content %>
+      <% end %>
+      <% if local_assigns[:icon_content] %>
+        <%= icon_content %>
+      <% else %>
+        <svg class="-mr-1 -ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      <% end %>
+    </div>
+  </button>
+
+  <%# Dropdown Menu %>
+  <div 
+    data-dropdown-target="menu"
+    class="dropdown-menu-content hidden"
+    role="menu"
+    aria-orientation="vertical"
+  >
+    <div class="py-1">
+      <%= menu_content %>
+    </div>
+  </div>
+</div>
