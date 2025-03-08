@@ -23,16 +23,12 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   </head>
 
-  <body data-current-user-id="<%= current_user&.id %>" >
+  <body data-current-user-id="<%= current_user&.id %>">
     <%= render "layouts/header" %>
-    <div class="self-center items-center my-4">
-      <% if notice %>
-        <div class="notice"><%= notice %></div>
-      <% end %>
-      <% if alert %>
-        <div class="alert"><%= alert %></div>
-      <% end %> 
-    </div>
+    <%= render "shared/modal", 
+      title: "You have a message", 
+      buttons: render("shared/modal_buttons"),
+      content: render("shared/modal_content") %>
 
     <%= yield %>
 

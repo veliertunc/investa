@@ -4,10 +4,10 @@
   }
 
   .dropdown-toggle {
-    @apply inline-flex justify-center w-full;
+    @apply inline-flex justify-center w-full ;
   }
 
   .dropdown-menu-content {
-    @apply origin-top-right absolute right-0 mt-6 w-59 rounded-md shadow-lg bg-white;
+    @apply origin-top-right absolute right-0 mt-6 shadow-lg bg-white rounded-md z-50 w-50 md:w-full;
   }
 }

@@ -18,7 +18,7 @@ export default class extends Controller {
 
   // Handle escape key
   closeWithKeyboard(event) {
-    if (event.keyCode === 27) {
+    if (event.keyCode === "Escape") {
       this.close(event)
     }
   }
