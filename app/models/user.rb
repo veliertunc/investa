@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   # Favorites feature
   has_many :favorites, dependent: :destroy
-  has_many :favorited_items, through: :favorites, source: :bookmarkable
+  has_many :favorited_items, through: :favorites, source: :bookmarkable, source_type: "Favorite"
 
   # Validations
   validates :email, presence: true, uniqueness: true

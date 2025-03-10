@@ -1,32 +1,45 @@
+# frozen_string_literal: true
+
 class InvestmentProposalPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      case user.role.to_sym
-      when :investor
-        scope.where(investor_profile: user.investor_profile)
-      when :founder
-        scope.startup_proposals(user.startup)
+      if user.is_a?(AdminUser)
+        scope.all
       else
-        scope.none
+        if user.investor?
+          scope.where(investor_profile: user.investor_profile)
+        elsif user.founder?
+          scope.startup_proposals(user.startup)
+        else
+          scope.none
+        end
       end
     end
   end
 
   def index?
-    investor_has_investor_profile? or founder_has_startup?
+    permitted = investor_has_investor_profile? or founder_has_startup?
+    permitted or admin_index?
   end
 
   def show?
-    investor_proposal? or startup_proposal?
+    permitted = investor_proposal? or startup_proposal?
+    permitted or admin_show?
   end
 
   def create?
-    investor_has_investor_profile?
+    permitted = investor_has_investor_profile?
+    permitted or admin_create?
   end
 
   # Only allow to update/edit the pending ones
   def update?
-    investor_proposal? and record.pending?
+    permitted = (investor_proposal? and record.pending?)
+    permitted or admin_update?
+  end
+
+  def destroy?
+    admin_destroy?
   end
 
   def accept?
@@ -41,10 +54,10 @@ class InvestmentProposalPolicy < ApplicationPolicy
 
   # Does the user have a profile and it belong to the user
   def investor_proposal?
-    investor_has_investor_profile? and user.investor_profile == record.investor_profile and user.investment_proposals.any?(record)
+    investor_has_investor_profile? and (user.investor_profile == record.investor_profile) and user.investment_proposals.any?(record)
   end
 
   def startup_proposal?
-    founder_has_startup? and user.startup == record.listing.startup
+    founder_has_startup? and (user.startup == record.listing.startup)
   end
 end
