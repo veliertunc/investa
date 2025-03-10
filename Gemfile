@@ -79,6 +79,6 @@ gem "draper"
 
 gem "pundit", "~> 2.4"
 
-gem "activeadmin", "~> 3.2"
+gem "activeadmin", "~> 3.3"
 
 gem "valid_url"
