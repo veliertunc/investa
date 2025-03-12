@@ -3,18 +3,19 @@ ActiveAdmin.register AdminUser do
 
   index do
     selectable_column
-    id_column
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
-    column :created_at
     actions
   end
+  #
+  # show do
+  #   render "admin_user", { admin_user: admin_user }
+  # end
 
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+  filter :updated_at
 
   form do |f|
     f.inputs do

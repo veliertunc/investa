@@ -14,7 +14,7 @@ module.exports = {
         'screen-3/4': '75vh',
       },
       fontFamily: {
-// //         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        // //         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
     },
   },

@@ -1,18 +1,130 @@
-/*// Sass variable overrides must be declared before loading up Active Admin's styles.*/
-/*//*/
-/*// To view the variables that Active Admin provides, take a look at*/
-/*// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the*/
-/*// Active Admin source.*/
-/*//*/
-/*// For example, to change the sidebar width:*/
-/*// $sidebar-width: 242px;*/
-/**/
-/*// Active Admin's got SASS!*/
-/*// @import "active_admin/mixins";*/
-/*// @import "active_admin/base";*/
-/**/
-/*// Overriding any non-variable Sass must be done after the fact.*/
-/*// For example, to change the default status-tag color:*/
-/*//*/
-/*//   .status_tag { background: #6090DB; }*/
+/* active_admin.css or application.tailwind.css */
+@import "tailwindcss";
+@plugin "daisyui";
+/* Target elements within the ActiveAdmin namespace */
+body.active_admin {
+
+  svg {
+    @apply h-4 w-4 mx-auto;
+  }
+
+  a {
+    @apply link link-hover;
+  }
+
+  .index-data-table-toolbar {
+    /*Continue styling from here*/
+    @apply mb-16;
+  }
+
+  table {
+    @apply table table-md;
+    tr{
+      @apply table-row;
+      td {
+        @apply table-cell;
+      }
+    }
+
+    thead {
+      @apply table-header-group bg-gray-900 border-b border-gray-200;
+      th {
+        @apply text-center;
+      }
+      a {
+        @apply hover:no-underline;
+      }
+    }
+
+    tbody {
+      tr {
+        div.data-table-resource-actions {
+          @apply space-x-1;
+        }
+      }
+    }
+  }
+
+  div.paginated-collection-pagination {
+    /* Data pagination */
+    @apply mt-4;
+  }
+
+  div.paginated-collection-footer {
+    @apply mt-2;
+    a {
+      @apply btn btn-sm;
+    }
+  }
+
+  div.sidebar {
+    @apply space-y-4 sm:w-full;
+    div {
+      /* Filters */
+      @apply h-full sm:w-full;
+      h3 {
+        @apply font-bold mb-2;
+      }
+      form {
+        /* Filter selecetion */
+        @apply justify-between;
+        div {
+          @apply flex flex-col py-2 my-2 space-y-2 content-start;
+          label {
+            @apply w-full;
+          }
+          div {
+            /*Filter combobox and input*/
+            @apply w-full -mt-4;
+            select {
+              @apply select;
+            }
+            input {
+              @apply input;
+            }
+          }
+        }
+
+        div.filters-form-buttons {
+          @apply items-center;
+          input.filters-form-submit {
+            @apply btn btn-primary btn-md btn-wide;
+          }
+          a {
+            @apply btn btn-md btn-wide;
+          }
+        }
+      }
+    }
+  }
+
+  div.main-content-container {
+    form {
+      li {
+        @apply my-2;
+      }
+      li.text{
+        @apply h-fit;
+      }
+      /* EDIT PAGEs */
+      fieldset.inputs {
+        @apply fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box;
+
+      }
+
+      fieldset.actions {
+        @apply fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box;
+
+        input {
+          @apply btn btn-primary btn-md btn-wide;
+        }
+        a {
+          @apply btn btn-md btn-wide;
+        }
+      }
+    }
+  }
+
+}
+
 

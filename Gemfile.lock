@@ -52,15 +52,14 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activeadmin (3.2.5)
-      arbre (~> 1.2, >= 1.2.1)
+    activeadmin (4.0.0.beta15)
+      arbre (~> 2.0)
       csv
       formtastic (>= 3.1)
       formtastic_i18n (>= 0.4)
-      inherited_resources (~> 1.7)
-      jquery-rails (>= 4.2)
+      inherited_resources (~> 2.0)
       kaminari (>= 1.2.1)
-      railties (>= 6.1)
+      railties (>= 7.0)
       ransack (>= 4.0)
     activejob (8.0.1)
       activesupport (= 8.0.1)
@@ -96,9 +95,8 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    arbre (1.7.0)
-      activesupport (>= 3.0.0)
-      ruby2_keywords (>= 0.0.2)
+    arbre (2.2.0)
+      activesupport (>= 7.0)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -133,6 +131,8 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
+    cssbundling-rails (1.4.3)
+      railties (>= 6.0.0)
     csv (3.3.2)
     date (3.4.1)
     debug (1.10.0)
@@ -185,10 +185,10 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    inherited_resources (1.14.0)
-      actionpack (>= 6.0)
+    inherited_resources (2.1.0)
+      actionpack (>= 7.0)
       has_scope (>= 0.6)
-      railties (>= 6.0)
+      railties (>= 7.0)
       responders (>= 2)
     io-console (0.8.0)
     irb (1.15.1)
@@ -198,10 +198,6 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    jquery-rails (4.6.0)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     json (2.10.1)
     kamal (2.5.2)
       activesupport (>= 7.0)
@@ -259,21 +255,21 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.18.2-aarch64-linux-gnu)
+    nokogiri (1.18.3-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-aarch64-linux-musl)
+    nokogiri (1.18.3-aarch64-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm-linux-gnu)
+    nokogiri (1.18.3-arm-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm-linux-musl)
+    nokogiri (1.18.3-arm-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.2-arm64-darwin)
+    nokogiri (1.18.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-darwin)
+    nokogiri (1.18.3-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-gnu)
+    nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-musl)
+    nokogiri (1.18.3-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
@@ -301,7 +297,7 @@ GEM
       activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.10)
+    rack (3.1.11)
     rack-session (2.1.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -422,17 +418,7 @@ GEM
     ssrf_filter (1.2.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.2)
-    tailwindcss-rails (4.0.0)
-      railties (>= 7.0.0)
-      tailwindcss-ruby (~> 4.0)
-    tailwindcss-ruby (4.0.6)
-    tailwindcss-ruby (4.0.6-aarch64-linux-gnu)
-    tailwindcss-ruby (4.0.6-aarch64-linux-musl)
-    tailwindcss-ruby (4.0.6-arm64-darwin)
-    tailwindcss-ruby (4.0.6-x86_64-darwin)
-    tailwindcss-ruby (4.0.6-x86_64-linux-gnu)
-    tailwindcss-ruby (4.0.6-x86_64-linux-musl)
+    stringio (3.1.5)
     thor (1.3.2)
     thruster (0.1.11)
     thruster (0.1.11-aarch64-linux)
@@ -448,7 +434,7 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.0.2)
+    uri (1.0.3)
     useragent (0.16.11)
     valid_url (0.0.4)
       addressable
@@ -467,7 +453,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.1)
+    zeitwerk (2.7.2)
 
 PLATFORMS
   aarch64-linux
@@ -483,11 +469,12 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  activeadmin (~> 3.2)
+  activeadmin (= 4.0.0.beta15)
   bootsnap
   brakeman
   cancancan
   capybara
+  cssbundling-rails (~> 1.4)
   debug
   devise (~> 4.9)
   draper
@@ -499,7 +486,7 @@ DEPENDENCIES
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
-  pundit (~> 2.4)
+  pundit
   rails (~> 8.0.1)
   ransack (~> 4.2)
   rubocop-rails-omakase
@@ -508,7 +495,6 @@ DEPENDENCIES
   solid_cache
   solid_queue
   stimulus-rails
-  tailwindcss-rails (~> 4.0)
   thruster
   turbo-rails
   tzinfo-data

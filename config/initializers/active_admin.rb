@@ -2,21 +2,11 @@ ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
-  # for each of the active admin pages.
+  # for each of the active admin pages. Can also be customized
+  # by extracting the _site_header partial into your project
+  # to use your own logo, styles, etc.
   #
   config.site_title = "Investa"
-
-  # Set the link url for the title. For example, to take
-  # users to your main site. Defaults to no link.
-  #
-  # config.site_title_link = "/"
-
-  # Set an optional image to be displayed for the header
-  # instead of a string (overrides :site_title)
-  #
-  # Note: Aim for an image that's 21px high so it fits in the header.
-  #
-  # config.site_title_image = "logo.png"
 
   # == Load Paths
   #
@@ -78,13 +68,15 @@ ActiveAdmin.setup do |config|
   # Active Admin will automatically call an authorization
   # method in a before filter of all controller actions to
   # ensure that there is a user with proper rights. You can use
-  # CanCanAdapter or make your own. Please refer to documentation.
-  config.authorization_adapter = ActiveAdmin::PunditAdapter
+  # CanCanAdapter, PunditAdapter, or make your own. Please
+  # refer to the documentation.
+  # config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  # config.authorization_adapter = ActiveAdmin::PunditAdapter
 
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
-  # config.pundit_default_policy = "AdminApplicationPolicy"
+  # config.pundit_default_policy = "MyDefaultPunditPolicy"
 
   # If you wish to maintain a separate set of Pundit policies for admin
   # resources, you may set a namespace here that Pundit will search
@@ -116,17 +108,11 @@ ActiveAdmin.setup do |config|
   # settings configure the location and method used for the link.
   #
   # This setting changes the path where the link points to. If it's
-  # a string, the strings is used as the path. If it's a Symbol, we
+  # a string, the string is used as the path. If it's a Symbol, we
   # will call the method to return the path.
   #
   # Default:
   config.logout_link_path = :destroy_admin_user_session_path
-
-  # This setting changes the http method used when rendering the
-  # link. For example :get, :delete, :put, etc..
-  #
-  # Default:
-  # config.logout_link_method = :get
 
   # == Root
   #
@@ -185,110 +171,68 @@ ActiveAdmin.setup do |config|
   # You can run `bin/rails runner 'puts I18n.t("date.formats")'` to see the
   # available formats in your application.
   #
-  config.localize_format = :long
+  config.localize_format = :short
 
-    # == Setting a Favicon
-    #
-    # config.favicon = 'favicon.ico'
+  # == Removing Breadcrumbs
+  #
+  # Breadcrumbs are enabled by default. You can customize them for individual
+  # resources or you can disable them globally from here.
+  #
+  # config.breadcrumb = false
 
-    # == Meta Tags
-    #
-    # Add additional meta tags to the head element of active admin pages.
-    #
-    # Add tags to all pages logged in users see:
-    #   config.meta_tags = { author: 'My Company' }
+  # == Create Another Checkbox
+  #
+  # Create another checkbox is disabled by default. You can customize it for individual
+  # resources or you can enable them globally from here.
+  #
+  # config.create_another = true
 
-    # By default, sign up/sign in/recover password pages are excluded
-    # from showing up in search engine results by adding a robots meta
-    # tag. You can reset the hash of meta tags included in logged out
-    # pages:
-    #   config.meta_tags_for_logged_out_pages = {}
+  # == CSV options
+  #
+  # Set the CSV builder separator
+  # config.csv_options = { col_sep: ';' }
+  #
+  # Force the use of quotes
+  # config.csv_options = { force_quotes: true }
 
-    # == Removing Breadcrumbs
-    #
-    # Breadcrumbs are enabled by default. You can customize them for individual
-    # resources or you can disable them globally from here.
-    #
-    # config.breadcrumb = false
+  # == Menu System
+  #
+  # You can add a navigation menu to be used in your application, or configure a provided menu
+  #
+  # If you wanted to add a static menu item to the default menu provided:
+  #
+  #   config.namespace :admin do |admin|
+  #     admin.build_menu :default do |menu|
+  #       menu.add label: "My Great Website", url: "https://mygreatwebsite.example.com", html_options: { target: "_blank" }
+  #     end
+  #   end
 
-    # == Create Another Checkbox
-    #
-    # Create another checkbox is disabled by default. You can customize it for individual
-    # resources or you can enable them globally from here.
-    #
-    # config.create_another = true
+  # == Download Links
+  #
+  # You can disable download links on resource listing pages,
+  # or customize the formats shown per namespace/globally
+  #
+  # To disable/customize for the :admin namespace:
+  #
+  #   config.namespace :admin do |admin|
+  #
+  #     # Disable the links entirely
+  #     admin.download_links = false
+  #
+  #     # Only show XML & PDF options. You must register the format mime type with `Mime::Type.register`.
+  #     admin.download_links = [:xml, :pdf]
+  #
+  #     # Enable/disable the links based on block (for example, with cancan)
+  #     admin.download_links = proc { can?(:view_download_links) }
+  #
+  #   end
 
-    # == Register Stylesheets & Javascripts
-    #
-    # We recommend using the built in Active Admin layout and loading
-    # up your own stylesheets / javascripts to customize the look
-    # and feel.
-    #
-    # To load a stylesheet:
-    #   config.register_stylesheet 'my_stylesheet.css'
-    #
-    # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
-    #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
-    #
-    # To load a javascript file:
-    #   config.register_javascript 'my_javascript.js'
-
-    # == CSV options
-    #
-    # Set the CSV builder separator
-    # config.csv_options = { col_sep: ';' }
-    #
-    # Force the use of quotes
-    # config.csv_options = { force_quotes: true }
-
-    # == Menu System
-    #
-    # You can add a navigation menu to be used in your application, or configure a provided menu
-    #
-    # To change the default utility navigation to show a link to your website & a logout btn
-    #
-    #   config.namespace :admin do |admin|
-    #     admin.build_menu :utility_navigation do |menu|
-    #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
-    #       admin.add_logout_button_to_menu menu
-    #     end
-    #   end
-    #
-    # If you wanted to add a static menu item to the default menu provided:
-    #
-    #   config.namespace :admin do |admin|
-    #     admin.build_menu :default do |menu|
-    #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: "_blank" }
-    #     end
-    #   end
-
-    # == Download Links
-    #
-    # You can disable download links on resource listing pages,
-    # or customize the formats shown per namespace/globally
-    #
-    # To disable/customize for the :admin namespace:
-    #
-    #   config.namespace :admin do |admin|
-    #
-    #     # Disable the links entirely
-    #     admin.download_links = false
-    #
-    #     # Only show XML & PDF options
-    #     admin.download_links = [:xml, :pdf]
-    #
-    #     # Enable/disable the links based on block
-    #     #   (for example, with cancan)
-    #     admin.download_links = proc { can?(:view_download_links) }
-    #
-    #   end
-
-    # == Pagination
-    #
-    # Pagination is enabled by default for all resources.
-    # You can control the default per page count for all resources here.
-    #
-    config.default_per_page = 30
+  # == Pagination
+  #
+  # Pagination is enabled by default for all resources.
+  # You can control the default per page count for all resources here.
+  #
+  # config.default_per_page = 30
   #
   # You can control the max per page count too.
   #
@@ -322,31 +266,10 @@ ActiveAdmin.setup do |config|
   #  ]
   # config.filter_method_for_large_association = '_start'
 
-  # == Head
-  #
-  # You can add your own content to the site head like analytics. Make sure
-  # you only pass content you trust.
-  #
-  # config.head = ''.html_safe
-
-  # == Footer
-  #
-  # By default, the footer shows the current Active Admin version. You can
-  # override the content of the footer here.
-  #
-  # config.footer = 'my custom footer text'
-
   # == Sorting
   #
   # By default ActiveAdmin::OrderClause is used for sorting logic
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
-
-  # == Webpacker
-  #
-  # By default, Active Admin uses Sprocket's asset pipeline.
-  # You can switch to using Webpacker here.
-  #
-  # config.use_webpacker = true
 end
