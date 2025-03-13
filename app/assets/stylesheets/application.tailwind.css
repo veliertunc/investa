@@ -1,9 +1,5 @@
 @import "tailwindcss";
 @plugin "daisyui";
-@import "./buttons.css";
-@import "./nav.css";
-@import "./text.css";
-@import "./dropdown.css";
 
 @layer components {
 
@@ -27,9 +23,7 @@
     50% { transform: scale(1.1); }
   }
 
-
-  /* Add smooth transition */
-  [data-controller="mobile-menu"] [data-mobile-menu-target="menu"] {
-    transition: all 0.3s ease-in-out;
+  .btn-favorite {
+    @apply rounded-full transition-all duration-200 scale-95 transform hover:scale-105
   }
 }

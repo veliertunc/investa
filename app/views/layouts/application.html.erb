@@ -25,11 +25,6 @@
 
   <body data-current-user-id="<%= current_user&.id %>">
     <%= render "layouts/header" %>
-    <%= render "shared/modal", 
-      title: "You have a message", 
-      buttons: render("shared/modal_buttons"),
-      content: render("shared/modal_content") %>
-
     <%= yield %>
 
   </body>

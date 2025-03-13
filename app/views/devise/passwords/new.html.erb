@@ -1,27 +1,22 @@
-<%# app/views/devise/passwords/new.html.erb %>
-<div class="max-w-md mx-auto my-10">
-  <div class="bg-white shadow-sm rounded-lg p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Forgot your password?</h2>
+<fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box mx-auto">
+  <legend class="fieldset-legend">Forgot your password?</legend>
 
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="space-y-4">
-        <div>
-          <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email",
-                class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
-        </div>
-
-        <div>
-          <%= f.submit "Send reset instructions",
-            class: "w-full #{button_class} py-2 px-4 border border-transparent rounded-md shadow-sm text-white font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-        </div>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :email, class: "fieldset-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
       </div>
-    <% end %>
 
-    <div class="mt-6 text-center">
-      <%= render "devise/shared/links" %>
+      <div>
+        <%= f.submit "Send reset instructions", class: "btn btn-primary w-full" %>
+      </div>
     </div>
+  <% end %>
+
+  <div class="mt-4 text-center">
+    <%= render "devise/shared/links" %>
   </div>
-</div>
+</fieldset>

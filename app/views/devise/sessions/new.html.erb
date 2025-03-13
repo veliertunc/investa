@@ -1,38 +1,33 @@
-<%# app/views/devise/sessions/new.html.erb %>
-<div class="max-w-md mx-auto my-10">
-  <div class="bg-white shadow-sm rounded-lg p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Log in</h2>
+<fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box mx-auto">
+  <legend class="fieldset-legend">Login</legend>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="space-y-4">
-        <div>
-          <%= f.label :email, class: "label" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email",
-                class: "text-field w-full" %>
-        </div>
-
-        <div>
-          <%= f.label :password, class: "label" %>
-          <%= f.password_field :password, autocomplete: "current-password",
-                class: "text-field w-full" %>
-        </div>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="flex items-center">
-            <%= f.check_box :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
-            <%= f.label :remember_me, class: "ml-2 block text-sm text-gray-900" %>
-          </div>
-        <% end %>
-
-        <div>
-          <%= f.submit "Log in", 
-                class: "w-full btn btn-primary btn-md" %>
-        </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :email, class: "fieldset-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
       </div>
-    <% end %>
 
-    <div class="mt-6 text-center">
-      <%= render "devise/shared/links" %>
+      <div>
+        <%= f.label :password, class: "fieldset-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <label class="fieldset-label">
+          <%= f.check_box :remember_me, class: "checkbox" %>
+          <%= f.label :remember_me %>
+        </label>
+      <% end %>
+
+      <div>
+        <%= f.submit "Log in", class: "btn btn-primary w-full" %>
+      </div>
     </div>
+  <% end %>
+
+  <div class="mt-4 text-center">
+    <%= render "devise/shared/links" %>
   </div>
-</div>
+</fieldset>

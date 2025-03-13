@@ -21,9 +21,10 @@ Rails.application.routes.draw do
 
   # Static pages
   root "static_pages#landing"
-  get "/about", to: "static_pages#about"
-  get "/terms", to: "static_pages#terms"
-  get "/privacy", to: "static_pages#privacy"
+  get "/about", to: "static_pages#about", as: "about"
+  get "/terms", to: "static_pages#terms", as: "terms"
+  get "/privacy", to: "static_pages#privacy", as: "privacy"
+  get "/pricing", to: "static_pages#pricing", as: "pricing"
 
 
   # Startup resources
