@@ -57,38 +57,38 @@ class ApplicationPolicy
 
   # Does the startup belongs to the user
   def founder_has_startup?
-    user.is_a?(User) and user.founder? and user.startup.present?
+    (user.is_a?(User) and user.founder? and user.startup.present?)
   end
 
   def founder_has_no_startup?
-    user.is_a?(User) and user.founder? and not user.startup.present?
+    (user.is_a?(User) and user.founder? and not user.startup.present?)
   end
 
   def investor_has_investor_profile?
-    user.is_a?(User) and user.investor? and user.investor_profile.present?
+    (user.is_a?(User) and user.investor? and user.investor_profile.present?)
   end
 
   def investor_has_no_investor_profile?
-    user.is_a?(User) and user.investor? and not user.investor_profile.present?
+    (user.is_a?(User) and user.investor? and not user.investor_profile.present?)
   end
 
   def admin_index?
-    user.is_a?(AdminUser)
+    (user.is_a?(AdminUser))
   end
 
   def admin_show?
-    user.is_a?(AdminUser)
+    (user.is_a?(AdminUser))
   end
 
   def admin_create?
-    user.is_a?(AdminUser) and user.super_admin?
+    (user.is_a?(AdminUser) and user.super_admin?)
   end
 
   def admin_update?
-    user.is_a?(AdminUser) and user.super_admin?
+    (user.is_a?(AdminUser) and user.super_admin?)
   end
 
   def admin_destroy?
-    user.is_a?(AdminUser) and user.super_admin?
+    (user.is_a?(AdminUser) and user.super_admin?)
   end
 end

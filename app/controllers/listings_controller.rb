@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
   include Pagy::Backend
   before_action :authenticate_user!
   before_action :set_listing, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_startup, only: [ :new, :create ]
 
   def index
     authorize Listing
@@ -57,6 +58,10 @@ class ListingsController < ApplicationController
 
   def set_listing
     @listing = policy_scope(Listing).find(params[:id])
+  end
+
+  def set_startup
+    @startup = Startup.find(params[:startup_id])
   end
 
   def listing_params

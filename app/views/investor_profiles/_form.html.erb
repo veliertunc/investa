@@ -11,22 +11,21 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:name].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:name].any?}] %>
-  </div>
+  <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+    <legend class="fieldset-legend">Profile info</legend>
+    <%= form.hidden_field :user_id, value: current_user.id %>
 
-  <div class="my-5">
-    <%= form.label :bio %>
-    <%= form.textarea :bio, rows: 4, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:bio].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:bio].any?}] %>
-  </div>
+    <%= form.label :name, class: "fieldset-label" %>
+    <%= form.text_field :name, class: "input"  %>
 
-  <div class="my-5">
-    <%= form.label :investment_preferences %>
-    <%= form.textarea :investment_preferences, rows: 4, class: ["text-field w-full", {"border-gray-400 focus:outline-blue-600": investor_profile.errors[:investment_preferences].none?, "border-red-400 focus:outline-red-600": investor_profile.errors[:investment_preferences].any?}] %>
-  </div>
+    <%= form.label :bio, class: "fieldset-label" %>
+    <%= form.textarea :bio, class: "textarea"  %>
 
-  <div class="inline">
-    <%= form.submit "Update", class: "btn btn-primary btn-md" %>
-  </div>
+    <%= form.label :investment_preferences, class: "fieldset-label" %>
+    <%= form.textarea :investment_preferences, class: "textarea"  %>
+
+    <div class="mt-4">
+      <%= form.submit "Save", class: "btn btn-primary", placeholder: "Seperate your preferences with comma" %>
+    </div>
+  </fieldset>
 <% end %>

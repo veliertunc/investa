@@ -23,27 +23,27 @@ class StartupPolicy < ApplicationPolicy
   end
 
   def show?
-    permitted = startup_owner? or investor_has_investor_profile?
-    permitted or admin_show?
+    permitted = (startup_owner? or investor_has_investor_profile?)
+    (permitted or admin_show?)
   end
 
   def create?
     permitted = founder_has_no_startup?
-    permitted or admin_create?
+    (permitted or admin_create?)
   end
 
   def update?
     permitted = startup_owner?
-    permitted or admin_update?
+    (permitted or admin_update?)
   end
 
   def destroy?
     permitted = startup_owner?
-    permitted or admin_destroy?
+    (permitted or admin_destroy?)
   end
 
   def startup_owner?
-    founder_has_startup? and (user.startup == record)
+    (founder_has_startup? and (user.startup == record))
   end
 
   def investor_actions?

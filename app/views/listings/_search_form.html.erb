@@ -1,31 +1,34 @@
-<div class="card">
+<div class="rounded-box border border-gray-400 p-4">
   <%= search_form_for @q, class: "space-y-6" do |f| %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Text Search -->
       <div>
-        <%= f.label :title_or_description_cont, "Search", class: "label" %>
-        <%= f.search_field :title_or_description_cont, class: "search-icon search-field" %>
+        <%= f.label "", class: "label"%>
+        <%= f.label :title_or_description_cont, class: "input" do %>
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></g></svg>
+          <%= f.search_field :title_or_description_cont, class: "grow", placeholder: "Search" %>
+        <% end %>
       </div>
 
       <!-- Industry Select -->
       <div>
         <%= f.label :startup_industry_eq, "Industry", class: "label" %>
-        <%= f.select :startup_industry_eq, Startup.pluck(:industry).uniq, { include_blank: true }, class: "combo-box w-full" %>
+        <%= f.select :startup_industry_eq, Startup.pluck(:industry).uniq, { include_blank: true }, class: "select" %>
       </div>
 
       <!-- Funding Range -->
       <div>
         <%= f.label :funding_goal_gteq, "Funding Range", class: "label" %>
         <div class="flex gap-2">
-          <%= f.number_field :funding_goal_gteq, placeholder: "Min", class: "number-field" %>
-          <%= f.number_field :funding_goal_lteq, placeholder: "Max", class: "number-field" %>
+          <%= f.number_field :funding_goal_gteq, placeholder: "Min", class: "input" %>
+          <%= f.number_field :funding_goal_lteq, placeholder: "Max", class: "input" %>
         </div>
       </div>
 
       <!-- Equity Offered -->
       <div>
         <%= f.label :equity_offered_gteq, "Equity Offered", class: "label" %>
-        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "range-field", value: 0 %>
+        <%= f.range_field :equity_offered_gteq, min: 0, max: 100, class: "range", value: 0 %>
         <div class="flex justify-between text-sm text-gray-500">
           <span>0%</span>
           <span id="equity-display"><%= params.dig(:q, :equity_offered_gteq) || 0 %>%</span>
@@ -35,22 +38,22 @@
     </div>
 
     <!-- Status Filters -->
-    <div class="border-t pt-4">
-      <fieldset>
-        <legend class="label">Status</legend>
-        <div class="mt-2 space-y-2">
+    <div class="border-t py-4">
+      <fieldset class="fieldset p-4 bg-base-100 border border-base-300 rounded-box w-64">
+        <legend class="fieldset-legend text-sm">Status</legend>
+        <div class="space-y-2">
           <% Listing.statuses.each do |status, value| %>
-            <div class="flex items-center">
-              <%= f.check_box :status_eq_any, { multiple: true, checked: params.dig(:q, :status_eq_any)&.include?(value.to_s) }, value, nil %>
-              <%= f.label :status_eq_any, status.humanize, class: "ml-2 text-sm text-gray-600" %>
-            </div>
+              <%= f.label "", class: "fieldset-label" do %>
+                <%= f.check_box :status_eq_any, { multiple: true, checked: params.dig(:q, :status_eq_any)&.include?(value.to_s) }, value, nil %>
+                <%= f.label :status_eq_any, status.humanize, class: "fieldset-label text-sm" %>
+              <% end %>
           <% end %>
         </div>
       </fieldset>
     </div>
 
     <div class="flex justify-end gap-4 pt-6">
-      <%= link_to "Clear", listings_path, class: "btn btn-secondary btn-md" %>
+      <%= link_to "Clear", listings_path, class: "btn" %>
       <%= f.submit "Search", class: "btn btn-primary btn-md" %>
     </div>
   <% end %>

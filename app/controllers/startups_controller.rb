@@ -15,19 +15,21 @@ class StartupsController < ApplicationController
   def new
     authorize Startup
     @startup = Startup.new
-    current_user.startup = @startup
   end
 
   def create
     authorize Startup
     @startup = Startup.new(startup_params)
-    current_user.startup = @startup
 
-    if @startup.save
-      redirect_to @startup, notice: "Startup was successfully created."
-    else
-      render :new
-    end
+    respond_to do |format|
+       if @startup.save
+         format.html { redirect_to @startup, notice: "Startup was successfully created." }
+         format.json { render :show, status: :created, location: @startup }
+       else
+         format.html { render :new, status: :unprocessable_entity }
+         format.json { render json: @startup.errors, status: :unprocessable_entity }
+       end
+     end
   end
 
   def edit
@@ -37,17 +39,24 @@ class StartupsController < ApplicationController
   def update
     authorize @startup
 
-    if @startup.update(startup_params)
-      redirect_to @startup, notice: "Startup was successfully updated."
-    else
-      render :edit
-    end
+    respond_to do |format|
+       if @startup.update(startup_params)
+         format.html { redirect_to @startup, notice: "Startup was successfully updated." }
+         format.json { render :show, status: :ok, location: @startup }
+       else
+         format.html { render :edit, status: :unprocessable_entity }
+         format.json { render json: @startup.errors, status: :unprocessable_entity }
+       end
+     end
   end
 
   def destroy
     authorize @startup
     @startup.destroy
-    redirect_to startups_url, notice: "Startup was successfully deleted."
+    respond_to do |format|
+       format.html { redirect_to startups_path, status: :see_other, notice: "Startup was successfully destroyed." }
+       format.json { head :no_content }
+     end
   end
 
   private
@@ -57,6 +66,6 @@ class StartupsController < ApplicationController
   end
 
   def startup_params
-    params.require(:startup).permit(:name, :description, :industry, :funding_goal, :equity_offered, :website_url)
+    params.require(:startup).permit(:user_id, :name, :description, :industry, :funding_goal, :equity_offered, :url)
   end
 end

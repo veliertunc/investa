@@ -20,10 +20,10 @@ class AdminUserPolicy < ApplicationPolicy
   end
 
   def update?
-    admin_update? or (user == record)
+   (admin_update? or (user == record))
   end
 
   def destroy?
-    admin_destroy? or (user == record)
+    (admin_destroy? or (user == record))
   end
 end

@@ -25,10 +25,9 @@ class ApplicationController < ActionController::Base
     return unless devise_controller?
     return unless user_signed_in?
 
-    case current_user.role.to_sym
-    when :founder
+    if current_user.founder?
       redirect_to new_startup_path unless current_user.startup
-    when :investor
+    elsif current_user.investor?
       redirect_to new_investor_profile_path unless current_user.investor_profile
     end
   end

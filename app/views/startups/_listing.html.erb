@@ -1,10 +1,14 @@
-<div class="bg-white rounded-lg shadow p-4">
-  <h3 class="text-lg font-semibold"><%= listing.title %></h3>
-  <p class="text-gray-600"><%= listing.description %></p>
-  <div class="flex justify-between items-center mt-2">
-    <span class="badge <%= listing_status_color(listing.status) %> px-2 py-1 rounded-full text-sm ">
+<li class="list-row">
+  <div>
+    <span class="<%= status_badge(listing.status) %> badge-soft">
       <%= listing.status.humanize %>
     </span>
-    <%= link_to "View", listing_path(listing), class: "btn btn-secondary btn-sm" %>
   </div>
-</div>
+  <div>
+    <div><%= listing.title %></div>
+  </div>
+  <p class="list-col-wrap text-xs"><%= listing.description %></p>
+  <%= link_to listing_path(listing), class: "btn btn-square btn-ghost" do %>
+    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
+  <% end %>
+</li>

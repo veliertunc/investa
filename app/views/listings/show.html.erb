@@ -1,11 +1,11 @@
-<div class="max-w-4xl mx-auto px-4 py-8">
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <div class="flex justify-between items-start mb-6">
+<div class="max-w-4xl mx-auto p-6">
+  <div class="card-body">
+    <div class="flex justify-between mb-6">
       <div>
         <h1 class="text-3xl font-bold mb-2"><%= @listing.title %></h1>
-        <p class="text-gray-600">Posted by <%= @listing.startup.name %></p>
+        <p class="label">Posted by <%= @listing.startup.name %></p>
       </div>
-      <span class="<%= listing_status_color(@listing.status) %> px-4 py-2 rounded-full">
+      <span class="<%= status_badge(@listing.status) %> badge-soft">
         <%= @listing.status.humanize %>
       </span>
     </div>
@@ -16,15 +16,15 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg">
-          <p class="text-sm text-gray-500 mb-1">Funding Goal</p>
+        <div class="p-4 rounded-lg">
+          <p class="label text-sm mb-1">Funding Goal</p>
           <p class="text-2xl font-semibold">
             <%= number_to_currency(@listing.funding_goal) %>
           </p>
         </div>
 
-        <div class="bg-gray-50 p-4 rounded-lg">
-          <p class="text-sm text-gray-500 mb-1">Equity Offered</p>
+        <div class="p-4 rounded-lg">
+          <p class="label text-sm mb-1">Equity Offered</p>
           <p class="text-2xl font-semibold">
             <%= @listing.equity_offered %>%
           </p>
@@ -33,38 +33,42 @@
 
       <% if policy(@listing).list_proposals? %>
         <div class="mt-8">
-          <h3 class="text-xl font-bold mb-4">Investment Proposals</h3>
-          <% @listing.investment_proposals.each do |proposal| %>
-            <%= render "proposal", proposal: proposal %>
+          <% if @listing.investment_proposals.any? %>
+            <h3 class="text-xl font-bold mb-4">Investment Proposals</h3>
+            <% @listing.investment_proposals.each do |proposal| %>
+              <%= render "proposal", proposal: proposal %>
+            <% end %>
+          <% else %>
+            <div class="text-center py-4" >
+              <p>You haven't received any proposal yet</p>
+            </div>
           <% end %>
         </div>
       <% end %>
 
-      <div class="flex gap-4 mt-8">
-        <%= link_to "View All", listings_path, class: "btn btn-secondary btn-md" %>
+      <div class="card-actions justify-between">
+        <div class="justify-start">
+          <%= favorite_button(@listing) %>
+        </div>
 
-        <% if policy(InvestmentProposal).new? %>
-          <%= link_to 'New Proposal', new_listing_investment_proposal_path(@listing), 
-                class: "btn btn-primary btn-md" %>
-        <% end %>
+        <div class="justify-end">
+          <%= link_to "View All", listings_path, class: "btn" %>
 
-        <% if policy(@listing).update? %>
-          <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), 
-                class: "btn btn-primary btn-md" %>
-        <% end %>
+          <% if policy(InvestmentProposal).new? %>
+            <%= link_to 'New Proposal', new_listing_investment_proposal_path(@listing), class: "btn btn-primary" %>
+          <% end %>
 
-        <% if policy(@listing).destroy? %>
-          <%= button_to 'Delete', startup_listing_path(@listing.startup, @listing),
-                method: :delete,
-                data: { confirm: 'Are you sure?' },
-                class: "btn btn-danger btn-md" %>
-        <% end %>
+          <% if policy(@listing).update? %>
+            <%= link_to 'Edit', edit_startup_listing_path(@listing.startup, @listing), class: "btn btn-primary" %>
+          <% end %>
 
-      </div>
-
-      <%# Quick Actions%>
-      <div class="flex gap-4">
-        <%= favorite_button(@listing) %>
+          <% if policy(@listing).destroy? %>
+            <%= button_to 'Delete', startup_listing_path(@listing.startup, @listing),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: "btn btn-error" %>
+          <% end %>
+        </div>
       </div>
 
     </div>

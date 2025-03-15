@@ -7,15 +7,33 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
+
+        <% if user_signed_in? %>
+          <li><%= link_to "Dashboard", dashboard_path %></li>
+          <li><%= link_to "Listings", listings_path %></li>
+          <% if current_user.investor? %>
+            <li><%= link_to "Startups", startups_path %></li>
+            <li><%= link_to "Proposals", investment_proposals_path %></li>
+          <% else %>
+            <li><%= link_to "Investors", investor_profiles_path %></li>
+          <% end %>
+        <% else %>
+          <li>
+            <details>
+              <summary>Products</summary>
+              <%= render "shared/navigation/products_menu" %>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Resources</summary>
+              <%= render "shared/navigation/resources_menu" %>
+            </details>
+          </li>
+
+          <li><%= link_to "Pricing", pricing_path %></li>
+        <% end %>
+
       </ul>
     </div>
     
@@ -24,31 +42,46 @@
 
     <!-- Main navigation menu -->
     <ul class="menu menu-horizontal px-1 items-center hidden lg:flex">
-      <li>
-        <details>
-          <summary>Products</summary>
-          <%= render "shared/navigation/products_menu" %>
-        </details>
-      </li>
-      <li>
-        <details>
-          <summary>Resources</summary>
-          <%= render "shared/navigation/resources_menu" %>
-        </details>
-      </li>
 
-      <li><%= link_to "Pricing", pricing_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Dashboard", dashboard_path %></li>
+        <li><%= link_to "Listings", listings_path %></li>
+        <% if current_user.investor? %>
+          <li><%= link_to "Startups", startups_path %></li>
+          <li><%= link_to "Proposals", investment_proposals_path %></li>
+        <% else %>
+          <li><%= link_to "Investors", investor_profiles_path %></li>
+        <% end %>
+      <% else %>
+        <li>
+          <details>
+            <summary>Products</summary>
+            <%= render "shared/navigation/products_menu" %>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Resources</summary>
+            <%= render "shared/navigation/resources_menu" %>
+          </details>
+        </li>
+
+        <li><%= link_to "Pricing", pricing_path %></li>
+      <% end %>
+
     </ul>
   </div>
 
   <div class="navbar-center hidden lg:flex">
-    <!-- PUT ANY CONTENT HERE -->
+    <% if alert %>
+      <div class="alert alert-error alert-soft"><%= alert %></div>
+    <% end %> 
   </div>
 
-  <div class="navbar-end lg:gap-4">
+  <div class="navbar-end gap-4 items-center">
     <!-- Theme switcher -->
-    <label class="swap swap-rotate">
-      <input type="checkbox" />
+    <label class="swap swap-rotate items-center">
+      <input type="checkbox" class="theme-controller" value="dark" />
       <!-- sun icon -->
       <svg
           class="swap-on h-5 w-5 fill-current"
@@ -78,7 +111,7 @@
     <div class="items-center hidden lg:flex space-x-2">
       <% if user_signed_in? %>
           <%= link_to 'Profile', edit_user_registration_path, class: "btn btn-ghost" %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-error" %>
       <% else %>
           <%= link_to "Login", new_user_session_path, class: "btn btn-ghost" %>
           <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>

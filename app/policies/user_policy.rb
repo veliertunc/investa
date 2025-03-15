@@ -13,26 +13,26 @@ class UserPolicy < ApplicationPolicy
 
   def index?
     permitted = user.present?
-    permitted or admin_index?
+    (permitted or admin_index?)
   end
 
   def show?
     permitted = user.present?
-    permitted or admin_show?
+    (permitted or admin_show?)
   end
 
   def create?
     permitted = (not user.present?)
-    permitted or admin_create?
+    (permitted or admin_create?)
   end
 
   def update?
     permitted = (user.present? and (user == record))
-    permitted or admin_update?
+    (permitted or admin_update?)
   end
 
   def destroy?
     permitted = (user.present? and (user == record))
-    permitted or admin_destroy?
+    (permitted or admin_destroy?)
   end
 end

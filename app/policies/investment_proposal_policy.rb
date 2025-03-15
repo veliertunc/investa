@@ -18,24 +18,24 @@ class InvestmentProposalPolicy < ApplicationPolicy
   end
 
   def index?
-    permitted = investor_has_investor_profile? or founder_has_startup?
-    permitted or admin_index?
+    permitted = (investor_has_investor_profile? or founder_has_startup?)
+    (permitted or admin_index?)
   end
 
   def show?
-    permitted = investor_proposal? or startup_proposal?
-    permitted or admin_show?
+    permitted = (investor_proposal? or startup_proposal?)
+    (permitted or admin_show?)
   end
 
   def create?
     permitted = investor_has_investor_profile?
-    permitted or admin_create?
+    (permitted or admin_create?)
   end
 
   # Only allow to update/edit the pending ones
   def update?
     permitted = (investor_proposal? and record.pending?)
-    permitted or admin_update?
+    (permitted or admin_update?)
   end
 
   def destroy?
@@ -54,10 +54,10 @@ class InvestmentProposalPolicy < ApplicationPolicy
 
   # Does the user have a profile and it belong to the user
   def investor_proposal?
-    investor_has_investor_profile? and (user.investor_profile == record.investor_profile) and user.investment_proposals.any?(record)
+    (investor_has_investor_profile? and (user.investor_profile == record.investor_profile) and user.investment_proposals.any?(record))
   end
 
   def startup_proposal?
-    founder_has_startup? and (user.startup == record.listing.startup)
+    (founder_has_startup? and (user.startup == record.listing.startup))
   end
 end

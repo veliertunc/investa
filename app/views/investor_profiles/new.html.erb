@@ -1,11 +1,13 @@
 <% content_for :title, "New investor profile" %>
 
-<div class="md:w-2/3 w-full">
+<div class="md:w-2/3 w-full p-4">
   <h1 class="font-bold text-4xl">New investor profile</h1>
 
   <%= render "form", investor_profile: @investor_profile %>
 
-  <% if policy(InvestorProfile).index? %>
-    <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary btn-md" %>
-  <% end %>
+  <div class="mt-4">
+    <% if policy(InvestorProfile).index? %>
+      <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
 </div>

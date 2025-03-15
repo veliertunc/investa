@@ -1,61 +1,52 @@
 <div class="w-full px-4">
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold">Founder Dashboard</h1>
-    <div class="flex gap-4">
-      <%= link_to 'View Startup', startup_path(@startup), class: "btn btn-primary btn-md" %>
-      <%= link_to 'New Listing', new_startup_listing_path(@startup), class: "btn btn-secondary btn-md" %>
-    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="card">
-      <h3 class="text-lg font-semibold mb-2">Startup Overview</h3>
-      <p class="text-gray-600"><%= @startup.name %></p>
-      <p class="text-gray-600"><%= @startup.industry %></p>
-      <div class="mt-4">
-        <p class="text-2xl font-bold">
+  <div class="stats stats-vertical lg:stats-horizontal shadow mx-auto text-center">
+    <div class="stat">
+      <div class="stat-title"><%= @startup.name %></div>
+      <div class="stat-value">
           <%= number_to_currency(@startup.total_funding_raised) %>
-          <span class="text-sm font-normal text-gray-600">raised</span>
-        </p>
+          <span class="text-sm font-normal">raised</span>
+      </div>
+      <div class="stat-actions">
+        <%= link_to 'View Startup', startup_path(@startup), class: "btn btn-link" %>
       </div>
     </div>
 
-    <div class="card">
-      <h3 class="text-lg font-semibold mb-2">Active Listings</h3>
-      <p class="text-2xl font-bold"><%= @listings.active.count %></p>
-      <div class="mt-4">
-        <%= link_to 'Manage Listings', startup_listings_path(@startup), class: "text-indigo-600 hover:text-indigo-900" %>
+    <div class="stat">
+      <div class="stat-title">Active Listings</div>
+      <div class="stat-value"><%= @listings.active.count %></div>
+      <div class="stat-actions">
+        <%= link_to 'Manage Listings', startup_listings_path(@startup), class: "btn btn-link" %>
+        <%= link_to 'New Listing', new_startup_listing_path(@startup), class: "btn btn-link" %>
       </div>
     </div>
 
-    <div class="card">
-      <h3 class="text-lg font-semibold mb-2">Messages</h3>
-      <p class="text-2xl font-bold"><%= @unread_messages %></p>
-      <div class="mt-4">
-        <%= link_to 'View Conversations', conversations_path, class: "text-indigo-600 hover:text-indigo-900" %>
+    <div class="stat">
+      <div class="stat-title">Messages</div>
+      <div class="stat-value"><%= @unread_messages %></div>
+      <div class="stat-actions">
+        <%= link_to 'View Conversations', conversations_path, class: "btn btn-link" %>
       </div>
     </div>
   </div>
 
-  <div class="card border-0">
-    <h2 class="text-2xl font-bold mb-4">My Listings</h2>
-    <div class="divide-y">
-      <% @listings.each do |listing| %>
-        <div class="py-4">
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-semibold"><%= listing.title %></h3>
-              <p class="text-gray-600"><%= truncate(listing.description, length: 80) %></p>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="<%= listing_status_color(listing.status) %> px-3 py-1 rounded-full text-sm">
-                <%= listing.status.humanize %>
-              </span>
-              <%= link_to 'View', listing_path(listing), class: "btn btn-secondary btn-sm" %>
-            </div>
-          </div>
+
+  <ul class="list bg-base-200 rounded-box shadow-md mt-4">
+    <li class="p-4 pb-2 opacity-60 tracking-wide">Your listings so far</li>
+
+    <% @listings.each do |listing| %>
+      <li class="list-row">
+        <div class="<%= status_badge(listing.status) %> badge-soft"><%= listing.status.humanize %></div>
+        <div>
+          <div><%= listing.title %></div>
         </div>
-      <% end %>
-    </div>
-  </div>
+        <%= link_to listing_path(listing), class: "btn btn-square btn-ghost" do %>
+          <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>

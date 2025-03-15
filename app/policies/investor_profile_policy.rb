@@ -20,23 +20,23 @@ class InvestorProfilePolicy < ApplicationPolicy
   # Only show all profiles to founders who have startup
   def index?
     permitted = founder_has_startup?
-    permitted or admin_index?
+    (permitted or admin_index?)
   end
 
   # Only show to the profile owner or founders looking for investors
   def show?
-    permitted = investor_profile? or founder_has_startup?
-    permitted or admin_show?
+    permitted = (investor_profile? or founder_has_startup?)
+    (permitted or admin_show?)
   end
 
   def create?
     permitted = investor_has_no_investor_profile?
-    permitted or admin_create?
+    (permitted or admin_create?)
   end
 
   def update?
     permitted = investor_profile?
-    permitted or admin_update?
+    (permitted or admin_update?)
   end
 
   def destroy?
@@ -50,6 +50,6 @@ class InvestorProfilePolicy < ApplicationPolicy
   private
 
   def investor_profile?
-    investor_has_investor_profile? and (user.investor_profile == record)
+    (investor_has_investor_profile? and (user.investor_profile == record))
   end
 end

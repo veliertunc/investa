@@ -11,40 +11,29 @@
     </div>
   <% end %>
 
-  <div class="space-y-6">
-    <div>
-      <%= form.label :name, class: "label" %>
-      <%= form.text_field :name, class: "text-field w-full" %>
-    </div>
+  <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+    <legend class="fieldset-legend">Startup info</legend>
 
-    <div>
-      <%= form.label :description, class: "label" %>
-      <%= form.text_area :description, rows: 4, class: "text-field w-full" %>
-    </div>
+    <%= form.hidden_field :user_id, value: current_user.id %>
 
-    <div>
-      <%= form.label :industry, class: "label" %>
-      <%= form.text_field :industry, class: "text-field w-full" %>
-    </div>
+    <%= form.label :name, class: "fieldset-label" %>
+    <%= form.text_field :name, class: "input" , placeholder: "Your Startup Ltd" %>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <%= form.label :funding_goal, class: "label" %>
-        <%= form.number_field :funding_goal, step: 0.01, class: "text-field w-full" %>
-      </div>
-      <div>
-        <%= form.label :equity_offered, class: "label" %>
-        <%= form.number_field :equity_offered, step: 1, class: "text-field w-full" %>
-      </div>
-    </div>
+    <%= form.label :description, class: "fieldset-label" %>
+    <%= form.text_area :description, class: "textarea" %>
 
-    <div class="my-4">
-      <%= form.label :website_url %>
-      <%= form.text_field :website_url, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": @startup.errors[:website_url].none?, "border-red-400 focus:outline-red-600": @startup.errors[:website_url].any?}] %>
-    </div>
+    <%= form.label :industry, class: "fieldset-label" %>
+    <%= form.text_field :industry, class: "input" %>
 
-    <div class="my-4">
-      <%= form.submit "Update", class: "btn btn-primary btn-md" %>
-    </div>
-  </div>
+    <%= form.label :funding_goal, class: "fieldset-label" %>
+    <%= form.number_field :funding_goal, step: 0.01, class: "input" %>
+
+    <%= form.label :equity_offered, class: "fieldset-label" %>
+    <%= form.number_field :equity_offered, step: 0.01, class: "input" %>
+
+    <%= form.label :url, class: "fieldset-label" %>
+    <%= form.text_field :url, placeholder: "https://www.example.com", class: "input" %>
+
+    <%= form.submit "Save", class: "btn btn-primary mt-4" %>
+  </fieldset>
 <% end %>

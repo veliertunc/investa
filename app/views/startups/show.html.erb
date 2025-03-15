@@ -2,37 +2,39 @@
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold"><%= @startup.name %></h1>
       <% if policy(@startup).startup_owner? %>
-        <%= link_to 'Edit', edit_startup_path(@startup), class: "btn btn-primary btn-sm" %>
+        <%= link_to 'Edit', edit_startup_path(@startup), class: "btn btn-primary" %>
       <% end %>
     </div> 
 
-  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+  <div class="rounded-lg shadow-md p-6 mb-6">
     <div class="prose max-w-none">
       <%= simple_format(@startup.description) %>
     </div>
 
-    <div class="bg-gray-50 mt-4 rounded-lg">
-      <p class="text-sm text-gray-500 mb-1">Website</p>
-      <p class="text-sm font-semibold"><%= @startup.url %> </p>
+    <div class="mt-4 rounded-lg">
+      <p class="mb-1">Website</p>
+      <p class="font-semibold"><%= @startup.url %> </p>
 
       <%#<%= link_to "Website", @startup.url, target: "_blank", class: "btn btn-link"%>
     </div>
 
     <div class="grid grid-cols-2 gap-4 mt-6">
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <p class="text-sm text-gray-500 mb-1">Funding Goal</p>
+      <div class="p-4 rounded-lg">
+        <p class="mb-1">Funding Goal</p>
         <p class="text-2xl font-semibold"><%= number_to_currency(@startup.funding_goal) %></p>
       </div>
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <p class="text-sm text-gray-500 mb-1">Equity Offered</p>
+      <div class="p-4 rounded-lg">
+        <p class="mb-1">Equity Offered</p>
         <p class="text-2xl font-semibold"><%= @startup.equity_offered %>%</p>
       </div>
     </div>
   </div>
 
   <% if policy(@startup).startup_owner? %>
-    <h2 class="text-2xl font-bold mb-4">All Listings</h2>
-    <%= render partial: "listing", collection: @startup.listings %> 
+    <ul class="list bg-base-100 rounded-box shadow-md">
+      <li class="p-4 pb-2 opacity-60 tracking-wide">All Listings</li>
+      <%= render partial: "listing", collection: @startup.listings %> 
+    </ul>
   <% end %>
 
   <% if policy(@startup).investor_actions? %>

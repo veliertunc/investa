@@ -12,43 +12,36 @@
       </div>
     <% end %>
 
-    <div>
-      <%= form.label :title, class: "label" %>
-      <%= form.text_field :title, class: "w-full text-field" %>
-    </div>
+    <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+      <legend class="fieldset-legend">Listing info</legend>
+      
+      <%= form.label :title, class: "fieldset-label" %>
+      <%= form.text_field :title, class: "input" %>
+      
+      <%= form.label :description, class: "fieldset-label" %>
+      <%= form.text_area :description, class: "textarea" %>
 
-    <div>
-      <%= form.label :description, class: "label" %>
-      <%= form.text_area :description, rows: 4, class: "w-full text-area" %>
-    </div>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <%= form.label :funding_goal, class: "label" %>
-        <div class="relative">
-          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-          <%= form.number_field :funding_goal, step: 0.01, class: "w-full pl-8 text-field" %>
-        </div>
+      <%= form.label :funding_goal, class: "fieldset-label" %>
+      <label class="input">
+        <%= form.number_field :funding_goal, step: 0.01, class: "grow" %>
+        <span>$</span>
+      </label>
+
+      <%= form.label :equity_offered, class: "fieldset-label" %>
+      <label class="input">
+        <%= form.number_field :equity_offered, step: 0.01, class: "grow" %>
+        <span>%</span>
+      </label>
+
+      <%= form.label :status, class: "fieldset-label" %>
+      <%= form.select :status, Listing.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "select" %>
+
+      <div class="mt-4">
+        <%= form.submit class: "btn btn-primary" %>
+        <%= link_to 'Cancel', @listing.persisted? ? listing_path(@listing) : startup_path(@startup), 
+          class: "btn" %>
       </div>
-
-      <div>
-        <%= form.label :equity_offered, class: "label" %>
-        <div class="relative">
-          <%= form.number_field :equity_offered, step: 0.1, class: "w-full pr-8 text-field" %>
-          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <%= form.label :status, class: "label" %>
-      <%= form.select :status, Listing.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "w-full text-field" %>
-    </div>
-
-    <div class="border-t pt-6">
-      <%= form.submit class: "btn btn-primary btn-md" %>
-      <%= link_to 'Cancel', @listing.persisted? ? listing_path(@listing) : startup_path(@startup), 
-            class: "btn btn-secondary btn-md" %>
-    </div>
+    </fieldset>
   </div>
 <% end %>

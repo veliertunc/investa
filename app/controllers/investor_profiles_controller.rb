@@ -29,7 +29,7 @@ class InvestorProfilesController < ApplicationController
         format.json { render :show, status: :created, location: @investor_profile }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @investor_profile.edit_investor_profileerrors, status: :unprocessable_entity }
+        format.json { render json: @investor_profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,6 +62,6 @@ class InvestorProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def investor_profile_params
-      params.require(:investor_profile).permit(:name, :bio, :investment_preferences)
+      params.require(:investor_profile).permit(:user_id, :name, :bio, :investment_preferences)
     end
 end

@@ -18,28 +18,28 @@ class ListingPolicy < ApplicationPolicy
   end
 
   def index?
-    permitted = founder_has_startup? or investor_has_investor_profile?
-    permitted or admin_index?
+    permitted = (founder_has_startup? or investor_has_investor_profile?)
+    (permitted or admin_index?)
   end
 
   def show?
-    permitted = startup_listing? or investor_has_investor_profile?
-    permitted or admin_show?
+    permitted = (startup_listing? or investor_has_investor_profile?)
+    (permitted or admin_show?)
   end
 
   def create?
     permitted = founder_has_startup?
-    permitted or admin_create?
+    (permitted or admin_create?)
   end
 
   def update?
-    permitted = startup_listing?
-    permitted or admin_update?
+    permitted = (startup_listing? and record.investment_proposals.blank?)
+    (permitted or admin_update?)
   end
 
   def destroy?
-    permitted = startup_listing?
-    permitted or admin_destroy?
+    permitted = (startup_listing? and record.investment_proposals.blank?)
+    (permitted or admin_destroy?)
   end
 
   # Only allow the startup founder (which can be found through startup.listings)
@@ -52,6 +52,6 @@ class ListingPolicy < ApplicationPolicy
 
   # Does the startup belongs to the user
   def startup_listing?
-    founder_has_startup? and user.startup.listings.any?(record)
+    (founder_has_startup? and user.startup.listings.any?(record))
   end
 end
