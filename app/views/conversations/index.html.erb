@@ -1,9 +1,22 @@
-<div class="bg-white rounded-lg shadow px-4">
-  <div class="py-4 border-b border-gray-200">
-    <h2 class="text-3xl font-bold">Your Conversations</h2>
-  </div>
+<div class="mx-auto py-4">
+  <h2 class="text-3xl font-bold">Your Conversations</h2>
+  <div class="divider"></div>
 
-  <div class="divide-y divide-gray-200">
-    <%= render partial: "conversation", collection: @conversations %>
-  </div>
+  <ul class="list bg-base-100 rounded-box shadow-md">
+    <% @conversations.each do |conversation| %>
+      <li class="list-row">
+        <div>
+        </div>
+        <div>
+          <div><%= conversation.subject %></div>
+          <div class="text-xs uppercase font-semibold opacity-60">
+            <%= conversation.participants.excluding(current_user).map(&:name).join(", ") %>
+          </div>
+        </div>
+        <%= link_to conversation_path(conversation), class: "btn btn-square btn-ghost" do %>
+          <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>

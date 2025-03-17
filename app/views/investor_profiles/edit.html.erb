@@ -1,15 +1,8 @@
 <% content_for :title, "Editing investor profile" %>
 
-<div class="md:w-2/3 w-full px-4">
+<div class="md:w-2/3 w-full p-4">
   <h1 class="font-bold text-4xl">Editing investor profile</h1>
 
   <%= render "form", investor_profile: @investor_profile %>
 
-  <% if policy(@investor_profile).show? %>
-    <%= link_to "Show", @investor_profile, class: "btn btn-secondary btn-md" %>
-  <% end %>
-
-  <% if policy(InvestorProfile).index? %>
-    <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary btn-md" %>
-  <% end %>
 </div>

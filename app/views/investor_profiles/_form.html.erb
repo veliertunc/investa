@@ -22,10 +22,10 @@
     <%= form.textarea :bio, class: "textarea"  %>
 
     <%= form.label :investment_preferences, class: "fieldset-label" %>
-    <%= form.textarea :investment_preferences, class: "textarea"  %>
+    <%= form.textarea :investment_preferences, class: "textarea", placeholder: "Seperate your preferences with comma" %>
 
     <div class="mt-4">
-      <%= form.submit "Save", class: "btn btn-primary", placeholder: "Seperate your preferences with comma" %>
+      <%= form.submit "Save", class: "btn btn-primary" %>
     </div>
   </fieldset>
 <% end %>

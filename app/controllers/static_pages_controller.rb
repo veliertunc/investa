@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def landing
   end
-  def terms
+  def legal
   end
   def privacy
   end

@@ -1,12 +1,7 @@
 <% content_for :title, "New proposal" %>
 
-<div class="md:w-2/3 w-full space-y-4 px-4">
+<div class="md:w-2/3 w-full space-y-4 p-4">
   <h1 class="font-bold text-4xl">New proposal</h1>
 
   <%= render "form", proposal: @proposal %>
-
-  <% if policy(InvestmentProposal).index? %>
-    <%= link_to "View All", investment_proposals_path, class: "btn btn-secondary btn-md" %>
-  <% end %>
-
 </div>

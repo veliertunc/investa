@@ -1,26 +1,50 @@
-<div class="card">
-  <%= link_to investment_proposal_path(proposal) do %>
-    <div class="flex justify-between items-start mb-2">
-      <p class="font-medium"><%= proposal.investor_profile.name %></p>
-      <span class="text-sm text-gray-500">
-        <%= time_ago_in_words(proposal.created_at) %> ago
+<div class="card bg-base-100 shadow-sm w-96 border border-gray-400">
+  <div class="card-body">
+    <div>
+      <h2 class="card-title text-primary"><%= proposal.listing.title %></h2>
+    </div>
+    <div class="mt-1 flex justify-between items-center">
+      <span class="<%= status_badge(proposal.status) %>">
+        <%= proposal.status.humanize %>
       </span>
+      <span class="text-sm"><%= time_ago_in_words(proposal.created_at) %> ago</span>
     </div>
 
-      <div class="mt-2 text-sm flex justify-between items-center">
-        <span class="font-medium"> <%= proposal.listing.startup.name %> </span>
-        <%= proposal.listing.title %>
-      </div>
+    <div class="divider"></div>
 
-    <div class="mt-2 flex justify-between items-center">
-      <div class="text-sm">
-        <span class="font-medium">Amount:</span>
-        <%= number_to_currency(proposal.amount) %>
-      </div>
-      <div class="text-sm">
-        <span class="font-medium">Equity Requested:</span>
-        <%= proposal.equity_requested %>%
-      </div>
+    <ul class="space-y-2">
+      <!-- Don't show for the investor proposing -->
+      <% unless (current_user.investor? and (current_user.investor_profile == proposal.investor_profile)) %>
+        <li class="flex justify-between">
+          <div class="font-medium">Investor:</div>
+          <div><%= proposal.investor_profile.name %></div>
+        </li>
+      <% end %>
+      <!-- Don't show for the startup  -->
+      <% unless (current_user.founder? and (current_user.startup == proposal.listing.startup)) %>
+        <li class="flex justify-between">
+          <div class="font-medium"> Startup: </div>
+          <div> <%= proposal.listing.startup.name %> </div>
+        </li>
+      <% end %>
+      <li class="flex justify-between">
+        <div class="font-medium">Amount:</div>
+        <div> <%= number_to_currency(proposal.amount) %> </div>
+      </li>
+      <li class="flex justify-between">
+        <div class="font-medium">Equity Requested:</div>
+        <div><%= proposal.equity_requested %>%</div>
+      </li>
+    </ul>
+
+    <div class="card-actions justify-end mt-2 gap-2">
+      <% if policy(InvestmentProposal).index? %>
+        <%= link_to "View All", investment_proposals_path, class: "btn btn-sm" %>
+      <% end %>
+      <% if policy(proposal).edit? %>
+        <%= link_to "Edit", edit_investment_proposal_path(proposal), class:"btn btn-primary btn-sm" %>
+      <% end %>
+      <%= link_to "Listing", listing_path(proposal.listing), class: "btn btn-secondary btn-sm" %>
     </div>
-  <% end %>
+  </div>
 </div>

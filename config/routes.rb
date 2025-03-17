@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   # Static pages
   root "static_pages#landing"
   get "/about", to: "static_pages#about", as: "about"
-  get "/terms", to: "static_pages#terms", as: "terms"
+  get "/legal", to: "static_pages#legal", as: "legal"
+  get "/contact", to: "static_pages#contact", as: "contact"
   get "/privacy", to: "static_pages#privacy", as: "privacy"
   get "/pricing", to: "static_pages#pricing", as: "pricing"
 

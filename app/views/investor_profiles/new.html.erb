@@ -5,9 +5,4 @@
 
   <%= render "form", investor_profile: @investor_profile %>
 
-  <div class="mt-4">
-    <% if policy(InvestorProfile).index? %>
-      <%= link_to "View All", investor_profiles_path, class: "btn btn-secondary" %>
-    <% end %>
-  </div>
 </div>

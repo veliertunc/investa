@@ -11,32 +11,25 @@
       </div>
     <% end %>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <%= form.label :amount, "Investment Amount", class: "label" %>
-        <div class="mt-1 relative">
-          <span class="absolute left-3 text-gray-500">$</span>
-          <%= form.number_field :amount, step: 0.01, class: "pl-8 w-full rounded-md border-gray-300 shadow-sm" %>
-        </div>
+    <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+      <legend class="fieldset-legend">Proposal details</legend>
+
+      <%= form.label :amount, "Investment Amount", class: "fieldset-label" %>
+      <%= form.number_field :amount, step: 0.01, class: "input" %>
+
+      <%= form.label :equity_requested, class: "fieldset-label" %>
+      <%= form.number_field :equity_requested, step: 0.1, class: "input" %>
+
+      <%= form.label :status, class: "fieldset-label" %>
+      <%= form.select :status, InvestmentProposal.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "input" %>
+
+      <div class="mt-4 gap-4">
+        <%= form.submit "Save", class: "btn btn-primary" %>
+
+        <% if policy(InvestmentProposal).index? %>
+          <%= link_to "View All", investment_proposals_path, class: "btn" %>
+        <% end %>
       </div>
-
-      <div>
-        <%= form.label :equity_requested, "Equity Requested", class: "label" %>
-        <div class="mt-1 relative">
-          <%= form.number_field :equity_requested, step: 0.1, class: "pr-8 w-full rounded-md border-gray-300 shadow-sm" %>
-          <span class="absolute right-3 text-gray-500">%</span>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <%= form.label :status, "Status", class: "label" %>
-      <%= form.select :status, InvestmentProposal.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "px-4 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-    </div>
-
-    <div>
-      <%= form.submit "Save", class: "btn btn-primary btn-md" %>
-      <%= link_to "View All", investment_proposals_path, class: "btn btn-secondary btn-md" %>
-    </div>
+    </fieldset>
   </div>
 <% end %>

@@ -1,22 +1,32 @@
-<div id="<%= dom_id investor_profile %>" class="card">
-  <%= link_to investor_profile_path(investor_profile) do %>
-    <p class="my-5">  
-      <strong class="block font-medium mb-1">Name:</strong>
-      <%= investor_profile.name %>
-    </p>
-    <p class="my-5">
-      <strong class="block font-medium mb-1">Bio:</strong>
-      <%= investor_profile.bio %>
-    </p>
-    <p class="my-5">
-      <strong class="block font-medium mb-1">Investment preferences:</strong>
-      <div class="grid grid-cols-5 gap-4 my-4">
-        <% investor_profile.investment_preferences.split(',').each do |investment_preference| %>
-          <span class="badge badge-primary text-sm">
-            <%= investment_preference.strip %>
-          </span>
-        <% end %>
-      </div>
-    </p>
-  <% end %>
+<div class="card bg-base-100 shadow-sm w-96 border border-gray-400">
+  <div class="card-body">
+    <div>
+      <h2 class="card-title text-primary"><%= investor_profile.name %></h2>
+    </div>
+    <p> <%= investor_profile.bio %> </p>
+    <div class="mt-4 opacity-60 tracking-wide">Prefers to invest in</div>
+    <div class="flex flex-row gap-2">
+      <% investor_profile.investment_preferences.split(',').each do |investment_preference| %>
+        <span class="badge">
+          <%= investment_preference.strip %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="card-actions justify-end mt-2">
+      <% if policy(InvestorProfile).index? %>
+        <%= link_to "View All", investor_profiles_path, class: "btn btn-sm" %>
+      <% end %>
+
+      <% if policy(investor_profile).edit? %>  
+        <%= link_to "Edit", edit_investor_profile_path(investor_profile), class: "btn btn-primary btn-sm" %>
+      <% end %>
+
+      <% if policy(investor_profile).noninvestor_actions? %>
+        <%= link_to "Message",
+          new_conversation_path(recipient_id: investor_profile.user.id),
+          class: "btn btn-secondary btn-sm" %>
+      <% end %>
+    </div>
+  </div>
 </div>

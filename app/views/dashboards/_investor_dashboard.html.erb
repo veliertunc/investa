@@ -2,8 +2,8 @@
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold">Investor Dashboard</h1>
     <div class="flex gap-4">
-      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary btn-md" %>
-      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn btn-secondary btn-md" %>
+      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary" %>
+      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn" %>
     </div>
   </div>
   <div class="font-semibold mb-4"><%= current_user.name %></div>

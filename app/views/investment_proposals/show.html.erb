@@ -1,47 +1,5 @@
 <div class="max-w-4xl mx-auto">
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold">Proposal for <%= @proposal.listing.title %></h1>
-    <%= link_to "Go to Listing", listing_path(@proposal.listing), class: "btn btn-secondary btn-md" %>
-  </div>
 
-  <div class="p-6 bg-white rounded-lg shadow">
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div>
-        <p class="text-sm text-gray-500">Investor</p>
-        <p class="font-medium"><%= @proposal.investor_profile.name %></p>
-      </div>
-      <div>
-        <p class="text-sm text-gray-500">Status</p>
-        <span class="<%= status_badge(@proposal.status) %>">
-          <%= @proposal.status.humanize %>
-        </span>
-      </div>
-    </div>
+  <%= render "proposal", proposal: @proposal %>
 
-    <div class="space-y-4">
-      <div>
-        <p class="text-sm text-gray-500">Investment Amount</p>
-        <p class="text-xl font-semibold"><%= number_to_currency(@proposal.amount) %></p>
-      </div>
-
-      <div>
-        <p class="text-sm text-gray-500">Equity Requested</p>
-        <p class="text-xl font-semibold"><%= @proposal.equity_requested %>%</p>
-      </div>
-
-    </div>
-
-    <% if policy(@proposal).edit? %>
-      <div class="my-4">
-        <%= link_to "Edit", edit_investment_proposal_path(@proposal), class:"btn btn-primary btn-md" %>
-      </div>
-    <% end %>
-
-    <% if policy(InvestmentProposal).index? %>
-      <div class="my-4">
-        <%= link_to "View All", investment_proposals_path, class: "btn btn-secondary btn-md" %>
-      </div>
-    <% end %>
-
-  </div>
 </div>
