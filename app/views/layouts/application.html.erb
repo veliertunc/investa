@@ -28,6 +28,8 @@
 
     <%= yield %>
 
-    <%= render "layouts/footer" %>
+    <% unless (params[:controller] == "static_pages" and params[:action] == "landing") %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>

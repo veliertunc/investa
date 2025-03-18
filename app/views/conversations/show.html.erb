@@ -1,24 +1,19 @@
-<div class="max-w-3xl mx-auto rounded-lg shadow p-6">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-semibold text-gray-900"><%= @conversation.subject %></h1>
-    <div class="space-x-2">
-      <%= button_to "Trash", trash_conversation_path(@conversation), 
-        method: :post, class: "btn btn-link btn-sm text-red-600" %>
-    </div>
+<div class="flex flex-col h-screen w-full p-4">
+  <!-- Header -->
+  <div class="flex items-center justify-between h-20 sticky">
+    <h2 class="text-lg font-semibold"><%= @conversation.subject %></h2>
+    <%= button_to "Delete", trash_conversation_path(@conversation), 
+      method: :post, class: "link link-error link-hover" %>
   </div>
-
-  <div class="space-y-6">
+  <!-- Chat History -->
+  <div class="grow overflow-y-auto">
     <%= render partial: "message", collection: @conversation.messages %>
   </div>
-
-  <%= form_tag reply_conversation_path(@conversation), method: :post, class: "mt-8" do %>
-    <div class="space-y-4">
-      <%= text_area_tag :body, nil, rows: 3,
-        class: "text-area w-full",
-        placeholder: "Write your reply..." %>
-      
-      <%= submit_tag "Reply", 
-        class: "btn btn-primary btn-md" %>
+  <!-- Reply Section -->
+  <%= form_tag reply_conversation_path(@conversation), method: :post, class: "h-20 border-t" do %>
+    <div class="flex items-center space-x-4 py-4">
+        <%= text_field_tag :body, nil, class: "input grow", placeholder: "Write your reply..." %>
+        <%= submit_tag "Reply", class: "btn btn-primary shrink-0" %>
     </div>
   <% end %>
 </div>

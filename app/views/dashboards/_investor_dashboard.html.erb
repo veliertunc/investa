@@ -2,8 +2,8 @@
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold">Investor Dashboard</h1>
     <div class="flex gap-4">
-      <%= link_to 'Browse Listings', listings_path, class: "btn btn-primary" %>
-      <%= link_to 'My Profile', investor_profile_path(current_user.investor_profile), class: "btn" %>
+      <%= link_to "Browse Listings", listings_path, class: "btn btn-primary" %>
+      <%= link_to "My Profile", investor_profile_path(current_user.investor_profile), class: "btn" %>
     </div>
   </div>
   <div class="font-semibold mb-4"><%= current_user.name %></div>
@@ -13,7 +13,7 @@
       <div class="stat-title">Active Opportunities</div>
       <div class="stat-value"><%= @listings.count %></div>
       <div class="stat-actions">
-        <%= link_to 'View Listings', listings_path, class: "btn btn-link" %>
+        <%= link_to "View Listings", listings_path, class: "btn btn-link" %>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
       <div class="stat-title">My Proposals</div>
       <div class="stat-value"><%= @proposals.count %></div>
       <div class="stat-actions">
-        <%= link_to 'View Proposals', investment_proposals_path, class: "btn btn-link" %>
+        <%= link_to "View Proposals", investment_proposals_path, class: "btn btn-link" %>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
       <div class="stat-title">Messages</div>
       <div class="stat-value"><%= @unread_messages %></div>
       <div class="stat-actions">
-        <%= link_to 'View Conversations', conversations_path, class: "btn btn-link" %>
+        <%= link_to "View Conversations", conversations_path, class: "btn btn-link" %>
       </div>
     </div>
   </div>
@@ -38,26 +38,7 @@
     <h2 class="text-2xl font-bold mb-4">Recommended Listings</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       <% @listings.each do |listing| %>
-        <div class="card w-96 bg-base-100 shadow-sm">
-          <div class="card-body">
-            <div class="flex justify-between">
-              <h2 class="card-title"><%= listing.title %></h2>
-              <span class="<%= status_badge(listing.status) %> badge-soft">
-                <%= listing.status.humanize %>
-              </span>
-            </div>
-            <p><%= listing.startup.name %></p>
-
-            <div class="flex justify-between items-center text-sm">
-              <div><%= number_to_currency(listing.funding_goal) %> goal</div>
-              <div><%= listing.equity_offered %>% equity</div>
-            </div>
-          </div>
-
-          <div class="card-actions justify-end">
-            <%= link_to 'View Details', listing_path(listing), class: "btn btn-primary" %>
-          </div>
-        </div>
+        <%= render "listings/listing", listing:listing %>
       <% end %>
     </div>
   </div>

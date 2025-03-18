@@ -11,7 +11,7 @@
           <span class="text-sm font-normal">raised</span>
       </div>
       <div class="stat-actions">
-        <%= link_to 'View Startup', startup_path(@startup), class: "btn btn-link" %>
+        <%= link_to "View Startup", startup_path(@startup), class: "btn btn-link" %>
       </div>
     </div>
 
@@ -19,8 +19,8 @@
       <div class="stat-title">Active Listings</div>
       <div class="stat-value"><%= @listings.active.count %></div>
       <div class="stat-actions">
-        <%= link_to 'Manage Listings', startup_listings_path(@startup), class: "btn btn-link" %>
-        <%= link_to 'New Listing', new_startup_listing_path(@startup), class: "btn btn-link" %>
+        <%= link_to "Manage Listings", startup_listings_path(@startup), class: "btn btn-link" %>
+        <%= link_to "New Listing", new_startup_listing_path(@startup), class: "btn btn-link" %>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <div class="stat-title">Messages</div>
       <div class="stat-value"><%= @unread_messages %></div>
       <div class="stat-actions">
-        <%= link_to 'View Conversations', conversations_path, class: "btn btn-link" %>
+        <%= link_to "View Conversations", conversations_path, class: "btn btn-link" %>
       </div>
     </div>
   </div>

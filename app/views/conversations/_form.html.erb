@@ -1,0 +1,27 @@
+<%= form_tag conversations_path, method: :post do %>
+  <!-- Conversation fields-->
+  <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
+    <legend class="fieldset-legend">Message details</legend>
+
+    <% if @recipient %>
+      <%= hidden_field_tag :recipient_id, @recipient.id %>
+      <%= label_tag nil, "To", class: "fieldset-label" %>
+      <p><%= @recipient.name %></p>
+    <% else %>
+      <%= label_tag :recipient_id, "Recipient", class: "fieldset-label" %>
+      <%= select_tag :recipient_id, 
+        options_from_collection_for_select(@recipients, :id, :email, params[:recipient_id]),
+        class: "select" %>
+    <% end %>
+
+    <%= label_tag :subject, "Subject", class: "fieldset-label" %>
+    <%= text_field_tag :subject, nil, class: "input" %>
+    
+    <%= label_tag :body, "Message", class: "fieldset-label" %>
+    <%= text_area_tag :body, nil, class: "textarea" %>
+    
+    <div class="mt-4">
+      <%= submit_tag "Send Message", class: "btn btn-primary" %>
+    </div>
+  </fieldset>
+<% end %>
