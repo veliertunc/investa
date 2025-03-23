@@ -26,4 +26,19 @@
   .btn-favorite {
     @apply rounded-full transition-all duration-200 scale-95 transform hover:scale-105
   }
+
+  /* Custom CSS for falling animation */
+  @keyframes fall {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  .falling {
+    animation: fall 10s linear forwards;
+  }
+
 }

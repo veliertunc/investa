@@ -38,7 +38,7 @@
     </div>
     
     <!-- LOGO -->
-    <%= link_to "Investa", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to "My Logo", root_path, class: "btn btn-ghost text-xl" %>
 
     <!-- Main navigation menu -->
     <ul class="menu menu-horizontal px-1 items-center hidden lg:flex">
@@ -73,6 +73,9 @@
   </div>
 
   <div class="navbar-center hidden lg:flex">
+    <div class="text-warning">
+      The website is a  prototype, might contain missing or buggy features
+    </div>
     <% if alert %>
       <div class="alert alert-error alert-soft"><%= alert %></div>
     <% end %> 

@@ -1,0 +1,34 @@
+  <div data-controller="game" class="w-full max-w-4xl mx-auto">
+    <!-- Question Display -->
+    <div class="text-center mb-4">
+      <h1 data-game-target="question" class="text-2xl font-bold">
+        Question will appear here
+      </h1>
+    </div>
+
+    <!-- Game Area -->
+    <div class="relative border border-gray-300 rounded-lg h-96 overflow-hidden">
+      <!-- Falling Boxes -->
+      <div data-game-target="yesBox" class="absolute top-0 left-10 bg-success text-success-content font-bold p-4 rounded falling">
+        Yes
+      </div>
+      <div data-game-target="noBox" class="absolute top-0 right-10 bg-error text-error-content font-bold p-4 rounded falling">
+        No
+      </div>
+
+      <!-- Character (an image in a rectangle) -->
+      <img data-game-target="character" src="https://via.placeholder.com/50" 
+            class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+    </div>
+
+    <!-- End Game Dialog using ID and showModal -->
+    <dialog id="game-dialog" data-game-target="dialog" class="modal">
+        <div class="modal-box">
+          <h3 class="text-lg font-bold">Hello!</h3>
+          <p class="py-4">Press ESC key or click outside to close</p>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+    </dialog>
+  </div>
