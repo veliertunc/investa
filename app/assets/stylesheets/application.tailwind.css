@@ -1,5 +1,11 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: corporate --default, business --prefersdark, luxury, black;
+}
+
+@utility btn {
+  @apply rounded-full;
+}
 
 @layer components {
 

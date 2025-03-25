@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get "/legal", to: "static_pages#legal", as: "legal"
   get "/contact", to: "static_pages#contact", as: "contact"
   get "/privacy", to: "static_pages#privacy", as: "privacy"
-  get "/pricing", to: "static_pages#pricing", as: "pricing"
+  # get "/pricing", to: "static_pages#pricing", as: "pricing"
 
 
   # Startup resources

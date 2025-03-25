@@ -2,7 +2,7 @@
 service: investa
 
 # Name of the container image.
-image: your-user/investa
+image: veliertunc/investa
 
 # Deploy to these servers.
 servers:
