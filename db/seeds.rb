@@ -33,9 +33,9 @@ startup1 = founder1.create_startup!(
   name: 'Tech Innovators',
   description: 'Revolutionizing the tech industry with AI solutions',
   industry: 'Artificial Intelligence',
-  funding_goal: 1_000_000,
+  funding_goal_cents: 1_000_000_00,
   equity_offered: 15.0,
-  url: "https://www.google.com"
+  url: "https://www.tech-innovators.com"
   # address: '1 Hacker Way, Menlo Park, CA'
 )
 
@@ -43,7 +43,7 @@ startup2 = founder2.create_startup!(
   name: 'Green Energy Solutions',
   description: 'Sustainable energy solutions for the future',
   industry: 'Clean Energy',
-  funding_goal: 500_000,
+  funding_goal_cents: 500_000_00,
   equity_offered: 20.0,
   url: "https://www.ges.com"
   # address: '3500 Deer Creek Road, Palo Alto, CA'
@@ -66,7 +66,7 @@ investor_profile2 = investor2.create_investor_profile!(
 listing1 = startup1.listings.create!(
   title: 'Seed Round Funding',
   description: 'Looking for seed investment to expand AI platform development',
-  funding_goal: 500_000,
+  funding_goal_cents: 500_000_00,
   equity_offered: 10.0,
   status: :active
 )
@@ -74,7 +74,7 @@ listing1 = startup1.listings.create!(
 listing2 = startup2.listings.create!(
   title: 'Series A Funding',
   description: 'Scaling production of solar energy solutions',
-  funding_goal: 2_000_000,
+  funding_goal_cents: 2_000_000_00,
   equity_offered: 15.0,
   status: :active
 )
@@ -82,14 +82,14 @@ listing2 = startup2.listings.create!(
 # Create investment proposals
 proposal1 = listing1.investment_proposals.create!(
   investor_profile: investor_profile1,
-  amount: 250_000,
+  amount_cents: 250_000_00,
   equity_requested: 5.0,
   status: :pending
 )
 
 proposal2 = listing2.investment_proposals.create!(
   investor_profile: investor_profile2,
-  amount: 1_000_000,
+  amount_cents: 1_000_000_00,
   equity_requested: 7.5,
   status: :pending
 )

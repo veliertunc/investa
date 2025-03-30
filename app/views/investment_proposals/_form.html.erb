@@ -14,8 +14,11 @@
     <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
       <legend class="fieldset-legend">Proposal details</legend>
 
-      <%= form.label :amount, "Investment Amount", class: "fieldset-label" %>
-      <%= form.number_field :amount, step: 0.01, class: "input" %>
+      <%= form.label :amount_cents, "Investment Amount", class: "fieldset-label" %>
+      <label class="flex gap-2">
+        <%= form.number_field :amount_cents, class: "input" %>
+        <%= form.select :amount_currency, Money::Currency.table.keys.map { |c| [c.to_s.upcase, c.to_s.upcase] }, { prompt: "Select a currency" }, class: "select max-w-fit" %>
+      </label>
 
       <%= form.label :equity_requested, class: "fieldset-label" %>
       <%= form.number_field :equity_requested, step: 0.1, class: "input" %>

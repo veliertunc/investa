@@ -64,7 +64,8 @@ class InvestmentProposalsController < ApplicationController
 
   def proposal_params
     params.require(:investment_proposal).permit(
-      :amount,
+      :amount_cents,
+      :amount_currency,
       :equity_requested,
       :status
     )

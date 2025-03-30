@@ -4,7 +4,9 @@ class InvestmentProposal < ApplicationRecord
   has_one :investor, through: :investor_profile, source: :user
 
   enum :status, [ :pending, :accepted, :rejected ]
-  validates :amount, numericality: { greater_than_or_equal_to: 0.01 }
+  # validates :amount, numericality: { greater_than_or_equal_to: 0.01 }
+  monetize :amount_cents, numericality: { greater_than_or_equal_to: 0.01 }, limit: 8
+
   validates :equity_requested, numericality: {
     greater_than_or_equal_to: 0.01,
     less_than_or_equal_to: 100
@@ -31,7 +33,7 @@ class InvestmentProposal < ApplicationRecord
   def within_listing_limits
     return unless listing
 
-    if amount > listing.remaining_amount
+    if amount_cents > listing.remaining_amount
       errors.add(:amount, "exceeds listing's remaining funding goal")
     end
 

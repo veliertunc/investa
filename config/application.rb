@@ -16,6 +16,12 @@ module Investa
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+
+    # Localization/i18n Settings
+    config.i18n.available_locales = [ :en, :tr ] # Define available locales
+    config.i18n.default_locale = :en # Change this as needed
+    config.i18n.fallbacks = [ :en ] # Fallback to English if translation is missing
+
     # config.autoload_paths += %W[#{config.root}/app/components]
 
     # Configuration for the application, engines, and railties goes here.

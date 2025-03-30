@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: corporate --default, business --prefersdark, luxury, black;
+  themes: corporate --default, business --prefersdark;
 }
 
 @utility btn {

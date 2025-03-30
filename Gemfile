@@ -81,3 +81,5 @@ gem "draper"
 gem "pundit"
 
 gem "cssbundling-rails", "~> 1.4"
+
+gem "money-rails", "~> 1.12" # For currencies

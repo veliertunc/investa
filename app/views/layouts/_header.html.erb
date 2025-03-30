@@ -73,9 +73,9 @@
   </div>
 
   <div class="navbar-center hidden lg:flex">
-    <div class="text-warning">
-      The website is a  prototype, might contain missing or buggy features
-    </div>
+    <% if notice %>
+      <div class="alert alert-info alert-soft"><%= notice %></div>
+    <% end %> 
     <% if alert %>
       <div class="alert alert-error alert-soft"><%= alert %></div>
     <% end %> 
@@ -104,11 +104,14 @@
     </label>
 
     <div>
-      <label for="locale-selector" class="sr-only">Select your language</label>
-      <select id="locale-selector" name="locale-selector" class="select"> 
-        <option value="en-US">English</option>
-        <option value="tr">Türkçe</option>
-      </select>
+      <label for="locale-select" class="sr-only">Select your language</label>
+      <form action="<%= url_for(locale: '') %>" method="get">
+        <select name="locale" id="locale-select" onchange="this.form.submit();"
+          class="select">
+          <option value="en" <%= 'selected' if I18n.locale == :en %>>English</option>
+          <option value="tr" <%= 'selected' if I18n.locale == :tr %>>Türkçe</option>
+        </select>
+      </form>
     </div>
 
     <div class="items-center hidden lg:flex space-x-2">

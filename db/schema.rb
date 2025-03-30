@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_10_153012) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_083444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,7 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153012) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
+    t.integer "role", default: 0
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -55,11 +55,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153012) do
   create_table "investment_proposals", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.bigint "investor_profile_id", null: false
-    t.decimal "amount", precision: 15, scale: 2
     t.decimal "equity_requested", precision: 5, scale: 2
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
     t.index ["investor_profile_id"], name: "index_investment_proposals_on_investor_profile_id"
     t.index ["listing_id"], name: "index_investment_proposals_on_listing_id"
   end
@@ -78,11 +79,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153012) do
     t.bigint "startup_id", null: false
     t.string "title"
     t.text "description"
-    t.decimal "funding_goal", precision: 15, scale: 2
     t.decimal "equity_offered", precision: 5, scale: 2
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "funding_goal_cents", default: 0, null: false
+    t.string "funding_goal_currency", default: "USD", null: false
     t.index ["startup_id"], name: "index_listings_on_startup_id"
   end
 
@@ -145,11 +147,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153012) do
     t.string "name"
     t.text "description"
     t.string "industry"
-    t.decimal "funding_goal", precision: 15, scale: 2
     t.decimal "equity_offered", precision: 5, scale: 2
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "funding_goal_cents", default: 0, null: false
+    t.string "funding_goal_currency", default: "USD", null: false
     t.index ["user_id"], name: "index_startups_on_user_id"
   end
 

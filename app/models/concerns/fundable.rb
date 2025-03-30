@@ -2,7 +2,7 @@ module Fundable
   extend ActiveSupport::Concern
 
   included do
-    validates :funding_goal, numericality: { greater_than_or_equal_to: 0.01 }
+    monetize :funding_goal_cents, numericality: { greater_than_or_equal_to: 0.01 }, limit: 8
     validates :equity_offered, numericality: {
       greater_than_or_equal_to: 0.01,
       less_than_or_equal_to: 100,

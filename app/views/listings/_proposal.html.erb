@@ -11,7 +11,7 @@
       <div class="flex items-center justify-between mt-2">
         <div class="text-sm">
           <span class="font-medium">Amount:</span>
-          <%= number_to_currency(proposal.amount) %>
+          <%= humanized_money_with_symbol(proposal.amount) %>
         </div>
         <div class="text-sm">
           <span class="font-medium">Equity Requested:</span>

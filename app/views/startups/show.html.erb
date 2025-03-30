@@ -21,7 +21,7 @@
     <div class="grid grid-cols-2 gap-4 mt-6">
       <div class="p-4 rounded-lg">
         <p class="mb-1">Funding Goal</p>
-        <p class="text-2xl font-semibold"><%= number_to_currency(@startup.funding_goal) %></p>
+        <p class="text-2xl font-semibold"><%= humanized_money_with_symbol(@startup.funding_goal) %></p>
       </div>
       <div class="p-4 rounded-lg">
         <p class="mb-1">Equity Offered</p>

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :check_profile_completion
+  before_action :set_locale
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::RoutingError, with: :render_not_found
@@ -47,5 +48,16 @@ class ApplicationController < ActionController::Base
   def not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_back_or_to(dashboard_path)
+  end
+
+  private
+
+  def set_locale
+    I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+    session[:locale] = I18n.locale
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end

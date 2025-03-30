@@ -29,7 +29,7 @@
       <% end %>
       <li class="flex justify-between">
         <div class="font-medium">Amount:</div>
-        <div> <%= number_to_currency(proposal.amount) %> </div>
+        <div> <%= humanized_money_with_symbol(proposal.amount) %> </div>
       </li>
       <li class="flex justify-between">
         <div class="font-medium">Equity Requested:</div>

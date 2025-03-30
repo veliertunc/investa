@@ -14,7 +14,7 @@
       <div class=" align-bottom mt-4 space-y-2">
         <div class="flex justify-between items-center text-sm">
           <span class="font-medium">Funding Goal</span>
-          <span><%= number_to_currency(listing.funding_goal) %></span>
+          <span><%= humanized_money_with_symbol(listing.funding_goal) %></span>
         </div>
         <div class="flex justify-between items-center text-sm">
           <span class="font-medium">Equity Offered</span>
