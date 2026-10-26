@@ -4,7 +4,7 @@ class StartupsController < ApplicationController
 
   def index
     authorize Startup
-    @startups = Startup.all.includes(:user)
+    @startups = policy_scope(Startup).includes(:user)
   end
 
   def show
@@ -19,7 +19,7 @@ class StartupsController < ApplicationController
 
   def create
     authorize Startup
-    @startup = Startup.new(startup_params)
+    @startup = current_user.build_startup(startup_params)
 
     respond_to do |format|
        if @startup.save
@@ -66,6 +66,6 @@ class StartupsController < ApplicationController
   end
 
   def startup_params
-    params.require(:startup).permit(:user_id, :name, :description, :industry, :funding_goal_cents, :funding_goal_currency, :equity_offered, :url)
+    params.require(:startup).permit(:name, :description, :industry, :funding_goal, :funding_goal_currency, :equity_offered, :url)
   end
 end

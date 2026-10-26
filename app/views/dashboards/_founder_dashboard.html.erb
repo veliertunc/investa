@@ -7,7 +7,9 @@
     <div class="stat">
       <div class="stat-title"><%= @startup.name %></div>
       <div class="stat-value">
-          <%= number_to_currency(@startup.total_funding_raised) %>
+          <% @startup.total_funding_raised.each do |currency, amount_cents| %>
+            <span><%= humanized_money_with_symbol(Money.new(amount_cents, currency)) %></span>
+          <% end %>
           <span class="text-sm font-normal">raised</span>
       </div>
       <div class="stat-actions">

@@ -26,7 +26,7 @@ class Listing < ApplicationRecord
   end
 
   def equity_remaining
-    equity_offered - investment_proposals.sum(:equity_requested)
+    equity_offered - investment_proposals.accepted.sum(:equity_requested)
   end
 
   def self.ransortable_attributes(auth_object = nil)

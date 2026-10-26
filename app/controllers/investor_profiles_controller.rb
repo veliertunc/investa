@@ -62,6 +62,6 @@ class InvestorProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def investor_profile_params
-      params.require(:investor_profile).permit(:user_id, :name, :bio, :investment_preferences)
+      params.require(:investor_profile).permit(:name, :bio, :investment_preferences)
     end
 end

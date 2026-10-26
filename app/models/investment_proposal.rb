@@ -11,17 +11,51 @@ class InvestmentProposal < ApplicationRecord
     greater_than_or_equal_to: 0.01,
     less_than_or_equal_to: 100
   }
+  validates :amount_currency, inclusion: { in: ->(proposal) { [ proposal.listing&.funding_goal_currency ] } }, if: -> { listing.present? }
   validate :within_listing_limits
-  after_update_commit :update_listing_status, only: [ :accept ]
+  validate :listing_accepts_proposals
 
   scope :startup_proposals, ->(startup) { joins(listing: [ :startup ]).where("startup_id = ?", startup) }
 
   def accept
-    update(status: :accepted) if self.pending?
+    return false unless pending?
+
+    accepted = false
+    listing.with_lock do
+      reload
+      return false unless pending?
+
+      unless listing.active?
+        errors.add(:listing, "is no longer accepting proposals")
+        raise ActiveRecord::Rollback
+      end
+
+      if amount_cents > listing.remaining_amount
+        errors.add(:amount, "exceeds listing's remaining funding goal")
+        raise ActiveRecord::Rollback
+      end
+
+      if equity_requested > listing.equity_remaining
+        errors.add(:equity_requested, "exceeds listing's available equity")
+        raise ActiveRecord::Rollback
+      end
+
+      update!(status: :accepted)
+      listing.update!(status: :funded) if listing.remaining_amount <= 0
+      accepted = true
+    end
+    accepted
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 
   def reject
-    update(status: :rejected) if self.pending?
+    return false unless pending?
+
+    listing.with_lock do
+      reload
+      update!(status: :rejected) if pending?
+    end
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -42,7 +76,8 @@ class InvestmentProposal < ApplicationRecord
     end
   end
 
-  def update_listing_status
-    listing.update(status: :funded) if listing.remaining_amount <= 0
+  def listing_accepts_proposals
+    errors.add(:listing, "is not accepting proposals") if listing && !listing.active? && new_record?
   end
+
 end

@@ -22,9 +22,9 @@
       <%= form.text_area :description, class: "textarea" %>
 
 
-      <%= form.label :funding_goal_cents,"Funding goal", class: "fieldset-label" %>
+      <%= form.label :funding_goal,"Funding goal", class: "fieldset-label" %>
       <label class="flex gap-2">
-        <%= form.number_field :funding_goal_cents, class: "input" %>
+        <%= form.number_field :funding_goal, step: 0.01, min: 0.01, class: "input" %>
         <%= form.select :funding_goal_currency, Money::Currency.table.keys.map { |c| [c.to_s.upcase, c.to_s.upcase] }, { prompt: "Select a currency" }, class: "select max-w-fit" %>
       </label>
 
@@ -33,9 +33,6 @@
         <%= form.number_field :equity_offered, step: 0.01, class: "grow" %>
         <span>%</span>
       </label>
-
-      <%= form.label :status, class: "fieldset-label" %>
-      <%= form.select :status, Listing.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "select" %>
 
       <div class="mt-4">
         <%= form.submit class: "btn btn-primary" %>

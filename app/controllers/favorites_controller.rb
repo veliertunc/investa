@@ -32,7 +32,7 @@ class FavoritesController < ApplicationController
   def validate_params
     requested_type = favorite_params[:type].to_s.classify
 
-    return head, :bad_request unless Favorite::BOOKMARKABLE_TYPES.include?(requested_type)
+    return head :bad_request unless Favorite::BOOKMARKABLE_TYPES.include?(requested_type)
   end
 
   def find_bookmarkable

@@ -17,7 +17,7 @@ class Startup < ApplicationRecord
   # after_validation :geocode, if: ->(obj) { obj.address.present? && obj.address_changed? }
 
   def total_funding_raised
-    listings.sum(&:total_investments)
+    investment_proposals.accepted.group(:amount_currency).sum(:amount_cents)
   end
 
   def self.ransortable_attributes(auth_object = nil)

@@ -25,8 +25,6 @@ class ListingsController < ApplicationController
   def create
     authorize Listing
     @listing = @startup.listings.new(listing_params)
-    # @listing.funding_goal_cents *= Money::Currency.new(@listing.funding_goal_currency).subunit_to_unit if @listing.funding_goal_cents.present?
-
     if @listing.save
       redirect_to @listing, notice: "Listing was successfully created."
     else
@@ -40,8 +38,6 @@ class ListingsController < ApplicationController
 
   def update
     authorize @listing
-    # @listing.funding_goal_cents *= Money::Currency.new(@listing.funding_goal_currency).subunit_to_unit if listing_params[:funding_goal_cents].present?
-
     if @listing.update(listing_params)
       redirect_to @listing, notice: "Listing was successfully updated."
     else
@@ -63,10 +59,10 @@ class ListingsController < ApplicationController
   end
 
   def set_startup
-    @startup = Startup.find(params[:startup_id])
+    @startup = current_user.startup || raise(ActiveRecord::RecordNotFound)
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :description, :funding_goal_cents, :funding_goal_currency, :equity_offered, :status)
+    params.require(:listing).permit(:title, :description, :funding_goal, :funding_goal_currency, :equity_offered)
   end
 end

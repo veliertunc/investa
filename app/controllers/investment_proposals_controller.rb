@@ -46,14 +46,20 @@ class InvestmentProposalsController < ApplicationController
 
   def accept
     authorize @proposal
-    @proposal.accept
-    redirect_back fallback_location: @proposal.listing
+    if @proposal.accept
+      redirect_back fallback_location: @proposal.listing, notice: "Proposal accepted."
+    else
+      redirect_back fallback_location: @proposal.listing, alert: @proposal.errors.full_messages.to_sentence.presence || "This proposal is no longer available to accept."
+    end
   end
 
   def reject
     authorize @proposal
-    @proposal.reject
-    redirect_back fallback_location: @proposal.listing
+    if @proposal.reject
+      redirect_back fallback_location: @proposal.listing, notice: "Proposal rejected."
+    else
+      redirect_back fallback_location: @proposal.listing, alert: "This proposal is no longer available to reject."
+    end
   end
 
   private
@@ -63,12 +69,7 @@ class InvestmentProposalsController < ApplicationController
   end
 
   def proposal_params
-    params.require(:investment_proposal).permit(
-      :amount_cents,
-      :amount_currency,
-      :equity_requested,
-      :status
-    )
+    params.require(:investment_proposal).permit(:amount, :amount_currency, :equity_requested)
   end
 
   def set_listing
